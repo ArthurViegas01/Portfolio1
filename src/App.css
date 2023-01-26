@@ -126,7 +126,7 @@ img {
 .sectionSubtitle {
   display: block;
   font-size: var(--small-font-size);
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .sectionTitle,

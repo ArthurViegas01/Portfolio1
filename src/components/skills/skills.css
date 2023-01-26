@@ -1,0 +1,84 @@
+.skillsContainer{
+    grid-template-columns: repeat(2, 350px);
+    column-gap: 3rem;
+    justify-content: center;
+}
+
+.skillsContent{
+    background-color: var(--container-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 2rem 4rem;
+    border-radius: 1.25rem;
+}
+
+.skillsTitle{
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+    text-align: center;
+    margin-bottom: var(--mb-1-5);
+}
+
+.skillsBox{
+    display: flex;
+    justify-content: center;
+    column-gap: 2.5rem;
+}
+
+.skillsGroup{
+    display: grid;
+    align-items: flex-start;
+    row-gap: 1rem;
+}
+
+.skillsData{
+    display: flex;
+    column-gap: 0.5rem;
+}
+
+.skills .bx-badge-check{
+    font-size: 1rem;
+    color: var(--title-color);
+}
+
+.skillsName{
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+    line-height: 18px;
+}
+
+.skillsLevel{
+    font-size: var(--tiny-font-size);
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For large devices */
+@media screen and (max-width: 992px) {
+    .skillsContainer{
+        grid-template-columns: max-content;
+        row-gap: 2rem;
+    }
+}
+
+/* For medium devices */
+
+@media screen and (max-width: 576px) {
+    .skillsContainer{
+        grid-template-columns: 1fr;
+    }
+
+    .skillsContent{
+        padding: 1.5rem;
+    }
+}
+
+/* For small devices */
+@media screen and (max-width: 350px) {
+  .skillsBox{
+    column-gap: 1.25rem;
+  }
+
+  .skillsName{
+    font-size: var(--small-font-size);
+  }
+}
+  
