@@ -59,7 +59,7 @@ const Data = () => {
       <h3 className="homeSubtitle">Engenheiro de Software</h3>
       <p className="homeDescricao">
         Sou um estudante de Engenharia de Software residente de Porto Alegre,
-        dedicado e apaixonado pelo desenvolvimento Frontend
+        dedicado e aficionado pelo Frontend
       </p>
 
       <a href="#contact" className="button button--flex">
