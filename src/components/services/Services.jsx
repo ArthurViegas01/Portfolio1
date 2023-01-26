@@ -10,7 +10,7 @@ const Services = () => {
 
   return (
     <section className="services section" id="services">
-      <h2 className="sectionTitle">Services</h2>
+      <h2 className="sectionTitle">Serviços</h2>
       <span className="sectionSubtitle">
         O que eu ofereço como profissional:
       </span>
