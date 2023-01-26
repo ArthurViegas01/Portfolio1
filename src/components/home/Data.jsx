@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Data = () => {
   return (
@@ -84,6 +84,6 @@ const Data = () => {
       </a>
     </div>
   );
-}
+};
 
-export default Data
+export default Data;

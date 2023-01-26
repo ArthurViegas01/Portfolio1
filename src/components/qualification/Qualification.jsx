@@ -74,9 +74,7 @@ const Qualification = () => {
 
               <div>
                 <h3 className="qualificationTitle">Ensino Médio</h3>
-                <span className="qualificationSubtitle">
-                  Cesi - Viamópolis
-                </span>
+                <span className="qualificationSubtitle">Cesi - Viamópolis</span>
                 <div className="qualificationCalendar">
                   <i className="uil uil-calendar-alt"></i>2017 - 2018
                 </div>
@@ -99,8 +97,6 @@ const Qualification = () => {
                 <span className="qualificationLine"></span>
               </div>
             </div>
-
-            
           </div>
 
           <div
@@ -112,10 +108,10 @@ const Qualification = () => {
           >
             <div className="qualificationData">
               <div>
-                <h3 className="qualificationTitle">Analista de dados - Estágio</h3>
-                <span className="qualificationSubtitle">
-                  Dell-PUCRS
-                </span>
+                <h3 className="qualificationTitle">
+                  Analista de dados - Estágio
+                </h3>
+                <span className="qualificationSubtitle">Dell-PUCRS</span>
                 <div className="qualificationCalendar">
                   <i className="uil uil-calendar-alt"></i>2021 - Atualidade
                 </div>

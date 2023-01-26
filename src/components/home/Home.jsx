@@ -13,8 +13,6 @@ const Home = () => {
 
           <div className="homeImage"></div>
 
-
-
           <Data />
         </div>
 

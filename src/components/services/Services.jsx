@@ -176,8 +176,9 @@ const Services = () => {
               <h3 className="servicesModal-title">Visual Designer</h3>
 
               <p className="servicesModal-descricao">
-                Ainda não possuo experiência profissional como designer visual, mas estou estudando e me desenvolvendo constantemente
-                para aprimorar minhas habilidades
+                Ainda não possuo experiência profissional como designer visual,
+                mas estou estudando e me desenvolvendo constantemente para
+                aprimorar minhas habilidades
               </p>
 
               <ul className="servicesModal-services grid">

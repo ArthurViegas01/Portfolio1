@@ -36,35 +36,33 @@ const Frontend = () => {
         </div>
 
         <div className="skillsGroup">
-        <div className="skillsData">
-          <i className="bx bx-badge-check"></i>
+          <div className="skillsData">
+            <i className="bx bx-badge-check"></i>
 
-          <div>
-            <h3 className="skillsName">Bootstrap</h3>
-            <span className="skillsLevel">Intermediário</span>
+            <div>
+              <h3 className="skillsName">Bootstrap</h3>
+              <span className="skillsLevel">Intermediário</span>
+            </div>
+          </div>
+
+          <div className="skillsData">
+            <i className="bx bx-badge-check"></i>
+
+            <div>
+              <h3 className="skillsName">Git</h3>
+              <span className="skillsLevel">Intermediário</span>
+            </div>
+          </div>
+
+          <div className="skillsData">
+            <i className="bx bx-badge-check"></i>
+
+            <div>
+              <h3 className="skillsName">React</h3>
+              <span className="skillsLevel">Intermediário</span>
+            </div>
           </div>
         </div>
-
-        <div className="skillsData">
-          <i className="bx bx-badge-check"></i>
-
-          <div>
-            <h3 className="skillsName">Git</h3>
-            <span className="skillsLevel">Intermediário</span>
-          </div>
-        </div>
-
-        <div className="skillsData">
-          <i className="bx bx-badge-check"></i>
-
-          <div>
-            <h3 className="skillsName">React</h3>
-            <span className="skillsLevel">Intermediário</span>
-          </div>
-        </div>
-        </div>
-
-
       </div>
     </div>
   );
