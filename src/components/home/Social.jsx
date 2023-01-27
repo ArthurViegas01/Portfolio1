@@ -7,6 +7,7 @@ const Social = () => {
         href="https://www.instagram.com/arthurviegaseu"
         className="homeSocial-icon"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <i className="uil uil-instagram"></i>
       </a>
@@ -15,6 +16,7 @@ const Social = () => {
         href="https://www.linkedin.com/in/arthur-viegas-899083205/"
         className="homeSocial-icon"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <i className="uil uil-linkedin"></i>
       </a>
@@ -23,6 +25,7 @@ const Social = () => {
         href="https://github.com/ArthurViegas01"
         className="homeSocial-icon"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <i className="uil uil-github-alt"></i>
       </a>

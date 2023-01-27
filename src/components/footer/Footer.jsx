@@ -15,7 +15,7 @@ const Footer = () => {
           </li>
 
           <li>
-            <a href="#portfolio" className="footerLink" Projetos>Projetos</a>
+            <a href="#portfolio" className="footerLink">Projetos</a>
           </li>
         </ul>
 
@@ -24,6 +24,7 @@ const Footer = () => {
             href="https://www.facebook.com/arthur.viegas.3/"
             className="footerSocial-link"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <i className="bx bxl-facebook"></i>
           </a>
@@ -32,6 +33,7 @@ const Footer = () => {
             href="https://www.instagram.com/arthurviegaseu"
             className="footerSocial-link"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <i className="bx bxl-instagram"></i>
           </a>
@@ -40,6 +42,7 @@ const Footer = () => {
             href="https://www.twitter.com/"
             className="footerSocial-link"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <i className="bx bxl-twitter"></i>
           </a>

@@ -1,5 +1,5 @@
 /*=============== GOOGLE FONTS ===============*/
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 /*=============== VARIABLES CSS ===============*/
 :root {
@@ -189,15 +189,15 @@ img {
 
 /* For medium devices */
 @media screen and (max-width: 768px) {
-  body{
+  body {
     margin: 0 0 var(--header-height);
   }
 
-  .section{
+  .section {
     padding: 2rem 0 4rem;
-  } 
+  }
 
-  .sectionSubtitle{
+  .sectionSubtitle {
     margin-bottom: var(--mb-3);
   }
 }

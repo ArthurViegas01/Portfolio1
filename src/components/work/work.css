@@ -1,0 +1,117 @@
+.workFilters{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.75rem;
+    margin-bottom: var(--mb-2);
+}
+
+.workItem{
+    cursor: pointer;
+    color: var(--title-color);
+    padding: 0.25rem 0.75rem;
+    font-weight: var(--font-medium);
+    border-radius: 0.5rem;
+    text-transform: capitalize;
+}
+
+.workItem:hover{
+    background-color: var(--title-color);
+    color: var(--container-color);
+}
+
+.workContainer{
+    grid-template-columns: repeat(2, max-content);
+    gap: 3rem;
+    justify-content: center;
+}
+
+.workCard{
+    background-color: var(--container-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+    border-radius: 1rem;
+}
+
+.workImage{
+    width: 295px;
+    border-radius: 1rem;
+    margin-bottom: var(--mb-1);
+}
+
+.workTitle{
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--mb-0-5);
+}
+
+.workButton{
+    color: var(--text-color);
+    font-size: var(--small-font-size);
+    display: flex;
+    align-items: center;
+    column-gap: 0.25rem;
+}
+
+.workButton-icon{
+    font-size: 1rem;
+    transition: 0.4s;
+}
+
+.workButton:hover .workButton-icon{
+    transform: translateX(0.25rem);
+}
+
+/*Active Work*/
+.activeWork{
+    background-color: var(--title-color);
+    color: var(--container-color);
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For large devices */
+@media screen and (max-width: 992px) {
+    .workContainer{
+        gap: 1.25rem;
+    }
+
+    .workCard{
+        padding: 1rem;
+    }
+
+    .workImage{
+        margin-bottom: 0.75rem;
+    }
+
+    .workTitle{
+        margin-bottom: 0.25rem;
+    }
+}
+
+/* For medium devices */
+@media screen and (max-width: 768px) {
+    .workContainer{
+        grid-template-columns: max-content;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .workContainer{
+        grid-template-columns: 1fr;
+    }
+
+    .workImage{
+        width: 100%;
+    }
+}
+
+/* For small devices */
+@media screen and (max-width: 350px) {
+    .workItem{
+        font-size: var(--small-font-size);
+    }
+
+    .workFilters{
+        column-gap: 0.25rem;
+    }
+}
