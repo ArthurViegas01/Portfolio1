@@ -17,9 +17,11 @@ const Contact = () => {
       )
       .then(
         (result) => {
+          alert("Email enviado!")
           console.log(result.text);
         },
         (error) => {
+          alert("Algo errado?")
           console.log(error.text);
         }
       );
