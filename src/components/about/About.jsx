@@ -17,7 +17,7 @@ const About = () => {
           <Info />
 
           <p className="aboutDescricao">
-            Desenvolvedor Frontend | Engenheiro de Software. Estou atualmente no
+            Desenvolvedor Frontend | Engenheiro de Software. <br/>Estou atualmente no
             quinto semestre de Engenharia de Software na PUCRS. Proficiente na
             língua inglesa e com experiência em projetos web reais.
           </p>
