@@ -1,4 +1,4 @@
-import Work1 from "../../assets/embreve.png";
+import Work1 from "../../assets/donutblender.png";
 // import Work2 from "../../assets/work2.jpg";
 // import Work3 from "../../assets/work3.jpg";
 // import Work4 from "../../assets/work4.jpg";
@@ -8,8 +8,9 @@ export const projectsData = [
   {
     id: 1,
     image: Work1,
-    title: "Em breve",
+    title: "Donut - 3D",
     category: "3D",
+    link:"https://www.youtube.com/embed/B_ymnGZIKK4",
   },
   // {
   //   id: 2,
