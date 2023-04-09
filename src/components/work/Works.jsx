@@ -24,6 +24,7 @@ const Works = () => {
     setItem({ name: e.target.textContent.toLowerCase() });
     setActive(index);
   };
+  
   return (
     <div>
       <div className="workFilters">

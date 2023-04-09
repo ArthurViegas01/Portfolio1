@@ -112,6 +112,7 @@
 
 .workImage{
     width: 295px;
+    height: 70%;
     border-radius: 1rem;
     margin-bottom: var(--mb-1);
 }
