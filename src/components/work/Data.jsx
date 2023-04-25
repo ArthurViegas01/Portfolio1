@@ -9,7 +9,7 @@ export const projectsData = [
     id: 1,
     image: ImgDonut,
     title: "Donut - 3D",
-    category: "Sla",
+    category: "Design",
     link:"https://www.youtube.com/embed/B_ymnGZIKK4",
   },
   {
