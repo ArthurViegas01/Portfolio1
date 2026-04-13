@@ -1,6 +1,7 @@
 .skillsContainer{
-    grid-template-columns: repeat(2, 350px);
+    grid-template-columns: repeat(3, 350px);
     column-gap: 3rem;
+    row-gap: 2rem;
     justify-content: center;
 }
 
@@ -52,9 +53,15 @@
 
 /*=============== BREAKPOINTS ===============*/
 /* For large devices */
+@media screen and (max-width: 1200px) {
+    .skillsContainer{
+        grid-template-columns: repeat(2, 350px);
+    }
+}
+
 @media screen and (max-width: 992px) {
     .skillsContainer{
-        grid-template-columns: max-content;
+        grid-template-columns: repeat(2, 1fr);
         row-gap: 2rem;
     }
 }

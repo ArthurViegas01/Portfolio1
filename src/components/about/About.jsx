@@ -17,8 +17,7 @@ const About = () => {
           <Info />
 
           <p className="aboutDescricao">
-            Desenvolvedor Frontend | Engenheiro de Software. <br/>Estou atualmente no
-            sexto semestre de Engenharia de Software na PUCRS. Proficiente na
+            Desenvolvedor Frontend | Engenheiro de Software. <br/>Graduado em Engenharia de Software pela PUCRS. Proficiente na
             língua inglesa e com experiência em projetos web reais.
           </p>
 

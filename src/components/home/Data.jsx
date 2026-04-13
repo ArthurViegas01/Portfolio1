@@ -58,8 +58,7 @@ const Data = () => {
 
       <h3 className="homeSubtitle">Engenheiro de Software</h3>
       <p className="homeDescricao">
-        Sou um estudante de Engenharia de Software residente de Porto Alegre,
-        dedicado e aficionado pelo Frontend
+        Sou um Engenheiro de Software graduado pela PUCRS, apaixonado por criar experiências digitais fluidas e eficientes. Com domínio em Django, React, Docker, e Python e arquitetura de sistemas, integro meu conhecimento técnico em AWS e Cloud à dedicação pelo desenvolvimento Full Stack de alto impacto para entregar interfaces que conectam tecnologia de ponta a uma excelente experiência do usuário.
       </p>
 
       <a href="#contact" className="button button--flex">

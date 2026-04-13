@@ -1,27 +1,23 @@
-import React from "react";
-
 const Backend = () => {
   return (
     <div className="skillsContent">
-      <h3 className="skillsTitle">Desenvolvedor Backend</h3>
+      <h3 className="skillsTitle">Backend Development</h3>
 
       <div className="skillsBox">
         <div className="skillsGroup">
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
-
             <div>
-              <h3 className="skillsName">Java</h3>
-              <span className="skillsLevel">Intermediário</span>
+              <h3 className="skillsName">Python</h3>
+              <span className="skillsLevel">Advanced</span>
             </div>
           </div>
 
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
-
             <div>
-              <h3 className="skillsName">SQL</h3>
-              <span className="skillsLevel">Básico</span>
+              <h3 className="skillsName">Django</h3>
+              <span className="skillsLevel">Advanced</span>
             </div>
           </div>
         </div>
@@ -29,19 +25,17 @@ const Backend = () => {
         <div className="skillsGroup">
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
-
             <div>
-              <h3 className="skillsName">Node.js</h3>
-              <span className="skillsLevel">Básico</span>
+              <h3 className="skillsName">Django REST</h3>
+              <span className="skillsLevel">Advanced</span>
             </div>
           </div>
 
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
-
             <div>
-              <h3 className="skillsName">PHP</h3>
-              <span className="skillsLevel">Básico</span>
+              <h3 className="skillsName">Node.js</h3>
+              <span className="skillsLevel">Intermediate</span>
             </div>
           </div>
         </div>

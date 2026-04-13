@@ -88,7 +88,7 @@ const Qualification = () => {
                   Pontifícia Universidade Católica do Rio Grande do Sul
                 </span>
                 <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i>2021 - Atualidade
+                  <i className="uil uil-calendar-alt"></i>2021 - 2025
                 </div>
               </div>
 

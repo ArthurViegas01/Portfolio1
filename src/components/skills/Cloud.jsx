@@ -1,23 +1,23 @@
-const Frontend = () => {
+const Cloud = () => {
   return (
     <div className="skillsContent">
-      <h3 className="skillsTitle">Frontend Engineering</h3>
+      <h3 className="skillsTitle">Cloud Architecture (AWS)</h3>
 
       <div className="skillsBox">
         <div className="skillsGroup">
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
             <div>
-              <h3 className="skillsName">React</h3>
-              <span className="skillsLevel">Advanced</span>
+              <h3 className="skillsName">EC2 / S3</h3>
+              <span className="skillsLevel">Intermediate</span>
             </div>
           </div>
 
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
             <div>
-              <h3 className="skillsName">JavaScript ES6+</h3>
-              <span className="skillsLevel">Advanced</span>
+              <h3 className="skillsName">Elastic Beanstalk</h3>
+              <span className="skillsLevel">Intermediate</span>
             </div>
           </div>
         </div>
@@ -26,7 +26,7 @@ const Frontend = () => {
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
             <div>
-              <h3 className="skillsName">TypeScript</h3>
+              <h3 className="skillsName">ECR</h3>
               <span className="skillsLevel">Intermediate</span>
             </div>
           </div>
@@ -34,8 +34,8 @@ const Frontend = () => {
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
             <div>
-              <h3 className="skillsName">HTML5/CSS3/SASS</h3>
-              <span className="skillsLevel">Advanced</span>
+              <h3 className="skillsName">Secrets Manager</h3>
+              <span className="skillsLevel">Intermediate</span>
             </div>
           </div>
         </div>
@@ -44,4 +44,4 @@ const Frontend = () => {
   );
 };
 
-export default Frontend;
+export default Cloud;
