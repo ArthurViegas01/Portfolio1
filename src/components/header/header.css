@@ -76,6 +76,28 @@
     color: var(--accent-color);
 }
 
+.navLangToggle {
+    background: none;
+    border: 1.5px solid var(--title-color);
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: var(--font-semi-bold);
+    color: var(--title-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s, border-color 0.3s;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    line-height: 1;
+}
+
+.navLangToggle:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
 
 /*=============== BREAKPOINTS ===============*/
 /* For medium devices */

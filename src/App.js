@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
+import { LanguageProvider } from "./context/LanguageContext";
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import About from "./components/about/About";
 import Skills from "./components/skills/Skills";
 import Services from "./components/services/Services";
 import Qualification from "./components/qualification/Qualification";
-// import Testimonials from './components/testimonials/Testimonials';
 import Contact from "./components/contact/Contact";
 import Footer from "./components/footer/Footer";
 import ScrollUp from "./components/scrollup/ScrollUp";
@@ -14,9 +14,8 @@ import Work from "./components/work/Work";
 
 const App = () => {
   return (
-    <>
+    <LanguageProvider>
       <Header />
-
       <main className="main">
         <Home />
         <About />
@@ -24,12 +23,11 @@ const App = () => {
         <Services />
         <Qualification />
         <Work />
-        {/* <Testimonials/> */}
         <Contact />
       </main>
       <Footer />
       <ScrollUp />
-    </>
+    </LanguageProvider>
   );
 };
 

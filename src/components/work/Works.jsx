@@ -1,52 +1,49 @@
 import React, { useState, useEffect } from "react";
 import "./work.css";
-import { projectsData } from "./Data";
-import { projectsNav } from "./Data";
+import { projectsData, projectsNav } from "./Data";
 import WorksItems from "./WorksItems";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Works = () => {
   const [item, setItem] = useState({ name: "all" });
   const [projects, setProjects] = useState([]);
   const [active, setActive] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (item.name === "all") {
       setProjects(projectsData);
     } else {
-      const newProjects = projectsData.filter((project) => {
-        return project.category.toLowerCase() === item.name;
-      });
+      const newProjects = projectsData.filter(
+        (project) => project.category === item.name
+      );
       setProjects(newProjects);
     }
   }, [item]);
 
-  const handleClick = (e, index) => {
-    setItem({ name: e.target.textContent.toLowerCase() });
+  const handleClick = (key, index) => {
+    setItem({ name: key });
     setActive(index);
   };
-  
+
   return (
     <div>
       <div className="workFilters">
-        {projectsNav.map((item, index) => {
-          return (
-            <span
-              onClick={(e) => {
-                handleClick(e, index);
-              }}
-              className={`${active === index ? "activeWork " : ""}workItem`}
-              key={index}
-            >
-              {item.name}
-            </span>
-          );
-        })}
+        {projectsNav.map((navItem, index) => (
+          <span
+            key={index}
+            onClick={() => handleClick(navItem.name, index)}
+            className={`${active === index ? "activeWork " : ""}workItem`}
+          >
+            {t.work.categories[navItem.name] || navItem.name}
+          </span>
+        ))}
       </div>
 
       <div className="workContainer container grid">
-        {projects.map((item) => {
-          return <WorksItems item={item} key={item.id} />;
-        })}
+        {projects.map((proj) => (
+          <WorksItems item={proj} key={proj.id} />
+        ))}
       </div>
     </div>
   );

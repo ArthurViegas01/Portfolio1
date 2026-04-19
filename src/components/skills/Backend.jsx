@@ -16,7 +16,7 @@ const Backend = () => {
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
             <div>
-              <h3 className="skillsName">Django</h3>
+              <h3 className="skillsName">FastAPI</h3>
               <span className="skillsLevel">Advanced</span>
             </div>
           </div>
@@ -26,7 +26,7 @@ const Backend = () => {
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
             <div>
-              <h3 className="skillsName">Django REST</h3>
+              <h3 className="skillsName">Django / DRF</h3>
               <span className="skillsLevel">Advanced</span>
             </div>
           </div>
@@ -34,7 +34,7 @@ const Backend = () => {
           <div className="skillsData">
             <i className="bx bx-badge-check"></i>
             <div>
-              <h3 className="skillsName">Node.js</h3>
+              <h3 className="skillsName">Celery</h3>
               <span className="skillsLevel">Intermediate</span>
             </div>
           </div>

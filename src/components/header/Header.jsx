@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./header.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Header = () => {
   const [Toggle, showMenu] = useState(false);
@@ -7,6 +8,8 @@ const Header = () => {
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
+
+  const { lang, toggleLang, t } = useLanguage();
 
   /*=============== Change background on scroll ===============*/
   useEffect(() => {
@@ -50,7 +53,7 @@ const Header = () => {
                 onClick={() => handleNavClick("#home")}
                 className={activeNav === "#home" ? "navLink active-link" : "navLink"}
               >
-                <i className="uil uil-estate navIcon"></i>Home
+                <i className="uil uil-estate navIcon"></i>{t.nav.home}
               </a>
             </li>
             <li className="navItem">
@@ -59,7 +62,7 @@ const Header = () => {
                 onClick={() => handleNavClick("#skills")}
                 className={activeNav === "#skills" ? "navLink active-link" : "navLink"}
               >
-                <i className="uil uil-file-alt navIcon"></i>Habilidades
+                <i className="uil uil-file-alt navIcon"></i>{t.nav.skills}
               </a>
             </li>
             <li className="navItem">
@@ -68,7 +71,7 @@ const Header = () => {
                 onClick={() => handleNavClick("#services")}
                 className={activeNav === "#services" ? "navLink active-link" : "navLink"}
               >
-                <i className="uil uil-briefcase-alt navIcon"></i>Serviços
+                <i className="uil uil-briefcase-alt navIcon"></i>{t.nav.services}
               </a>
             </li>
             <li className="navItem">
@@ -77,7 +80,7 @@ const Header = () => {
                 onClick={() => handleNavClick("#qualification")}
                 className={activeNav === "#qualification" ? "navLink active-link" : "navLink"}
               >
-                <i className="uil uil-user navIcon"></i>Qualificações
+                <i className="uil uil-user navIcon"></i>{t.nav.qualification}
               </a>
             </li>
             <li className="navItem">
@@ -86,7 +89,7 @@ const Header = () => {
                 onClick={() => handleNavClick("#portfolio")}
                 className={activeNav === "#portfolio" ? "navLink active-link" : "navLink"}
               >
-                <i className="uil uil-scenery navIcon"></i>Portfolio
+                <i className="uil uil-scenery navIcon"></i>{t.nav.portfolio}
               </a>
             </li>
             <li className="navItem">
@@ -95,7 +98,7 @@ const Header = () => {
                 onClick={() => handleNavClick("#contact")}
                 className={activeNav === "#contact" ? "navLink active-link" : "navLink"}
               >
-                <i className="uil uil-message navIcon"></i>Contato
+                <i className="uil uil-message navIcon"></i>{t.nav.contact}
               </a>
             </li>
           </ul>
@@ -107,6 +110,15 @@ const Header = () => {
         </div>
 
         <div className="navActions">
+          <button
+            className="navLangToggle"
+            onClick={toggleLang}
+            aria-label="Toggle language"
+            title={lang === "pt" ? "Switch to English" : "Mudar para Português"}
+          >
+            {lang === "pt" ? "EN" : "PT"}
+          </button>
+
           <button
             className="navThemeToggle"
             onClick={() => setDarkMode(!darkMode)}

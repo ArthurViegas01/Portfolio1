@@ -1,17 +1,90 @@
 import React, { useState } from "react";
 import "./qualification.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Qualification = () => {
   const [toggleState, setToggleState] = useState(1);
+  const { t, lang } = useLanguage();
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
+  const education = {
+    pt: [
+      {
+        title: "Técnico em TI",
+        subtitle: "Instituto Adventista de São Paulo",
+        year: "2016",
+      },
+      {
+        title: "Ensino Médio",
+        subtitle: "Cesi - Viamópolis",
+        year: "2017 – 2019",
+      },
+      {
+        title: "Engenharia de Software",
+        subtitle: "PUCRS — Pontifícia Universidade Católica do Rio Grande do Sul",
+        year: "2021 – 2025",
+      },
+    ],
+    en: [
+      {
+        title: "Technical Degree in IT",
+        subtitle: "Instituto Adventista de São Paulo",
+        year: "2016",
+      },
+      {
+        title: "High School",
+        subtitle: "Cesi - Viamópolis",
+        year: "2017 – 2019",
+      },
+      {
+        title: "B.Sc. Software Engineering",
+        subtitle: "PUCRS — Pontifical Catholic University of Rio Grande do Sul",
+        year: "2021 – 2025",
+      },
+    ],
+  };
+
+  const experience = {
+    pt: [
+      {
+        title: "Analista de Dados — Estágio",
+        subtitle: "Dell / PUCRS",
+        desc: "Analisei dados educacionais e construí dashboards em Tableau para apoiar decisões pedagógicas. Automatizei relatórios e pipelines de dados em parceria com a PUCRS.",
+        year: "2021 – 2022",
+      },
+      {
+        title: "Desenvolvedor Fullstack — Estágio",
+        subtitle: "Dataglass",
+        desc: "Desenvolvi features em Django REST e React, integrei APIs de terceiros, containerizei serviços com Docker e realizei deploys na AWS (EC2, Elastic Beanstalk). Atuei em sprints Scrum com código revisado em pull requests.",
+        year: "2023 – 2024",
+      },
+    ],
+    en: [
+      {
+        title: "Data Analyst Intern",
+        subtitle: "Dell / PUCRS",
+        desc: "Analyzed educational data and built Tableau dashboards to support pedagogical decisions. Automated reporting pipelines in a joint program between Dell and PUCRS.",
+        year: "2021 – 2022",
+      },
+      {
+        title: "Fullstack Developer Intern",
+        subtitle: "Dataglass",
+        desc: "Shipped features across Django REST and React, integrated third-party APIs, containerized services with Docker, and deployed on AWS (EC2, Elastic Beanstalk). Worked in Scrum sprints with code reviewed through pull requests.",
+        year: "2023 – 2024",
+      },
+    ],
+  };
+
+  const edu = education[lang];
+  const exp = experience[lang];
+
   return (
     <section className="qualification section" id="qualification">
-      <h2 className="sectionTitle">Qualificação</h2>
-      <span className="sectionSubtitle">Minha jornada pessoal</span>
+      <h2 className="sectionTitle">{t.qualification.title}</h2>
+      <span className="sectionSubtitle">{t.qualification.subtitle}</span>
 
       <div className="qualificationContainer container">
         <div className="qualificationTabs">
@@ -23,7 +96,8 @@ const Qualification = () => {
             }
             onClick={() => toggleTab(1)}
           >
-            <i className="uil uil-graduation-cap qualificationIcon"></i>Educação
+            <i className="uil uil-graduation-cap qualificationIcon"></i>
+            {t.qualification.education}
           </div>
 
           <div
@@ -35,12 +109,12 @@ const Qualification = () => {
             onClick={() => toggleTab(2)}
           >
             <i className="uil uil-briefcase-alt qualificationIcon"></i>
-            Experiência
+            {t.qualification.experience}
           </div>
         </div>
 
         <div className="qualificationSections">
-          {/* ===== EDUCAÇÃO ===== */}
+          {/* ===== EDUCATION ===== */}
           <div
             className={
               toggleState === 1
@@ -48,54 +122,44 @@ const Qualification = () => {
                 : "qualificationContent"
             }
           >
-            <div className="qualificationData">
-              <div>
-                <h3 className="qualificationTitle">Técnico em TI</h3>
-                <span className="qualificationSubtitle">
-                  Instituto Adventista de São Paulo
-                </span>
-                <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i> 2016
-                </div>
+            {edu.map((item, idx) => (
+              <div className="qualificationData" key={idx}>
+                {idx % 2 === 0 ? (
+                  <>
+                    <div>
+                      <h3 className="qualificationTitle">{item.title}</h3>
+                      <span className="qualificationSubtitle">{item.subtitle}</span>
+                      <div className="qualificationCalendar">
+                        <i className="uil uil-calendar-alt"></i> {item.year}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="qualificationRounder"></span>
+                      {idx < edu.length - 1 && <span className="qualificationLine"></span>}
+                    </div>
+                    <div></div>
+                  </>
+                ) : (
+                  <>
+                    <div></div>
+                    <div>
+                      <span className="qualificationRounder"></span>
+                      {idx < edu.length - 1 && <span className="qualificationLine"></span>}
+                    </div>
+                    <div>
+                      <h3 className="qualificationTitle">{item.title}</h3>
+                      <span className="qualificationSubtitle">{item.subtitle}</span>
+                      <div className="qualificationCalendar">
+                        <i className="uil uil-calendar-alt"></i> {item.year}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
-              <div>
-                <span className="qualificationRounder"></span>
-                <span className="qualificationLine"></span>
-              </div>
-            </div>
-
-            <div className="qualificationData">
-              <div></div>
-              <div>
-                <span className="qualificationRounder"></span>
-                <span className="qualificationLine"></span>
-              </div>
-              <div>
-                <h3 className="qualificationTitle">Ensino Médio</h3>
-                <span className="qualificationSubtitle">Cesi - Viamópolis</span>
-                <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i> 2017 - 2019
-                </div>
-              </div>
-            </div>
-
-            <div className="qualificationData">
-              <div>
-                <h3 className="qualificationTitle">Engenharia de Software</h3>
-                <span className="qualificationSubtitle">
-                  PUCRS — Pontifícia Universidade Católica do Rio Grande do Sul
-                </span>
-                <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i> 2021 - 2025
-                </div>
-              </div>
-              <div>
-                <span className="qualificationRounder"></span>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* ===== EXPERIÊNCIA ===== */}
+          {/* ===== EXPERIENCE ===== */}
           <div
             className={
               toggleState === 2
@@ -103,59 +167,43 @@ const Qualification = () => {
                 : "qualificationContent"
             }
           >
-            <div className="qualificationData">
-              <div>
-                <h3 className="qualificationTitle">Analista de Dados — Estágio</h3>
-                <span className="qualificationSubtitle">Dell / PUCRS</span>
-                <span className="qualificationDesc">
-                  Análise de dados educacionais, construção de dashboards e
-                  automação de relatórios em parceria com a PUCRS.
-                </span>
-                <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i> 2021 - 2022
-                </div>
+            {exp.map((item, idx) => (
+              <div className="qualificationData" key={idx}>
+                {idx % 2 === 0 ? (
+                  <>
+                    <div>
+                      <h3 className="qualificationTitle">{item.title}</h3>
+                      <span className="qualificationSubtitle">{item.subtitle}</span>
+                      <span className="qualificationDesc">{item.desc}</span>
+                      <div className="qualificationCalendar">
+                        <i className="uil uil-calendar-alt"></i> {item.year}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="qualificationRounder"></span>
+                      {idx < exp.length - 1 && <span className="qualificationLine"></span>}
+                    </div>
+                    <div></div>
+                  </>
+                ) : (
+                  <>
+                    <div></div>
+                    <div>
+                      <span className="qualificationRounder"></span>
+                      {idx < exp.length - 1 && <span className="qualificationLine"></span>}
+                    </div>
+                    <div>
+                      <h3 className="qualificationTitle">{item.title}</h3>
+                      <span className="qualificationSubtitle">{item.subtitle}</span>
+                      <span className="qualificationDesc">{item.desc}</span>
+                      <div className="qualificationCalendar">
+                        <i className="uil uil-calendar-alt"></i> {item.year}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
-              <div>
-                <span className="qualificationRounder"></span>
-                <span className="qualificationLine"></span>
-              </div>
-            </div>
-
-            <div className="qualificationData">
-              <div></div>
-              <div>
-                <span className="qualificationRounder"></span>
-                <span className="qualificationLine"></span>
-              </div>
-              <div>
-                <h3 className="qualificationTitle">Desenvolvimento Web</h3>
-                <span className="qualificationSubtitle">PUCRS</span>
-                <span className="qualificationDesc">
-                  Curso de extensão com foco em desenvolvimento de aplicações
-                  web modernas usando React, Node.js e boas práticas de UI/UX.
-                </span>
-                <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i> 2022
-                </div>
-              </div>
-            </div>
-
-            <div className="qualificationData">
-              <div>
-                <h3 className="qualificationTitle">Desenvolvedor Fullstack — Estágio</h3>
-                <span className="qualificationSubtitle">Dataglass</span>
-                <span className="qualificationDesc">
-                  Desenvolvimento de features em Django e React, integração de
-                  APIs REST, deploy em AWS e participação em ciclos de Scrum.
-                </span>
-                <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i> 2023 - 2024
-                </div>
-              </div>
-              <div>
-                <span className="qualificationRounder"></span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

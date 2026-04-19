@@ -3,26 +3,25 @@ import "./about.css";
 import AboutImage from "../../assets/perfil.jpg";
 import CV from "../../assets/CVarthurviegas.pdf";
 import Info from "./Info";
+import { useLanguage } from "../../context/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="about section" id="about">
-      <h2 className="sectionTitle">Sobre mim</h2>
-      <span className="sectionSubtitle">Minha introdução</span>
+      <h2 className="sectionTitle">{t.about.title}</h2>
+      <span className="sectionSubtitle">{t.about.subtitle}</span>
 
       <div className="aboutContainer container grid">
-        <img src={AboutImage} alt="" className="aboutImage" />
+        <img src={AboutImage} alt="Arthur Viegas" className="aboutImage" />
 
         <div className="aboutData">
           <Info />
-
-          <p className="aboutDescricao">
-            Desenvolvedor Frontend | Engenheiro de Software. <br/>Graduado em Engenharia de Software pela PUCRS. Proficiente na
-            língua inglesa e com experiência em projetos web reais.
-          </p>
+          <p className="aboutDescricao">{t.about.description}</p>
 
           <a download={CV} href={CV} className="button button--flex">
-            Download Cúrriculo
+            {t.about.downloadCV}
             <svg
               className="button__icon"
               xmlns="http://www.w3.org/2000/svg"

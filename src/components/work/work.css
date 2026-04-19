@@ -104,6 +104,18 @@
   color: var(--title-color);
 }
 
+/*=============== DESCRIPTION ===============*/
+.workDescription {
+  font-size: 0.78rem;
+  color: var(--text-color);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /*=============== TAGS ===============*/
 .workTags {
   display: flex;
@@ -119,6 +131,14 @@
   color: var(--accent-color);
   padding: 0.2rem 0.55rem;
   border-radius: 0.35rem;
+}
+
+/*=============== CARD ACTIONS ===============*/
+.workCard-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
 }
 
 /*=============== BUTTON (card) ===============*/
@@ -143,6 +163,20 @@
 
 .workButton:hover .workButton-icon {
   transform: translateX(0.3rem);
+}
+
+.workButton--outline {
+  border: 1px solid var(--accent-color);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.35rem;
+  font-size: var(--small-font-size);
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.workButton--outline:hover {
+  background-color: var(--accent-color);
+  color: #fff;
 }
 
 /*=============== MODAL ===============*/

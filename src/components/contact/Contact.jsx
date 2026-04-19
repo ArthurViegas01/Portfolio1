@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
 import "./contact.css";
 import emailjs from "@emailjs/browser";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Contact = () => {
   const form = useRef();
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState(null); // 'success' | 'error' | null
   const [errors, setErrors] = useState({});
+  const { t } = useLanguage();
 
   const validate = () => {
     const newErrors = {};
@@ -15,13 +17,13 @@ const Contact = () => {
     const email = data.get("email")?.trim();
     const project = data.get("project")?.trim();
 
-    if (!name) newErrors.name = "Nome é obrigatório";
+    if (!name) newErrors.name = t.contact.errors.nameRequired;
     if (!email) {
-      newErrors.email = "Email é obrigatório";
+      newErrors.email = t.contact.errors.emailRequired;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Email inválido";
+      newErrors.email = t.contact.errors.emailInvalid;
     }
-    if (!project) newErrors.project = "Descreva seu projeto";
+    if (!project) newErrors.project = t.contact.errors.projectRequired;
 
     return newErrors;
   };
@@ -60,12 +62,12 @@ const Contact = () => {
 
   return (
     <section className="contact section" id="contact">
-      <h2 className="sectionTitle">Entre em contato</h2>
-      <span className="sectionSubtitle">Fale comigo</span>
+      <h2 className="sectionTitle">{t.contact.title}</h2>
+      <span className="sectionSubtitle">{t.contact.subtitle}</span>
 
       <div className="contactContainer container grid">
         <div className="contactContent">
-          <h3 className="contactTitle">Contatos</h3>
+          <h3 className="contactTitle">{t.contact.contactsTitle}</h3>
 
           <div className="contactInfo">
             <div className="contactCard">
@@ -73,7 +75,7 @@ const Contact = () => {
               <h3 className="contactCard-title">Email</h3>
               <span className="contactCard-data">arthurpviegas@gmail.com</span>
               <a href="mailto:arthurpviegas@gmail.com" className="contactButton">
-                Me escreva
+                {t.contact.writeMe}
                 <i className="bx bx-right-arrow contactButton-icon"></i>
               </a>
             </div>
@@ -81,12 +83,14 @@ const Contact = () => {
             <div className="contactCard">
               <i className="bx bxl-whatsapp contactCard-icon"></i>
               <h3 className="contactCard-title">Whatsapp</h3>
-              <span className="contactCard-data">(51)99613-4122</span>
+              <span className="contactCard-data">(51) 99613-4122</span>
               <a
                 href="https://api.whatsapp.com/send?phone=5551996134122&text=Olá, gostaria de mais informações!"
                 className="contactButton"
+                target="_blank"
+                rel="noreferrer"
               >
-                Me escreva
+                {t.contact.writeMe}
                 <i className="bx bx-right-arrow contactButton-icon"></i>
               </a>
             </div>
@@ -101,7 +105,7 @@ const Contact = () => {
                 rel="noreferrer"
                 className="contactButton"
               >
-                Me escreva
+                {t.contact.writeMe}
                 <i className="bx bx-right-arrow contactButton-icon"></i>
               </a>
             </div>
@@ -109,15 +113,15 @@ const Contact = () => {
         </div>
 
         <div className="contactContent">
-          <h3 className="contactTitle">Me envie o seu projeto</h3>
+          <h3 className="contactTitle">{t.contact.formTitle}</h3>
 
           <form ref={form} onSubmit={sendEmail} className="contactForm" noValidate>
             <div className="contactForm-div">
-              <label className="contactForm-tag">Nome</label>
+              <label className="contactForm-tag">{t.contact.name}</label>
               <input
                 type="text"
                 className={`contactForm-input${errors.name ? " contactForm-input--error" : ""}`}
-                placeholder="Digite seu nome"
+                placeholder={t.contact.namePlaceholder}
                 name="name"
                 onChange={() => errors.name && setErrors((e) => ({ ...e, name: "" }))}
               />
@@ -125,11 +129,11 @@ const Contact = () => {
             </div>
 
             <div className="contactForm-div">
-              <label className="contactForm-tag">Email</label>
+              <label className="contactForm-tag">{t.contact.email}</label>
               <input
                 type="email"
                 className={`contactForm-input${errors.email ? " contactForm-input--error" : ""}`}
-                placeholder="Digite seu email"
+                placeholder={t.contact.emailPlaceholder}
                 name="email"
                 onChange={() => errors.email && setErrors((e) => ({ ...e, email: "" }))}
               />
@@ -137,12 +141,12 @@ const Contact = () => {
             </div>
 
             <div className="contactForm-div contactForm-area">
-              <label className="contactForm-tag">Projeto</label>
+              <label className="contactForm-tag">{t.contact.project}</label>
               <textarea
                 cols="30"
                 rows="10"
                 className={`contactForm-input${errors.project ? " contactForm-input--error" : ""}`}
-                placeholder="Descreva seu projeto"
+                placeholder={t.contact.projectPlaceholder}
                 name="project"
                 onChange={() => errors.project && setErrors((e) => ({ ...e, project: "" }))}
               ></textarea>
@@ -151,12 +155,12 @@ const Contact = () => {
 
             {status === "success" && (
               <div className="contactForm-feedback contactForm-feedback--success">
-                <i className="bx bx-check-circle"></i> Mensagem enviada com sucesso!
+                <i className="bx bx-check-circle"></i> {t.contact.success}
               </div>
             )}
             {status === "error" && (
               <div className="contactForm-feedback contactForm-feedback--error">
-                <i className="bx bx-error-circle"></i> Erro ao enviar. Tente novamente.
+                <i className="bx bx-error-circle"></i> {t.contact.error}
               </div>
             )}
 
@@ -167,12 +171,12 @@ const Contact = () => {
             >
               {sending ? (
                 <>
-                  Enviando...
+                  {t.contact.sending}
                   <i className="bx bx-loader-alt bx-spin button__icon"></i>
                 </>
               ) : (
                 <>
-                  Enviar Mensagem
+                  {t.contact.send}
                   <svg
                     className="button__icon"
                     xmlns="http://www.w3.org/2000/svg"

@@ -1,7 +1,10 @@
 import React from "react";
 import "./footer.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="footer">
       <div className="footerContainer container">
@@ -10,23 +13,35 @@ const Footer = () => {
         <ul className="footerList">
           <li>
             <a href="#about" className="footerLink">
-              Sobre mim
+              {t.footer.about}
             </a>
           </li>
-
           <li>
-            <a href="#portfolio" className="footerLink">Projetos</a>
+            <a href="#portfolio" className="footerLink">
+              {t.footer.projects}
+            </a>
           </li>
         </ul>
 
         <div className="footerSocial">
           <a
-            href="https://www.facebook.com/arthur.viegas.3/"
+            href="https://github.com/arthurpviegas"
             className="footerSocial-link"
             target="_blank"
             rel="noopener noreferrer"
+            title="GitHub"
           >
-            <i className="bx bxl-facebook"></i>
+            <i className="bx bxl-github"></i>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/arthur-viegas"
+            className="footerSocial-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="LinkedIn"
+          >
+            <i className="bx bxl-linkedin"></i>
           </a>
 
           <a
@@ -34,21 +49,13 @@ const Footer = () => {
             className="footerSocial-link"
             target="_blank"
             rel="noopener noreferrer"
+            title="Instagram"
           >
             <i className="bx bxl-instagram"></i>
           </a>
-
-          <a
-            href="https://www.twitter.com/"
-            className="footerSocial-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="bx bxl-twitter"></i>
-          </a>
         </div>
 
-        <span className="footerCopy">&#169; Arthur Pereira Viegas. All rigths reserved</span>
+        <span className="footerCopy">{t.footer.rights}</span>
       </div>
     </footer>
   );
