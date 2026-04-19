@@ -107,6 +107,44 @@
   resize: none;
 }
 
+.contactForm-input--error {
+  border-color: hsl(0, 70%, 55%);
+}
+
+.contactForm-error {
+  position: absolute;
+  bottom: -1.25rem;
+  left: 0.25rem;
+  font-size: var(--tiny-font-size);
+  color: hsl(0, 70%, 55%);
+}
+
+.contactForm-feedback {
+  display: flex;
+  align-items: center;
+  column-gap: 0.4rem;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: var(--mb-1);
+}
+
+.contactForm-feedback--success {
+  background-color: hsl(120, 50%, 95%);
+  color: hsl(120, 50%, 30%);
+}
+
+.contactForm-feedback--error {
+  background-color: hsl(0, 70%, 95%);
+  color: hsl(0, 70%, 40%);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 /*=============== BREAKPOINTS ===============*/
 /* For large devices */
 @media screen and (max-width: 992px) {

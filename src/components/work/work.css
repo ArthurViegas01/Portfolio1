@@ -1,200 +1,306 @@
-.workFilters{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 0.75rem;
-    margin-bottom: var(--mb-2);
+/*=============== FILTERS ===============*/
+.workFilters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 0.75rem;
+  row-gap: 0.5rem;
+  margin-bottom: var(--mb-2);
 }
 
-.workModal{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: var(--z-modal);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 1rem;
+.workItem {
+  cursor: pointer;
+  color: var(--title-color);
+  padding: 0.35rem 0.9rem;
+  font-weight: var(--font-medium);
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+  transition: all 0.3s;
+}
+
+.workItem:hover {
+  background-color: var(--accent-color-light);
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.activeWork {
+  background-color: var(--title-color);
+  color: var(--container-color);
+}
+
+/*=============== GRID ===============*/
+.workContainer {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/*=============== CARD ===============*/
+.workCard {
+  background-color: var(--container-color);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.workCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.workCard-imgWrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.workImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+
+.workCard:hover .workImage {
+  transform: scale(1.06);
+}
+
+.workCard-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: hsla(var(--hue), var(--sat), 30%, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.workCard:hover .workCard-overlay {
+  opacity: 1;
+}
+
+.workCard-overlayText {
+  color: #fff;
+  font-weight: var(--font-semi-bold);
+  font-size: var(--small-font-size);
+  letter-spacing: 0.04em;
+}
+
+.workCard-body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.workTitle {
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 0.5rem;
+  color: var(--title-color);
+}
+
+/*=============== TAGS ===============*/
+.workTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.workTag {
+  font-size: 0.7rem;
+  font-weight: var(--font-medium);
+  background-color: var(--accent-color-light);
+  color: var(--accent-color);
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+}
+
+/*=============== BUTTON (card) ===============*/
+.workButton {
+  color: var(--accent-color);
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  display: inline-flex;
+  align-items: center;
+  column-gap: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: gap 0.3s;
+}
+
+.workButton-icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s;
+}
+
+.workButton:hover .workButton-icon {
+  transform: translateX(0.3rem);
+}
+
+/*=============== MODAL ===============*/
+.workModal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  z-index: var(--z-modal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.activeWorkModal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.workModal-content {
+  background-color: var(--container-color);
+  border-radius: 1.25rem;
+  padding: 2rem 2rem 2.5rem;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
     opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-}
-
-.workItem{
-    cursor: pointer;
-    color: var(--title-color);
-    padding: 0.25rem 0.75rem;
-    font-weight: var(--font-medium);
-    border-radius: 0.5rem;
-    text-transform: capitalize;
-}
-
-.workItem:hover{
-    background-color: var(--title-color);
-    color: var(--container-color);
-}
-
-.workContainer{
-    grid-template-columns: repeat(2, max-content);
-    gap: 3rem;
-    display: flex;
-    justify-content: center;
-}
-
-.workModal-video{
-    display: flex;
-    justify-content: center;
-}
-
-.workModal-content{
-    width: 500px;
-    position: relative;
-    background-color: var(--container-color);
-    padding: 2rem 2.5rem 2.5rem;
-    border-radius: 1.5rem;
-}
-
-.workModal-title{
-    font-size: var(--h3-font-size);
-    font-weight: var(--font-medium);
-    margin-bottom: var(--mb-1);
-    text-align: center;
-}
-
-.workButton{
-    color: var(--title-color);
-    font-size: var(--small-font-size);
-    display: inline-flex;
-    align-items: center;
-    column-gap: 0.25rem;
-    cursor: pointer;
-}
-
-.workButton-icon{
-    font-size: 1rem;
-    transition: 0.3s;
-}
-
-.workButton:hover .workButton-icon{
-    transform: translateX(0.25rem);
-}
-
-.workModal-close{
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-size: 1.5rem;
-    color: var(--title-color);
-    cursor: pointer;
-}
-
-.workModal-content{
-    width: 500px;
-    position: relative;
-    background-color: var(--container-color);
-    padding: 1.5rem 2.5rem 2.5rem;
-    border-radius: 1.5rem;
-}
-
-.workIframeVideo{
-    border-radius: 20px;
-}
-
-.workCard{
-    background-color: var(--container-color);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 1.25rem;
-    border-radius: 1rem;
-}
-
-.workImage{
-    width: 295px;
-    height: 70%;
-    border-radius: 1rem;
-    margin-bottom: var(--mb-1);
-}
-
-.workTitle{
-    font-size: var(--normal-font-size);
-    font-weight: var(--font-medium);
-    margin-bottom: var(--mb-0-5);
-}
-
-.workButton{
-    color: var(--text-color);
-    font-size: var(--small-font-size);
-    display: flex;
-    align-items: center;
-    column-gap: 0.25rem;
-}
-
-.workButton-icon{
-    font-size: 1rem;
-    transition: 0.4s;
-}
-
-.workButton:hover .workButton-icon{
-    transform: translateX(0.25rem);
-}
-
-/*Active Work*/
-.activeWork{
-    background-color: var(--title-color);
-    color: var(--container-color);
-}
-
-.activeWorkModal{
+    transform: translateY(20px);
+  }
+  to {
     opacity: 1;
-    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.workModal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.workModal-close:hover {
+  color: var(--title-color);
+}
+
+.workModal-title {
+  font-size: var(--h3-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 1rem;
+  color: var(--title-color);
+  padding-right: 2rem;
+}
+
+.workModal-img {
+  width: 100%;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  max-height: 220px;
+}
+
+.workModal-description {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.workModal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.workModal-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.workModal-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: var(--small-font-size);
+  border-radius: 0.75rem;
+  column-gap: 0.4rem;
+}
+
+.workModal-btn--outline {
+  background-color: transparent;
+  border: 2px solid var(--title-color);
+  color: var(--title-color);
+}
+
+.workModal-btn--outline:hover {
+  background-color: var(--title-color);
+  color: var(--container-color);
+  transform: translateY(-2px);
 }
 
 /*=============== BREAKPOINTS ===============*/
-/* For large devices */
 @media screen and (max-width: 992px) {
-    .workContainer{
-        gap: 1.25rem;
-    }
-
-    .workCard{
-        padding: 1rem;
-    }
-
-    .workImage{
-        margin-bottom: 0.75rem;
-    }
-
-    .workTitle{
-        margin-bottom: 0.25rem;
-    }
+  .workContainer {
+    gap: 1.25rem;
+  }
 }
 
-/* For medium devices */
 @media screen and (max-width: 768px) {
-    .workContainer{
-        grid-template-columns: max-content;
-    }
+  .workContainer {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .workImage {
+    height: 200px;
+  }
 }
 
 @media screen and (max-width: 576px) {
-    .workContainer{
-        grid-template-columns: 1fr;
-    }
+  .workContainer {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
 
-    .workImage{
-        width: 100%;
-    }
+  .workImage {
+    width: 100%;
+  }
+
+  .workModal-content {
+    padding: 1.5rem 1.25rem 2rem;
+  }
 }
 
-/* For small devices */
 @media screen and (max-width: 350px) {
-    .workItem{
-        font-size: var(--small-font-size);
-    }
+  .workItem {
+    font-size: var(--small-font-size);
+  }
 
-    .workFilters{
-        column-gap: 0.25rem;
-    }
+  .workFilters {
+    column-gap: 0.25rem;
+  }
 }

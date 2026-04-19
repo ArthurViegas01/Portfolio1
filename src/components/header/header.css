@@ -43,15 +43,37 @@
 }
 
 /*Links ativos*/
-
 .active-link,
 .navLink:hover{
-    color: var(--title-color-dark);
+    color: var(--accent-color);
 }
 
 /*Change Background*/
 .scrollHeader{
     box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/*NavActions — dark mode toggle + hamburger*/
+.navActions {
+    display: flex;
+    align-items: center;
+    column-gap: 0.75rem;
+}
+
+.navThemeToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--title-color);
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+    padding: 0.1rem;
+}
+
+.navThemeToggle:hover {
+    color: var(--accent-color);
 }
 
 
@@ -118,9 +140,8 @@
     .navToggle{
         display: block;
     }
-
-
 }
+
 
 /* For small devices */
 @media screen and (max-width: 350px) {

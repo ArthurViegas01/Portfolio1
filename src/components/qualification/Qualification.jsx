@@ -40,6 +40,7 @@ const Qualification = () => {
         </div>
 
         <div className="qualificationSections">
+          {/* ===== EDUCAÇÃO ===== */}
           <div
             className={
               toggleState === 1
@@ -54,10 +55,9 @@ const Qualification = () => {
                   Instituto Adventista de São Paulo
                 </span>
                 <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i>2016/01 - 2016/12
+                  <i className="uil uil-calendar-alt"></i> 2016
                 </div>
               </div>
-
               <div>
                 <span className="qualificationRounder"></span>
                 <span className="qualificationLine"></span>
@@ -66,17 +66,15 @@ const Qualification = () => {
 
             <div className="qualificationData">
               <div></div>
-
               <div>
                 <span className="qualificationRounder"></span>
                 <span className="qualificationLine"></span>
               </div>
-
               <div>
                 <h3 className="qualificationTitle">Ensino Médio</h3>
                 <span className="qualificationSubtitle">Cesi - Viamópolis</span>
                 <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i>2017 - 2018
+                  <i className="uil uil-calendar-alt"></i> 2017 - 2019
                 </div>
               </div>
             </div>
@@ -85,20 +83,19 @@ const Qualification = () => {
               <div>
                 <h3 className="qualificationTitle">Engenharia de Software</h3>
                 <span className="qualificationSubtitle">
-                  Pontifícia Universidade Católica do Rio Grande do Sul
+                  PUCRS — Pontifícia Universidade Católica do Rio Grande do Sul
                 </span>
                 <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i>2021 - 2025
+                  <i className="uil uil-calendar-alt"></i> 2021 - 2025
                 </div>
               </div>
-
               <div>
                 <span className="qualificationRounder"></span>
-                <span className="qualificationLine"></span>
               </div>
             </div>
           </div>
 
+          {/* ===== EXPERIÊNCIA ===== */}
           <div
             className={
               toggleState === 2
@@ -108,15 +105,16 @@ const Qualification = () => {
           >
             <div className="qualificationData">
               <div>
-                <h3 className="qualificationTitle">
-                  Analista de dados - Estágio
-                </h3>
-                <span className="qualificationSubtitle">Dell-PUCRS</span>
+                <h3 className="qualificationTitle">Analista de Dados — Estágio</h3>
+                <span className="qualificationSubtitle">Dell / PUCRS</span>
+                <span className="qualificationDesc">
+                  Análise de dados educacionais, construção de dashboards e
+                  automação de relatórios em parceria com a PUCRS.
+                </span>
                 <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i>2021 - Atualidade
+                  <i className="uil uil-calendar-alt"></i> 2021 - 2022
                 </div>
               </div>
-
               <div>
                 <span className="qualificationRounder"></span>
                 <span className="qualificationLine"></span>
@@ -125,37 +123,37 @@ const Qualification = () => {
 
             <div className="qualificationData">
               <div></div>
-
               <div>
                 <span className="qualificationRounder"></span>
                 <span className="qualificationLine"></span>
               </div>
-
               <div>
                 <h3 className="qualificationTitle">Desenvolvimento Web</h3>
-                <span className="qualificationSubtitle">
-                  Pontifícia Universidade Católica do Rio Grande do Sul
+                <span className="qualificationSubtitle">PUCRS</span>
+                <span className="qualificationDesc">
+                  Curso de extensão com foco em desenvolvimento de aplicações
+                  web modernas usando React, Node.js e boas práticas de UI/UX.
                 </span>
                 <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i>2021 - Atualidade
+                  <i className="uil uil-calendar-alt"></i> 2022
                 </div>
               </div>
             </div>
 
             <div className="qualificationData">
               <div>
-                <h3 className="qualificationTitle">
-                  Desenvolvedor Fullstack Estagiário
-                </h3>
+                <h3 className="qualificationTitle">Desenvolvedor Fullstack — Estágio</h3>
                 <span className="qualificationSubtitle">Dataglass</span>
+                <span className="qualificationDesc">
+                  Desenvolvimento de features em Django e React, integração de
+                  APIs REST, deploy em AWS e participação em ciclos de Scrum.
+                </span>
                 <div className="qualificationCalendar">
-                  <i className="uil uil-calendar-alt"></i>2023 - Atualidade
+                  <i className="uil uil-calendar-alt"></i> 2023 - 2024
                 </div>
               </div>
-
               <div>
                 <span className="qualificationRounder"></span>
-                <span className="qualificationLine"></span>
               </div>
             </div>
           </div>

@@ -7,13 +7,17 @@
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  --hue: 0;
-  --sat: 0%;
+  --hue: 230;
+  --sat: 60%;
   --title-color: hsl(var(--hue), var(--sat), 20%);
-  --title-color-dark: hsl(var(--hue), var(--sat), 0%);
-  --text-color: hsl(var(--hue), var(--sat), 46%);
-  --body-color: hsl(var(--hue), var(--sat), 98%);
+  --title-color-dark: hsl(var(--hue), var(--sat), 10%);
+  --text-color: hsl(var(--hue), 8%, 45%);
+  --body-color: hsl(var(--hue), 30%, 97%);
   --container-color: #fff;
+
+  /*========== Accent Color ==========*/
+  --accent-color: hsl(var(--hue), var(--sat), 50%);
+  --accent-color-light: hsl(var(--hue), var(--sat), 92%);
 
   /*========== Font and typography ==========*/
   --body-font: "Poppins", sans-serif;
@@ -48,6 +52,17 @@
   --z-tooltip: 10;
   --z-fixed: 100;
   --z-modal: 1000;
+}
+
+/*=============== DARK THEME ===============*/
+body.dark-theme {
+  --title-color: hsl(var(--hue), 20%, 90%);
+  --title-color-dark: hsl(var(--hue), 20%, 99%);
+  --text-color: hsl(var(--hue), 10%, 65%);
+  --body-color: hsl(var(--hue), 20%, 12%);
+  --container-color: hsl(var(--hue), 20%, 18%);
+  --accent-color: hsl(var(--hue), var(--sat), 65%);
+  --accent-color-light: hsl(var(--hue), 20%, 22%);
 }
 
 /* Responsive typography */
@@ -85,6 +100,7 @@ textarea {
 body {
   background-color: var(--body-color);
   color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 h1,
@@ -127,6 +143,9 @@ img {
   display: block;
   font-size: var(--small-font-size);
   margin-bottom: 2rem;
+  color: var(--accent-color);
+  font-weight: var(--font-medium);
+  letter-spacing: 0.03em;
 }
 
 .sectionTitle,
@@ -154,10 +173,12 @@ img {
   padding: 1.25rem 2rem;
   border-radius: 1rem;
   font-weight: var(--font-medium);
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .button:hover {
-  background-color: var(--title-color-dark);
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
 }
 
 .button__icon {
