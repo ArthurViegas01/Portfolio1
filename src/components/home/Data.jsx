@@ -6,8 +6,12 @@ const Data = () => {
 
   return (
     <div className="homeData">
-      <h1 className="homeTitle">Arthur Viegas</h1>
+      <div className="homeAvailable">
+        <span className="homeAvailable-dot"></span>
+        {t.home.available}
+      </div>
 
+      <h1 className="homeTitle">Arthur Viegas</h1>
       <h3 className="homeSubtitle">{t.home.subtitle}</h3>
       <p className="homeDescricao">{t.home.description}</p>
 
