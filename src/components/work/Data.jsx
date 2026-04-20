@@ -1,5 +1,5 @@
 import ImgDonut from "../../assets/donutblender.png";
-import ImgTransportadora from "../../assets/TransportadoraDely5.png";
+import ImgTransportadora from "../../assets/work2.jpg";
 import ImgContextRag from "../../assets/work3.jpg";
 import ImgJogoGeneral from "../../assets/work4.jpg";
 import ImgDataglass from "../../assets/work6.jpg";
@@ -50,11 +50,11 @@ export const projectsData = [
     title: "Transportadora",
     category: "web",
     description_pt:
-      "Landing page responsiva para empresa de transporte. Layout moderno com secoes de servicos, frota e contato, construido com HTML, CSS e Bootstrap.",
+      "Sistema de gestao de transporte de cargas com calculadora de rotas (dados DNIT), formulario multi-step, dashboard analitico com graficos de custo por rota, exportacao CSV e estado global com Context API + useReducer.",
     description_en:
-      "Responsive landing page for a transport company. Modern layout with services, fleet, and contact sections, built with HTML, CSS, and Bootstrap.",
-    technologies: ["HTML", "CSS", "Bootstrap", "JavaScript"],
-    link: "https://stcarthurviegas.netlify.app",
+      "Full rewrite of a legacy project (CRA + jQuery) to a modern stack. Freight transport management system with a route calculator (DNIT data), multi-step form, analytics dashboard with cost-per-route charts, CSV export, and global state via Context API + useReducer.",
+    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Recharts", "React Router"],
+    link: "https://delytransportadora.netlify.app",
     github: "https://github.com/ArthurViegas01/TransporteCargas",
   },
   {
