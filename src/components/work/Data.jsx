@@ -54,7 +54,7 @@ export const projectsData = [
     description_en:
       "Full rewrite of a legacy project (CRA + jQuery) to a modern stack. Freight transport management system with a route calculator (DNIT data), multi-step form, analytics dashboard with cost-per-route charts, CSV export, and global state via Context API + useReducer.",
     technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Recharts", "React Router"],
-    link: "https://delytransportadora.netlify.app",
+    link: "https://delytransporte.netlify.app",
     github: "https://github.com/ArthurViegas01/TransporteCargas",
   },
   {
