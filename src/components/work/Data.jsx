@@ -3,6 +3,7 @@ import ImgTransportadora from "../../assets/work2.jpg";
 import ImgContextRag from "../../assets/work3.jpg";
 import ImgJogoGeneral from "../../assets/work4.jpg";
 import ImgDataglass from "../../assets/work6.jpg";
+import ImgUICompGenerator from "../../assets/work7.jpg"; // Nome sugerido para a imagem
 
 export const projectsData = [
   {
@@ -69,6 +70,19 @@ export const projectsData = [
     technologies: ["Blender", "3D Modeling", "Rendering"],
     link: "https://www.youtube.com/watch?v=B_ymnGZIKK4",
     github: null,
+  },
+  {
+    id: 6,
+    image: ImgUICompGenerator,
+    title: "AI Component Generator",
+    category: "ai",
+    description_pt:
+      "Gerador de componentes UI em tempo real com IA. Utiliza streaming via ReadableStream (Groq/Llama 3) e um sandbox seguro em iframe com Babel Standalone para compilar e renderizar código TSX/Tailwind instantaneamente. Inclui editor Monaco, gerenciamento de estado com Zustand e sistema de validação contra alucinações.",
+    description_en:
+      "Real-time AI-powered UI component generator. Features streaming via ReadableStream (Groq/Llama 3) and a secure iframe sandbox using Babel Standalone to compile and render TSX/Tailwind code instantly. Includes Monaco Editor, Zustand state management, and a client-side validation system to prevent AI hallucinations.",
+    technologies: ["Next.js 15", "Groq API", "Zustand", "Monaco Editor", "Tailwind CSS", "Framer Motion"],
+    link: "https://uicomponentgenerator.netlify.app",
+    github: "https://github.com/ArthurViegas01/UI-Component-Generator", // Ajuste se o repositório for outro
   },
 ];
 
