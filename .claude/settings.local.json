@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(wait)",
+      "Bash(npx react-scripts *)",
+      "Bash(node -e \"require\\('./node_modules/isexe'\\); console.log\\('isexe OK'\\)\")",
+      "Bash(node -e \"require\\('./node_modules/which'\\); console.log\\('which OK'\\)\")"
+    ]
+  }
+}
