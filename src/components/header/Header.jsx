@@ -94,6 +94,15 @@ const Header = () => {
             </li>
             <li className="navItem">
               <a
+                href="#casestudy"
+                onClick={() => handleNavClick("#casestudy")}
+                className={activeNav === "#casestudy" ? "navLink active-link" : "navLink"}
+              >
+                <i className="uil uil-sitemap navIcon"></i>{t.nav.casestudy}
+              </a>
+            </li>
+            <li className="navItem">
+              <a
                 href="#contact"
                 onClick={() => handleNavClick("#contact")}
                 className={activeNav === "#contact" ? "navLink active-link" : "navLink"}

@@ -6,12 +6,12 @@ export const translations = {
       services: "Servicos",
       qualification: "Qualificacoes",
       portfolio: "Portfolio",
+      casestudy: "Case Study",
       contact: "Contato",
     },
     home: {
       subtitle: "Full Stack & AI Engineer",
-      description:
-        "Engenheiro de Software graduado pela PUCRS especializado em sistemas com IA. Construo pipelines RAG end-to-end com FastAPI, processo documentos de forma assincrona com Celery e implemento busca semantica com pgvector. Combino arquitetura de dados com desenvolvimento Full Stack de alto impacto.",
+      description: "Engenheiro de Software graduado pela PUCRS especializado em AI Engineering. Construo pipelines RAG end-to-end, servidores MCP para agentes de IA e infraestrutura AWS com Terraform. FastAPI, LangChain, Docker e busca semantica com pgvector — do backend ao deploy.",
       cta: "Fale comigo",
       scrollDown: "Role pra baixo",
       available: "Disponivel",
@@ -19,8 +19,7 @@ export const translations = {
     about: {
       title: "Sobre mim",
       subtitle: "Minha introducao",
-      description:
-        "Full Stack Engineer especializado em backends com IA. Graduado em Engenharia de Software pela PUCRS, construi pipelines RAG end-to-end com FastAPI, LangChain, Sentence Transformers e pgvector. Ingles fluente, com experiencia em projetos reais entregando sistemas que combinam LLMs com arquitetura de dados robusta.",
+      description: "Full Stack Engineer especializado em backends com IA. Graduado em Engenharia de Software pela PUCRS, construi pipelines RAG end-to-end com FastAPI, LangChain, Sentence Transformers e pgvector. Ingles fluente, com experiencia em projetos reais entregando sistemas que combinam LLMs com arquitetura de dados robusta.",
       downloadCV: "Download Curriculo",
       experience: "Experiencia",
       experienceYears: "4+ anos de desenvolvimento",
@@ -29,10 +28,7 @@ export const translations = {
       support: "Disponibilidade",
       supportText: "Aberto a oportunidades",
     },
-    skills: {
-      title: "Skills",
-      subtitle: "Expertise tecnica",
-    },
+    skills: { title: "Skills", subtitle: "Expertise tecnica" },
     services: {
       title: "Servicos",
       subtitle: "O que eu ofeco:",
@@ -40,8 +36,7 @@ export const translations = {
         {
           icon: "uil uil-robot",
           title: "AI / RAG Engineering",
-          description:
-            "Desenvolvimento de pipelines RAG end-to-end para sistemas de perguntas e respostas sobre documentos.",
+          description: "Desenvolvimento de pipelines RAG end-to-end para sistemas de perguntas e respostas sobre documentos.",
           bullets: [
             "Chunking e embedding de documentos com LangChain e Sentence Transformers",
             "Busca semantica com PostgreSQL + pgvector",
@@ -52,8 +47,7 @@ export const translations = {
         {
           icon: "uil uil-layer-group",
           title: "Full Stack Development",
-          description:
-            "Desenvolvimento de aplicacoes web completas, do backend a interface do usuario.",
+          description: "Desenvolvimento de aplicacoes web completas, do backend a interface do usuario.",
           bullets: [
             "APIs REST escalaveis com FastAPI e Django",
             "Interfaces modernas com React e Vue 3",
@@ -64,8 +58,7 @@ export const translations = {
         {
           icon: "uil uil-database",
           title: "API & Data Architecture",
-          description:
-            "Design de arquiteturas de dados e APIs para sistemas de alto desempenho.",
+          description: "Design de arquiteturas de dados e APIs para sistemas de alto desempenho.",
           bullets: [
             "Modelagem de bancos vetoriais com pgvector",
             "Filas assincronas com Celery + Redis",
@@ -73,16 +66,22 @@ export const translations = {
             "Gestao de secrets segura (AWS Secrets Manager)",
           ],
         },
+        {
+          icon: "uil uil-plug",
+          title: "MCP Servers & AI Tooling",
+          description: "Desenvolvimento de servidores MCP (Model Context Protocol) que conectam agentes de IA a APIs e sistemas externos.",
+          bullets: [
+            "Servidores MCP com FastMCP (SDK oficial Anthropic)",
+            "Integracao com GitHub API, AWS, bancos de dados e APIs REST",
+            "Tools para Claude Desktop, Continue.dev e agentes customizados",
+            "Deploy containerizado em Railway, Render ou AWS",
+          ],
+        },
       ],
       seeMore: "Veja mais",
       close: "Fechar",
     },
-    qualification: {
-      title: "Qualificacao",
-      subtitle: "Minha jornada",
-      education: "Educacao",
-      experience: "Experiencia",
-    },
+    qualification: { title: "Qualificacao", subtitle: "Minha jornada", education: "Educacao", experience: "Experiencia" },
     work: {
       title: "Portfolio",
       subtitle: "Projetos recentes",
@@ -91,13 +90,7 @@ export const translations = {
       viewDetails: "Ver detalhes",
       prev: "Anterior",
       next: "Proximo",
-      categories: {
-        all: "Todos",
-        ai: "AI / ML",
-        fullstack: "Full Stack",
-        web: "Web Apps",
-        "3d": "3D",
-      },
+      categories: { all: "Todos", ai: "AI / ML", fullstack: "Full Stack", web: "Web Apps", "3d": "3D" },
     },
     contact: {
       title: "Entre em contato",
@@ -115,17 +108,271 @@ export const translations = {
       sending: "Enviando...",
       success: "Mensagem enviada com sucesso",
       error: "Erro ao enviar. Tente novamente.",
-      errors: {
-        nameRequired: "Nome e obrigatorio",
-        emailRequired: "Email e obrigatorio",
-        emailInvalid: "Email invalido",
-        projectRequired: "Descreva seu projeto",
-      },
+      errors: { nameRequired: "Nome e obrigatorio", emailRequired: "Email e obrigatorio", emailInvalid: "Email invalido", projectRequired: "Descreva seu projeto" },
     },
-    footer: {
-      about: "Sobre mim",
-      projects: "Projetos",
-      rights: "Arthur Pereira Viegas. Todos os direitos reservados",
+    footer: { about: "Sobre mim", projects: "Projetos", rights: "Arthur Pereira Viegas. Todos os direitos reservados" },
+    caseStudy: {
+      title: "System Design",
+      subtitle: "Estudo de caso arquitetural",
+      heroDesc: "Um pipeline RAG (Retrieval-Augmented Generation) end-to-end projetado para processar documentos corporativos de forma assincrona e responder perguntas com contexto preciso, sem alucinacoes.",
+      tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Performance" },
+      problem: {
+        title: "O Problema Tecnico",
+        text: "Sistemas de Q&A com LLMs puros alucinam quando a resposta nao esta no contexto de treinamento. O desafio era construir um sistema que processasse documentos grandes de forma nao-bloqueante, armazenasse representacoes semanticas com eficiencia e consultasse um LLM apenas com contexto relevante — tudo isso com latencia aceitavel e custo operacional controlado.",
+      },
+      architecture: {
+        title: "Arquitetura e Fluxo de Dados",
+        intro: "O sistema possui dois fluxos principais: Ingestao (upload e indexacao de documentos) e Consulta (busca semantica + inferencia LLM). A separacao entre eles permite escalar cada parte independentemente.",
+        steps: [
+          { title: "Upload de Documento", desc: "O cliente envia um PDF ou DOCX para o endpoint FastAPI via multipart/form-data. O arquivo e validado, salvo temporariamente e um job e criado." },
+          { title: "Enfileiramento Assincrono", desc: "FastAPI publica uma tarefa no Redis (broker do Celery) e retorna imediatamente um task_id ao cliente. O HTTP request nao bloqueia enquanto o documento e processado." },
+          { title: "Processamento pelo Worker", desc: "Um Celery Worker consome a tarefa e usa LangChain RecursiveCharacterTextSplitter para dividir o texto em chunks de 512 tokens com 50 de overlap." },
+          { title: "Geracao de Embeddings", desc: "O modelo all-MiniLM-L6-v2 (Sentence Transformers) converte cada chunk em um vetor de 384 dimensoes. Escolhido pelo excelente balanco entre qualidade e velocidade de inferencia." },
+          { title: "Armazenamento Vetorial", desc: "Os vetores sao persistidos no PostgreSQL via extensao pgvector com indice HNSW (Hierarchical Navigable Small World), que oferece busca aproximada de vizinhos em O(log n)." },
+          { title: "Busca por Similaridade + Geracao", desc: "Na consulta, a pergunta do usuario e embedada e os top-k chunks mais similares (cosine similarity) sao recuperados do pgvector. Esses chunks formam o contexto enviado ao Llama 3 via Groq API." },
+        ],
+      },
+      tradeoffs: {
+        title: "Analise de Trade-offs — Decisoes Criticas",
+        intro: "Engenheiros seniors nao escolhem ferramentas por tendencia. Cada decisao aqui foi guiada por latencia, custo operacional, complexidade de manutencao e o perfil de carga esperado.",
+        items: [
+          {
+            decision: "pgvector + PostgreSQL", alternative: "Pinecone / Milvus",
+            verdict: "Banco vetorial dedicado eliminado em favor de stack unificada",
+            pros: ["Zero infra adicional: vetores no mesmo banco relacional", "Transacoes ACID entre metadados e embeddings", "Custo zero de infraestrutura extra", "Queries SQL complexas com JOINs em contexto"],
+            cons: ["Limite pratico ~10M vetores sem sharding", "Sem suporte nativo a multi-tenancy de alta escala"],
+          },
+          {
+            decision: "FastAPI + async", alternative: "Django / Flask",
+            verdict: "ASGI nativo e type hints eliminaram overhead do WSGI",
+            pros: ["I/O nao bloqueante para upload de arquivos grandes", "Validacao automatica via Pydantic v2", "Documentacao OpenAPI gerada automaticamente", "Performance 2-3x superior ao Flask em benchmarks"],
+            cons: ["Ecossistema menor que Django para projetos monoliticos", "ORM menos maduro que Django ORM"],
+          },
+          {
+            decision: "Celery + Redis", alternative: "Processamento sincrono / AWS SQS",
+            verdict: "Fila local elimina latencia de rede e custo variavel",
+            pros: ["Processamento de documentos nao bloqueia o request HTTP", "Workers escalam horizontalmente de forma independente", "Redis serve tanto como broker quanto como cache", "Retry automatico em caso de falha no worker"],
+            cons: ["Redis e single-point-of-failure sem sentinel/cluster", "Overhead de serializacao em tasks grandes"],
+          },
+          {
+            decision: "Groq API / Llama 3", alternative: "OpenAI GPT-4 / Ollama local",
+            verdict: "Inferencia em hardware especializado com latencia < 200ms",
+            pros: ["Throughput de tokens muito superior ao OpenAI em custo/token", "Latencia media < 200ms vs 800ms+ do GPT-4", "Modelo open-source auditavel sem vendor lock-in total", "Tier gratuito viavel para portfolio e prototipagem"],
+            cons: ["Menor capacidade de raciocinio complexo que GPT-4", "Dependencia de disponibilidade do servico externo"],
+          },
+        ],
+      },
+      scalability: {
+        title: "Escalabilidade: 100k Requisicoes",
+        intro: "A arquitetura atual suporta carga de desenvolvimento. Para escalar para 100k req/dia (media ~1,2 req/s, pico ~10 req/s), as estrategias abaixo seriam aplicadas sem reescrever o core.",
+        pillars: [
+          { icon: "uil uil-layers-alt", color: "blue", title: "Load Balancer", desc: "Nginx ou AWS ALB distribuindo requisicoes entre N replicas stateless do FastAPI. Round-robin com health checks." },
+          { icon: "uil uil-server", color: "green", title: "FastAPI Horizontal", desc: "Replicas stateless em conteineres Docker. Auto-scaling via Kubernetes HPA baseado em CPU/req/s." },
+          { icon: "uil uil-database", color: "purple", title: "PostgreSQL Read Replicas", desc: "Reads de busca vetorial em read replicas. Writes de embedding apenas na primary. PgBouncer para pool de conexoes." },
+          { icon: "uil uil-process", color: "red", title: "Celery Auto-Scale", desc: "Workers Celery em pods Kubernetes com HPA. Fila Redis separada por prioridade (upload urgente vs. re-indexacao)." },
+          { icon: "uil uil-bolt", color: "orange", title: "Cache de Embeddings", desc: "Redis cache para queries repetidas: mesma pergunta retorna resultado cacheado sem recalcular embedding ou consultar LLM." },
+          { icon: "uil uil-shield", color: "teal", title: "Rate Limiting", desc: "SlowAPI (FastAPI) com Redis para rate limiting por IP/usuario. Previne abuso do endpoint de upload e da Groq API." },
+        ],
+        bottleneck: "O principal gargalo em alta escala seria a Groq API (rate limit externo). Mitigacao: cache agressivo de respostas + fallback para modelo local via Ollama.",
+      },
+      security: {
+        title: "Seguranca e Performance",
+        intro: "Sistemas com LLMs tem superficies de ataque unicas: prompt injection, exfiltracao via embeddings e exposicao de documentos privados. As medidas abaixo cobrem camadas de rede, aplicacao e dados.",
+        items: [
+          { icon: "uil uil-key-skeleton", title: "Secrets Management", desc: "Chaves de API (Groq, DB) nunca em codigo. Carregadas via variaveis de ambiente com .env.example documentado. Em producao: AWS Secrets Manager.", tag: "Config" },
+          { icon: "uil uil-file-check", title: "Validacao de Upload", desc: "Magic bytes verification para confirmar tipo MIME real. Limite de tamanho por arquivo. Sanitizacao de nome do arquivo antes de salvar no disco.", tag: "Input Security" },
+          { icon: "uil uil-lock", title: "Isolamento de Contexto", desc: "Cada documento e associado a um namespace/user_id no pgvector. Queries de similaridade filtradas por namespace: nenhum usuario acessa embeddings de outro.", tag: "Data Isolation" },
+          { icon: "uil uil-analytics", title: "Indice HNSW Tunado", desc: "Parametros ef_construction=128, m=16 configurados para balanco entre velocidade de build e qualidade de recall. ef_search=64 em runtime para P95 < 50ms.", tag: "Performance" },
+          { icon: "uil uil-sync", title: "Retry & Dead Letter", desc: "Tasks Celery com max_retries=3 e exponential backoff. Tasks que falham 3x vao para dead letter queue no Redis para analise sem perda de dados.", tag: "Resiliencia" },
+          { icon: "uil uil-eye-slash", title: "Prompt Sanitization", desc: "Input do usuario sanitizado antes de compor o prompt. Instrucao de sistema com role fixo previne prompt injection basico via separacao de contexto.", tag: "LLM Security" },
+        ],
+        perfTitle: "Metricas de Performance Esperadas",
+        metrics: [
+          { value: "< 50ms",  label: "Busca vetorial (P95) com indice HNSW" },
+          { value: "< 200ms", label: "Latencia Groq API (P50)" },
+          { value: "< 2s",    label: "Resposta total end-to-end (P95)" },
+          { value: "~384",    label: "Dimensoes do vetor (MiniLM-L6-v2)" },
+        ],
+      },
+      ctaGithub: "Ver no GitHub",
+      ctaDemo: "Ver Demo",
+      dataglass: {
+        heroDesc: "Plataforma SaaS de Business Intelligence multi-tenant integrada ao Tableau Server. Gerencia dashboards isolados por empresa, controla acesso por perfil e sincroniza dados via filas assincronas. Deploy em producao na AWS com Docker, Elastic Beanstalk, ECR, RDS e S3.",
+        tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Infra", cicd: "Pipeline CI/CD" },
+        problem: {
+          title: "O Desafio Tecnico",
+          text: "Empresas diferentes precisavam de dashboards Tableau completamente isolados (multi-tenancy), com controle de acesso granular por usuario. Sincronizacoes com o Tableau Server eram lentas e bloqueantes — impossivel de fazer inline em requests HTTP. A infraestrutura precisava ser confiavel e gerenciavel em producao real com multiplos clientes ativos simultaneamente.",
+        },
+        architecture: {
+          title: "Arquitetura AWS Multi-Tenant",
+          intro: "A plataforma separa camadas de responsabilidade: requisicoes web via AWS ALB → Elastic Beanstalk (Django), dados relacionais com isolamento por tenant no RDS, e sincronizacoes pesadas com o Tableau Server processadas em background via Celery + Redis.",
+          steps: [
+            { title: "Requisicao via AWS ALB", desc: "Todo trafego HTTPS entra pelo Application Load Balancer, que roteia para instancias Django no Elastic Beanstalk. Health checks automaticos garantem disponibilidade e rolling deploys sem downtime." },
+            { title: "Django + DRF Multi-Tenant", desc: "A API REST com Django REST Framework isola dados por tenant via company_id em todos os querysets. Um manager customizado torna o filtro obrigatorio, eliminando risco de vazamento entre clientes." },
+            { title: "PostgreSQL RDS (Row-Level)", desc: "PostgreSQL gerenciado no AWS RDS com isolamento por linha (company_id como FK). O Django ORM gerencia migrations com backward compatibility. RDS Proxy reduz overhead de conexoes." },
+            { title: "AWS S3 (File Storage)", desc: "Relatorios, exports e arquivos sao armazenados no S3 via django-storages. Signed URLs com TTL de 15min garantem acesso temporario e seguro sem expor o bucket publicamente." },
+            { title: "Fila Assincrona (Redis + Celery)", desc: "Sincronizacoes com o Tableau Server (lentas, ate 30s) sao enfileiradas como tasks Celery com Redis como broker. A API retorna imediatamente com um job_id; o resultado e consultado via polling." },
+            { title: "Integracao Tableau Server", desc: "Workers Celery chamam a REST API do Tableau Server para sincronizar usuarios, permissoes e dashboards por tenant. Retry com backoff exponencial e dead-letter queue para falhas persistentes." },
+          ],
+        },
+        tradeoffs: {
+          title: "Analise de Trade-offs — Decisoes de Arquitetura",
+          intro: "Cada decisao foi guiada pelo contexto: sistema multi-tenant em producao, time pequeno, deadline real. Pragmatismo sobre pureza arquitetural.",
+          items: [
+            {
+              decision: "Django + DRF", alternative: "FastAPI",
+              verdict: "ORM maduro e admin panel aceleraram o desenvolvimento multi-tenant",
+              pros: ["ORM robusto com migrations automaticas", "Admin panel para gestao de tenants", "Ecosistema maduro (auth, permissions, signals)", "Django-storages para integracao S3 nativa"],
+              cons: ["Overhead WSGI em operacoes I/O intensivas", "Menor performance que FastAPI em benchmarks de req/s"],
+            },
+            {
+              decision: "Elastic Beanstalk", alternative: "ECS / EKS",
+              verdict: "Gerenciamento simplificado sem overhead de orquestracao",
+              pros: ["Deploy automatizado com eb deploy", "Auto-scaling nativo integrado ao ALB", "Health checks e rolling updates out-of-the-box", "Sem necessidade de expertise em Kubernetes"],
+              cons: ["Menos controle granular que ECS/Kubernetes", "Acoplamento ao ecosistema AWS EB"],
+            },
+            {
+              decision: "Row-level isolation", alternative: "Schema-per-tenant",
+              verdict: "Zero overhead de migracao para novos tenants",
+              pros: ["Novo tenant: apenas uma linha no banco", "Migrations unificadas para todos os tenants", "Queries simples com filtro FK"],
+              cons: ["Risco de vazamento se filtro for esquecido (mitigado por manager customizado)", "Performance degradada em tabelas muito grandes sem particionamento"],
+            },
+            {
+              decision: "Celery + Redis", alternative: "AWS SQS + Lambda",
+              verdict: "Stack unificada sem latencia de cold start",
+              pros: ["Redis ja no stack (cache + broker)", "Sem cold start de Lambda", "Retry e dead-letter configuráveis", "Observabilidade nativa com Flower"],
+              cons: ["Redis como single-point-of-failure sem sentinel/cluster", "Lambda seria mais serverless e sem gestao de workers"],
+            },
+          ],
+        },
+        scalability: {
+          title: "Escalabilidade em Producao",
+          intro: "Arquitetura projetada para suportar multiplos tenants com carga variavel. As estrategias abaixo permitem escalar sem reescrever o core da aplicacao.",
+          pillars: [
+            { icon: "uil uil-server", color: "blue", title: "EB Auto-scaling", desc: "Elastic Beanstalk escala instancias Django horizontalmente baseado em CPU e latencia. Rolling updates garantem zero downtime durante deploys." },
+            { icon: "uil uil-database", color: "purple", title: "RDS + Proxy", desc: "Leituras em read replicas, writes no primary. RDS Proxy gerencia connection pooling, reduzindo overhead de conexoes sob carga." },
+            { icon: "uil uil-process", color: "green", title: "Celery Worker Pool", desc: "Pool de workers dedicado para Tableau sync, escalavel independentemente da API. Filas separadas por prioridade de tenant." },
+            { icon: "uil uil-cloud-upload", color: "orange", title: "S3 + CloudFront", desc: "Assets e exports servidos pelo S3 + CloudFront CDN. Zero carga na API para transferencia de arquivos." },
+            { icon: "uil uil-bolt", color: "red", title: "Redis Cache", desc: "Cache de resultados de dashboard com TTL configuravel por tenant. Reduz chamadas redundantes ao Tableau Server." },
+            { icon: "uil uil-docker", color: "teal", title: "Docker + ECR", desc: "Imagens Docker imutaveis publicadas no ECR. Deploys consistentes entre ambientes com rollback em um comando." },
+          ],
+          bottleneck: "O principal gargalo em escala seria o rate limit da API do Tableau Server por tenant. Mitigacao: cache agressivo + fila de prioridade para sincronizacoes criticas.",
+        },
+        security: {
+          title: "Seguranca Multi-Tenant e Infraestrutura",
+          intro: "Sistemas multi-tenant tem riscos especificos: vazamento de dados entre tenants, exposicao de credenciais e acesso indevido a arquivos. As camadas abaixo cobrem cada superficie de risco.",
+          items: [
+            { icon: "uil uil-shield-check", title: "IAM Roles (EB)", desc: "Elastic Beanstalk usa IAM Instance Profile para acessar S3 e outros servicos AWS. Zero credenciais hardcoded ou em codigo.", tag: "Infra" },
+            { icon: "uil uil-lock", title: "Multi-Tenant Isolation", desc: "company_id obrigatorio em todos os querysets via manager customizado. Testes automatizados verificam cross-tenant isolation a cada PR.", tag: "Data" },
+            { icon: "uil uil-key-skeleton", title: "Secrets Management", desc: "Credenciais do DB, Tableau e APIs externas injetadas via EB environment properties. Jamas em codigo ou .env commitado.", tag: "Config" },
+            { icon: "uil uil-image-lock", title: "S3 Signed URLs", desc: "Bucket S3 totalmente privado. Acesso a arquivos via signed URLs com TTL de 15min. Zero exposicao publica de arquivos.", tag: "Storage" },
+            { icon: "uil uil-bug", title: "Bugsnag APM", desc: "Erros e excecoes capturados em tempo real. Alertas configurados para falhas criticas de sincronizacao e erros 5xx.", tag: "Observability" },
+            { icon: "uil uil-envelope-shield", title: "Mailgun DKIM/SPF", desc: "Emails transacionais via Mailgun com DKIM e SPF configurados. Zero risco de spam ou spoofing para emails de notificacao.", tag: "Email" },
+          ],
+          perfTitle: "Stack de Producao",
+          metrics: [
+            { value: "AWS",   label: "EB + RDS + S3 + ECR + ALB" },
+            { value: "Docker", label: "Imagens imutaveis publicadas no ECR" },
+            { value: "Multi", label: "Tenants ativos simultaneamente em producao" },
+            { value: "Zero",  label: "Downtime em rolling deploys" },
+          ],
+        },
+        cicd: {
+          title: "Pipeline CI/CD — 3 Pipelines Independentes",
+          intro: "O Dataglass tem 3 pipelines separadas no AWS CodePipeline, cada uma com responsabilidade especifica. A estrategia de imagem Docker em camadas (python-base → app) reduz o tempo de build de ~12min para ~3min, pois as dependencias pesadas do Python so sao recompiladas quando mudam.",
+          stages: [
+            { title: "python-base pipeline (imagem base)", desc: "Reconstroi a imagem Docker base com todas as dependencias Python (requirements.txt). Publicada no ECR como dataglass/python-base. Executada manualmente apenas quando dependencias mudam — evita rebuild desnecessario em cada deploy." },
+            { title: "dataglass-dev pipeline (ambiente dev)", desc: "Triggera automaticamente em pushes para a branch dev. CodeBuild puxa a python-base do ECR, injeta variaveis de ambiente do Secrets Manager, compila o codigo da aplicacao e publica a imagem no ECR como dataglass/dev. Deploy automatico no EB dev environment." },
+            { title: "dataglass-app pipeline (producao)", desc: "Triggera em merges de PR para a branch main. Identico ao pipeline dev, mas publica no ECR como dataglass/app e faz deploy no EB production environment com rolling update — zero downtime." },
+            { title: "Injecao de Segredos no Build", desc: "O AWS Secrets Manager injeta credenciais sensiveis (DB URL, Tableau API key, Mailgun key) diretamente no processo do CodeBuild via environment variables. Nenhuma credencial e armazenada no repositorio ou na imagem Docker final." },
+            { title: "CodeArtifact — Cache de Pacotes", desc: "O AWS CodeArtifact funciona como proxy de cache para o PyPI, acelerando a instalacao de pacotes no build e garantindo reproducibilidade. Pacotes internos/privados podem ser publicados aqui sem expor ao PyPI publico." },
+          ],
+          metricsTitle: "Metricas do Pipeline",
+          metrics: [
+            { value: "~3 min",  label: "Tempo de CodeBuild (com camada base cacheada)" },
+            { value: "~7 min",  label: "Tempo total source → deploy em producao" },
+            { value: "3",       label: "Pipelines independentes (base, dev, prod)" },
+            { value: "Zero",    label: "Downtime em rolling deploy no Elastic Beanstalk" },
+          ],
+        },
+        ctaGithub: null,
+        ctaDemo: "Ver Dataglass",
+      },
+
+      mcp: {
+        heroDesc: "Um servidor MCP (Model Context Protocol) que transforma qualquer agente de IA em um analista de portfolios GitHub. Claude e outros LLM clients chamam ferramentas como analyze_profile, evaluate_repository e generate_recruiter_summary em linguagem natural — sem integracao manual, sem scraping.",
+        tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Deploy" },
+        problem: {
+          title: "O Problema Tecnico",
+          text: "Agentes de IA nao tem acesso nativo a dados de desenvolvedores no GitHub — precisam de integracao customizada em cada aplicacao. O MCP resolve isso com um protocolo padrao: um unico servidor expoe ferramentas tipadas que qualquer cliente MCP (Claude Desktop, Continue.dev, agentes customizados) pode invocar. O desafio era projetar as ferramentas certas, lidar com rate limits da GitHub API e garantir que o output do LLM seja estruturado o suficiente para ser util — sem ser verbose demais.",
+        },
+        architecture: {
+          title: "Arquitetura MCP — Fluxo de Ferramentas",
+          intro: "O servidor segue o protocolo MCP (JSON-RPC 2.0 sobre stdio ou HTTP/SSE). O cliente descreve o que quer em linguagem natural; o LLM decide qual ferramenta chamar e com quais argumentos; o servidor executa e retorna dados estruturados. O loop repete ate a resposta estar completa.",
+          steps: [
+            { title: "Tool Call via MCP Protocol", desc: "O cliente MCP (ex: Claude Desktop) envia uma tool call JSON-RPC. O FastMCP server registra as ferramentas com type hints Python — o schema JSON e gerado automaticamente, eliminando boilerplate." },
+            { title: "analyze_profile(username)", desc: "Busca todos os repositorios publicos do usuario via GitHub REST API. Calcula: linguagens mais usadas (por bytes de codigo), estrelas totais, frequencia de commits nos ultimos 90 dias e distribuicao de contribuicoes." },
+            { title: "evaluate_repository(repo_url)", desc: "Analisa um repositorio especifico: estrutura de arquivos, qualidade do README (presenca de badges, setup instructions, arquitetura), historico de commits e tech stack detectado automaticamente." },
+            { title: "map_to_job(username, job_description)", desc: "Usa LangChain para extrair skills requeridas da descricao da vaga e mapeia para repositorios do desenvolvedor. Retorna: skills matched, skills gap e nivel de match percentual." },
+            { title: "generate_recruiter_summary(username)", desc: "Sintetiza todos os dados via LLM call (Groq/Llama 3) com um prompt estruturado. Output: um relatorio Markdown formatado com pontos fortes, stack principal, projetos destacados e sugestao de abordagem para o recrutador." },
+            { title: "Cache + Rate Limit Protection", desc: "Respostas da GitHub API sao cacheadas em Redis com TTL de 15 minutos. Um middleware de rate limiting por IP protege contra abuso. O token GitHub e injetado via variavel de ambiente — zero credenciais em codigo." },
+          ],
+        },
+        tradeoffs: {
+          title: "Analise de Trade-offs",
+          intro: "Cada decisao de design foi tomada considerando a experiencia do desenvolvedor que vai usar o servidor, o custo de manutencao e o alinhamento com o ecossistema MCP emergente.",
+          items: [
+            {
+              decision: "FastMCP (Anthropic SDK)", alternative: "JSON-RPC manual / MCP SDK raw",
+              verdict: "FastMCP eliminou ~80% do boilerplate de protocolo",
+              pros: ["Type hints Python viram schema MCP automaticamente", "Mesma DX do FastAPI — decorators, validators, docs", "Mantido pela Anthropic — evolui com o protocolo", "Suporte nativo a stdio e HTTP/SSE transport"],
+              cons: ["Abstrai detalhes do protocolo — menos controle fino", "Versao 1.x ainda em evolucao rapida — breaking changes possiveis"],
+            },
+            {
+              decision: "GitHub REST API v3", alternative: "GitHub GraphQL API v4",
+              verdict: "REST suficiente; GraphQL eliminaria round-trips em queries complexas",
+              pros: ["SDK Python oficial (PyGithub) bem maduro", "Autenticacao simples com PAT scoped", "Rate limit de 5000 req/hr com token autenticado", "Caching por URL de endpoint — simples de implementar"],
+              cons: ["Queries de dados relacionais (repos + commits + languages) exigem multiplos round-trips", "GraphQL reduziria isso a uma query — relevante em escala"],
+            },
+            {
+              decision: "Railway para deploy", alternative: "AWS ECS / Fly.io",
+              verdict: "Railway: zero-config, deploy em 2 minutos, custo minimo",
+              pros: ["Dockerfile → deploy automatico sem config de infra", "Variaveis de ambiente via UI — sem SSM ou Secrets Manager", "HTTPS automatico com dominio customizado", "Custo ~$5/mes para este perfil de uso"],
+              cons: ["Menos controle sobre networking, VPC, scaling policies", "Vendor lock-in maior que AWS — mitigado pela natureza stateless do servico"],
+            },
+          ],
+        },
+        scalability: {
+          title: "Escalabilidade e Limites",
+          intro: "O servidor MCP e stateless por design — cada tool call e independente. O principal gargalo e a GitHub API (5000 req/hr por token), mitigado por caching inteligente.",
+          pillars: [
+            { icon: "uil uil-database-alt", color: "blue",   title: "Cache com Redis", desc: "Respostas da GitHub API cacheadas por 15 minutos. Um perfil com 30 repos que gera ~90 chamadas API e reutilizado sem custo adicional para requests subsequentes no mesmo periodo." },
+            { icon: "uil uil-copy", color: "green",          title: "Stateless por Design", desc: "Nenhum estado e mantido entre tool calls. Multiplas replicas do servidor podem processar requests em paralelo sem coordenacao — scale horizontal e trivial." },
+            { icon: "uil uil-tachometer-fast", color: "red", title: "Streaming de Resposta", desc: "O generate_recruiter_summary usa streaming via Groq API (ReadableStream). O cliente ve os tokens chegando em tempo real — latencia percebida < 500ms mesmo para relatorios longos." },
+            { icon: "uil uil-shield-check", color: "purple", title: "Rate Limit por IP", desc: "Middleware fastapi-limiter restringe a 30 tool calls por minuto por IP. Protege tanto a GitHub API quanto os tokens de LLM contra abuso sem necessidade de autenticacao de usuarios." },
+          ],
+          bottleneck: "Token GitHub com rate limit de 5000 req/hr. Solucao de longo prazo: GitHub Apps com tokens por instalacao (rate limit por organizacao, nao por token compartilhado).",
+        },
+        security: {
+          title: "Seguranca & Deploy",
+          intro: "Um servidor MCP exposto na internet precisa de validacao de input rigorosa — o LLM pode ser induzido a passar argumentos maliciosos para as ferramentas.",
+          items: [
+            { icon: "uil uil-key-skeleton-alt", title: "Token com Escopo Minimo",    desc: "GitHub PAT configurado com read:public_repo apenas. Mesmo comprometido, nao permite acesso a repos privados, write, ou deletar dados.", tag: "Least Privilege" },
+            { icon: "uil uil-shield-check",     title: "Validacao de Input",          desc: "Todos os parametros das ferramentas passam por validators Pydantic antes de qualquer chamada de API. Tentativas de path traversal ou injection sao rejeitadas antes de sair do servidor.", tag: "Input Sanitization" },
+            { icon: "uil uil-lock-alt",         title: "Secrets via Env Vars",        desc: "GitHub token e Groq API key injetados via variaveis de ambiente no Railway. Zero credenciais em codigo, Dockerfile ou logs. Rotacao de tokens sem redeploy.", tag: "Secrets Management" },
+            { icon: "uil uil-server",           title: "Containerizado com Docker",   desc: "Imagem Docker slim (python:3.12-slim). Health check no /health endpoint. Restart automatico em falha. Reproducivel localmente com docker run — sem environment-specific bugs.", tag: "Reproducibility" },
+          ],
+          perfTitle: "Metricas de Performance",
+          metrics: [
+            { value: "< 200ms", label: "analyze_profile (com cache Redis)" },
+            { value: "< 2s",    label: "map_to_job (GitHub API + LangChain)" },
+            { value: "~1.5s",   label: "Primeiro token do generate_recruiter_summary (streaming)" },
+            { value: "5000",    label: "GitHub API requests/hora por token autenticado" },
+          ],
+        },
+        ctaGithub: "Ver no GitHub",
+        ctaDemo: "README & Instalacao",
+      },
     },
   },
 
@@ -136,12 +383,12 @@ export const translations = {
       services: "Services",
       qualification: "Experience",
       portfolio: "Portfolio",
+      casestudy: "Case Study",
       contact: "Contact",
     },
     home: {
       subtitle: "Full Stack & AI Engineer",
-      description:
-        "Software Engineer graduated from PUCRS, specialized in AI-powered systems. I build end-to-end RAG pipelines with FastAPI, process documents asynchronously with Celery, and implement semantic search with pgvector. I combine data architecture with high-impact Full Stack development.",
+      description: "Software Engineer graduated from PUCRS, specialized in AI Engineering. I build end-to-end RAG pipelines, MCP servers for AI agents, and AWS infrastructure with Terraform. FastAPI, LangChain, Docker, and semantic search with pgvector — from backend design to production deploy.",
       cta: "Let's talk",
       scrollDown: "Scroll down",
       available: "Available",
@@ -149,8 +396,7 @@ export const translations = {
     about: {
       title: "About me",
       subtitle: "My introduction",
-      description:
-        "Full Stack Engineer specialized in AI-powered backends. B.Sc. in Software Engineering from PUCRS. I built end-to-end RAG pipelines with FastAPI, LangChain, Sentence Transformers, and pgvector. Fluent in English, with hands-on experience shipping systems that combine LLMs with robust data architecture.",
+      description: "AI Engineer and Full Stack Developer with a B.Sc. in Software Engineering from PUCRS. I build RAG pipelines, MCP servers for AI agents, and provision AWS infrastructure with Terraform. Fluent in English, with hands-on experience shipping systems that combine LLMs with robust data architecture.",
       downloadCV: "Download CV",
       experience: "Experience",
       experienceYears: "4+ years of development",
@@ -159,10 +405,7 @@ export const translations = {
       support: "Availability",
       supportText: "Open to remote opportunities",
     },
-    skills: {
-      title: "Skills",
-      subtitle: "Technical expertise",
-    },
+    skills: { title: "Skills", subtitle: "Technical expertise" },
     services: {
       title: "Services",
       subtitle: "What I offer:",
@@ -170,8 +413,7 @@ export const translations = {
         {
           icon: "uil uil-robot",
           title: "AI / RAG Engineering",
-          description:
-            "End-to-end RAG pipeline development for document question-answering systems.",
+          description: "End-to-end RAG pipeline development for document question-answering systems.",
           bullets: [
             "Document chunking and embedding with LangChain and Sentence Transformers",
             "Semantic search with PostgreSQL + pgvector",
@@ -182,8 +424,7 @@ export const translations = {
         {
           icon: "uil uil-layer-group",
           title: "Full Stack Development",
-          description:
-            "End-to-end web application development, from backend APIs to user interfaces.",
+          description: "End-to-end web application development, from backend APIs to user interfaces.",
           bullets: [
             "Scalable REST APIs with FastAPI and Django",
             "Modern interfaces with React and Vue 3",
@@ -194,8 +435,7 @@ export const translations = {
         {
           icon: "uil uil-database",
           title: "API & Data Architecture",
-          description:
-            "Data and API architecture design for high-performance systems.",
+          description: "Data and API architecture design for high-performance systems.",
           bullets: [
             "Vector database modeling with pgvector",
             "Async task queues with Celery + Redis",
@@ -203,16 +443,22 @@ export const translations = {
             "Secrets management and secure configuration (AWS Secrets Manager)",
           ],
         },
+        {
+          icon: "uil uil-plug",
+          title: "MCP Servers & AI Tooling",
+          description: "Building MCP (Model Context Protocol) servers that connect AI agents to external APIs and systems.",
+          bullets: [
+            "MCP servers with FastMCP (official Anthropic SDK)",
+            "Integrations with GitHub API, AWS, databases, and REST APIs",
+            "Tools for Claude Desktop, Continue.dev, and custom agents",
+            "Containerized deployment on Railway, Render, or AWS",
+          ],
+        },
       ],
       seeMore: "See more",
       close: "Close",
     },
-    qualification: {
-      title: "Qualification",
-      subtitle: "My journey",
-      education: "Education",
-      experience: "Experience",
-    },
+    qualification: { title: "Qualification", subtitle: "My journey", education: "Education", experience: "Experience" },
     work: {
       title: "Portfolio",
       subtitle: "Recent projects",
@@ -221,13 +467,7 @@ export const translations = {
       viewDetails: "View details",
       prev: "Previous",
       next: "Next",
-      categories: {
-        all: "All",
-        ai: "AI / RAG",
-        fullstack: "Full Stack",
-        web: "Web Apps",
-        "3d": "3D",
-      },
+      categories: { all: "All", ai: "AI / RAG", fullstack: "Full Stack", web: "Web Apps", "3d": "3D" },
     },
     contact: {
       title: "Get in touch",
@@ -245,17 +485,261 @@ export const translations = {
       sending: "Sending...",
       success: "Message sent successfully",
       error: "Failed to send. Please try again.",
-      errors: {
-        nameRequired: "Name is required",
-        emailRequired: "Email is required",
-        emailInvalid: "Invalid email address",
-        projectRequired: "Please describe your project",
-      },
+      errors: { nameRequired: "Name is required", emailRequired: "Email is required", emailInvalid: "Invalid email address", projectRequired: "Please describe your project" },
     },
-    footer: {
-      about: "About",
-      projects: "Projects",
-      rights: "Arthur Pereira Viegas. All rights reserved",
+    footer: { about: "About", projects: "Projects", rights: "Arthur Pereira Viegas. All rights reserved" },
+    caseStudy: {
+      title: "System Design",
+      subtitle: "Architectural case study",
+      heroDesc: "An end-to-end RAG (Retrieval-Augmented Generation) pipeline designed to process corporate documents asynchronously and answer questions with precise context, without hallucinations.",
+      tabs: { architecture: "Architecture", tradeoffs: "Trade-offs", scalability: "Scalability", security: "Security & Performance" },
+      problem: {
+        title: "The Technical Problem",
+        text: "Pure LLM Q&A systems hallucinate when the answer is not within their training context. The challenge was to build a system that processes large documents in a non-blocking manner, stores semantic representations efficiently, and queries an LLM only with relevant context — all with acceptable latency and controlled operational cost.",
+      },
+      architecture: {
+        title: "Architecture & Data Flow",
+        intro: "The system has two main flows: Ingestion (document upload and indexing) and Query (semantic search + LLM inference). Separating them allows each to be scaled independently.",
+        steps: [
+          { title: "Document Upload", desc: "The client sends a PDF or DOCX to the FastAPI endpoint via multipart/form-data. The file is validated, temporarily saved, and a job is created." },
+          { title: "Async Enqueueing", desc: "FastAPI publishes a task to Redis (Celery broker) and immediately returns a task_id to the client. The HTTP request does not block while the document is being processed." },
+          { title: "Worker Processing", desc: "A Celery Worker consumes the task and uses LangChain RecursiveCharacterTextSplitter to divide the text into 512-token chunks with 50-token overlap." },
+          { title: "Embedding Generation", desc: "The all-MiniLM-L6-v2 model (Sentence Transformers) converts each chunk into a 384-dimensional vector. Chosen for its excellent balance between quality and inference speed." },
+          { title: "Vector Storage", desc: "Vectors are persisted in PostgreSQL via the pgvector extension with an HNSW index (Hierarchical Navigable Small World), providing approximate nearest-neighbor search in O(log n)." },
+          { title: "Similarity Search + Generation", desc: "On query, the user question is embedded and the top-k most similar chunks (cosine similarity) are retrieved from pgvector. These chunks form the context sent to Llama 3 via the Groq API." },
+        ],
+      },
+      tradeoffs: {
+        title: "Trade-off Analysis — Critical Decisions",
+        intro: "Senior engineers don't choose tools by trend. Every decision here was guided by latency, operational cost, maintenance complexity, and the expected load profile.",
+        items: [
+          {
+            decision: "pgvector + PostgreSQL", alternative: "Pinecone / Milvus",
+            verdict: "Dedicated vector DB eliminated in favor of unified stack",
+            pros: ["Zero extra infra: vectors in the same relational DB", "ACID transactions between metadata and embeddings", "Zero additional infrastructure cost", "Complex SQL queries with JOINs in context"],
+            cons: ["Practical limit ~10M vectors without sharding", "No native support for high-scale multi-tenancy"],
+          },
+          {
+            decision: "FastAPI + async", alternative: "Django / Flask",
+            verdict: "Native ASGI and type hints eliminated WSGI overhead",
+            pros: ["Non-blocking I/O for large file uploads", "Automatic validation via Pydantic v2", "Auto-generated OpenAPI documentation", "2-3x better performance than Flask in benchmarks"],
+            cons: ["Smaller ecosystem than Django for monolithic projects", "Less mature ORM than Django ORM"],
+          },
+          {
+            decision: "Celery + Redis", alternative: "Synchronous processing / AWS SQS",
+            verdict: "Local queue eliminates network latency and variable cost",
+            pros: ["Document processing does not block the HTTP request", "Workers scale horizontally and independently", "Redis serves as both broker and cache", "Automatic retry on worker failure"],
+            cons: ["Redis is a single-point-of-failure without sentinel/cluster", "Serialization overhead for large tasks"],
+          },
+          {
+            decision: "Groq API / Llama 3", alternative: "OpenAI GPT-4 / local Ollama",
+            verdict: "Specialized hardware inference with < 200ms latency",
+            pros: ["Much higher token throughput than OpenAI at cost/token", "Average latency < 200ms vs 800ms+ for GPT-4", "Auditable open-source model with no full vendor lock-in", "Free tier viable for portfolio and prototyping"],
+            cons: ["Lower complex reasoning capacity than GPT-4", "Dependency on external service availability"],
+          },
+        ],
+      },
+      scalability: {
+        title: "Scalability: 100k Requests",
+        intro: "The current architecture supports development load. To scale to 100k req/day (avg ~1.2 req/s, peak ~10 req/s), the strategies below would be applied without rewriting the core.",
+        pillars: [
+          { icon: "uil uil-layers-alt", color: "blue", title: "Load Balancer", desc: "Nginx or AWS ALB distributing requests across N stateless FastAPI replicas. Round-robin with health checks." },
+          { icon: "uil uil-server", color: "green", title: "Horizontal FastAPI", desc: "Stateless replicas in Docker containers. Auto-scaling via Kubernetes HPA based on CPU/req/s." },
+          { icon: "uil uil-database", color: "purple", title: "PostgreSQL Read Replicas", desc: "Vector similarity reads on read replicas. Embedding writes only on primary. PgBouncer for connection pooling." },
+          { icon: "uil uil-process", color: "red", title: "Celery Auto-Scale", desc: "Celery workers in Kubernetes pods with HPA. Separate Redis queues by priority (urgent upload vs. re-indexing)." },
+          { icon: "uil uil-bolt", color: "orange", title: "Embedding Cache", desc: "Redis cache for repeated queries: same question returns cached result without recalculating embedding or querying the LLM." },
+          { icon: "uil uil-shield", color: "teal", title: "Rate Limiting", desc: "SlowAPI (FastAPI) with Redis for per-IP/user rate limiting. Prevents abuse of the upload endpoint and the Groq API." },
+        ],
+        bottleneck: "The main bottleneck at high scale would be the Groq API (external rate limit). Mitigation: aggressive response caching + fallback to local model via Ollama.",
+      },
+      security: {
+        title: "Security & Performance",
+        intro: "LLM-based systems have unique attack surfaces: prompt injection, exfiltration via embeddings, and exposure of private documents. The measures below cover network, application, and data layers.",
+        items: [
+          { icon: "uil uil-key-skeleton", title: "Secrets Management", desc: "API keys (Groq, DB) never in code. Loaded via environment variables with a documented .env.example. In production: AWS Secrets Manager.", tag: "Config" },
+          { icon: "uil uil-file-check", title: "Upload Validation", desc: "Magic bytes verification to confirm real MIME type. Per-file size limit. Filename sanitization before saving to disk.", tag: "Input Security" },
+          { icon: "uil uil-lock", title: "Context Isolation", desc: "Each document is associated with a namespace/user_id in pgvector. Similarity queries filtered by namespace: no user accesses another user embeds.", tag: "Data Isolation" },
+          { icon: "uil uil-analytics", title: "Tuned HNSW Index", desc: "Parameters ef_construction=128, m=16 set for a balance between build speed and recall quality. ef_search=64 at runtime for P95 < 50ms.", tag: "Performance" },
+          { icon: "uil uil-sync", title: "Retry & Dead Letter", desc: "Celery tasks with max_retries=3 and exponential backoff. Tasks failing 3x go to a dead letter queue in Redis for analysis without data loss.", tag: "Resilience" },
+          { icon: "uil uil-eye-slash", title: "Prompt Sanitization", desc: "User input sanitized before composing the prompt. Fixed-role system instruction prevents basic prompt injection via context separation.", tag: "LLM Security" },
+        ],
+        perfTitle: "Expected Performance Metrics",
+        metrics: [
+          { value: "< 50ms",  label: "Vector search (P95) with HNSW index" },
+          { value: "< 200ms", label: "Groq API latency (P50)" },
+          { value: "< 2s",    label: "Total end-to-end response (P95)" },
+          { value: "~384",    label: "Vector dimensions (MiniLM-L6-v2)" },
+        ],
+      },
+      ctaGithub: "View on GitHub",
+      ctaDemo: "View Demo",
+      dataglass: {
+        heroDesc: "Multi-tenant SaaS Business Intelligence platform integrated with Tableau Server. Manages isolated dashboards per company, controls access by profile, and syncs data via async queues. Deployed in production on AWS with Docker, Elastic Beanstalk, ECR, RDS, and S3.",
+        tabs: { architecture: "Architecture", tradeoffs: "Trade-offs", scalability: "Scalability", security: "Security & Infra", cicd: "CI/CD Pipeline" },
+        problem: {
+          title: "The Technical Challenge",
+          text: "Different companies needed fully isolated Tableau dashboards (multi-tenancy) with granular per-user access control. Syncing with Tableau Server was slow and blocking — impossible to do inline in HTTP requests. The infrastructure needed to be reliable and manageable in real production with multiple active clients running simultaneously.",
+        },
+        architecture: {
+          title: "AWS Multi-Tenant Architecture",
+          intro: "The platform separates responsibility layers: web requests via AWS ALB to Elastic Beanstalk (Django), relational data with tenant isolation in RDS, and heavy Tableau API calls dispatched asynchronously via Celery. Each tenant sees only their own dashboards.",
+          steps: [
+            { title: "Multi-Tenant Request Flow", desc: "AWS ALB receives HTTP requests and routes them to Elastic Beanstalk instances. Nginx inside EB forwards to Gunicorn/Django. Each request carries a company identifier resolved to a Tableau site token." },
+            { title: "Tableau API Integration", desc: "Django backend calls the Tableau REST API to fetch dashboard embed URLs, trusted tickets, and workbook metadata. Responses are cached in ElastiCache (Redis) to avoid repeated API calls per session." },
+            { title: "Async Data Processing", desc: "Heavy operations (data sync, report generation, user imports) are delegated to Celery workers via Redis broker. This keeps the web layer responsive under concurrent tenant load." },
+            { title: "Multi-Tenant Data Isolation", desc: "Each company has a dedicated Tableau site. Django enforces company-scoped queries via middleware. RDS rows are always filtered by company_id -- no cross-tenant data leaks." },
+            { title: "Static Assets & File Storage", desc: "User uploads and report exports are stored in S3. Signed URLs with short TTLs provide secure, time-limited access without exposing bucket internals." },
+            { title: "CI/CD: Push to Production", desc: "GitHub push triggers AWS CodePipeline. CodeBuild pulls the cached Python base image from ECR, builds the app image, pushes to ECR, and Elastic Beanstalk performs a rolling deploy with zero downtime." },
+          ],
+        },
+        tradeoffs: {
+          title: "Trade-off Analysis",
+          intro: "Each architectural decision in Dataglass was driven by the constraints of a production SaaS: multi-tenant isolation, Tableau licensing, and cost control at early-stage scale.",
+          items: [
+            {
+              decision: "Elastic Beanstalk", alternative: "Amazon ECS / Kubernetes",
+              verdict: "EB provided managed deploys without DevOps overhead at this scale",
+              pros: ["Managed rolling deploys with zero downtime", "Auto-scaling policies with CloudWatch triggers", "Built-in health checks and environment cloning for staging", "Zero Kubernetes complexity for a 2-person engineering team"],
+              cons: ["Less control over container orchestration than ECS/EKS", "EB abstraction can hide infrastructure issues during incidents"],
+            },
+            {
+              decision: "Django + DRF", alternative: "FastAPI",
+              verdict: "Django's batteries-included approach fit the multi-tenant SaaS model",
+              pros: ["Django Admin for rapid internal tooling without extra code", "DRF serializers with nested tenant-aware permissions", "Mature ORM for complex permission queries across company, user, dashboard", "django-tenant-schemas candidate for future DB-level isolation"],
+              cons: ["WSGI synchronous model -- workaround via Celery for async operations", "Higher memory footprint than FastAPI per request"],
+            },
+            {
+              decision: "ElastiCache (Redis)", alternative: "Memcached / in-process cache",
+              verdict: "Shared distributed cache essential for multi-instance EB deployments",
+              pros: ["Tableau API token cache shared across all EB instances -- no redundant API calls", "Session storage consistent across rolling deployments", "Celery broker and result backend on the same Redis cluster", "Sub-millisecond latency for dashboard embed URL lookups"],
+              cons: ["Additional managed service cost (~$15/month for cache.t3.micro)", "Single Redis cluster is a point of failure without Multi-AZ (acceptable at current scale)"],
+            },
+          ],
+        },
+        scalability: {
+          title: "Scalability Strategy",
+          intro: "Dataglass is designed to onboard new companies without infrastructure changes. The bottleneck is not compute but Tableau licensing -- each new site requires a Tableau Server license slot.",
+          pillars: [
+            { icon: "uil uil-layers-alt", color: "blue",   title: "EB Auto-Scaling",        desc: "CloudWatch alarms on CPU > 70% trigger new EB instance launches. Scale-in after traffic drops. Minimum 2 instances for high availability across AZs." },
+            { icon: "uil uil-database",   color: "green",  title: "RDS Connection Pooling",  desc: "PgBouncer in transaction mode pools connections to RDS PostgreSQL. Prevents connection exhaustion when EB scales to multiple instances." },
+            { icon: "uil uil-bolt",       color: "red",    title: "Tableau Response Cache",  desc: "ElastiCache caches embed URLs and trusted tickets for 10 minutes. Eliminates Tableau API round-trips for active dashboard sessions." },
+            { icon: "uil uil-process",    color: "purple", title: "Celery Worker Pool",      desc: "Celery workers auto-scale via Supervisor on separate EB worker environments. Processing-heavy tasks (data sync, exports) are isolated from the web tier." },
+          ],
+          bottleneck: "Tableau Server licensing is the primary scaling constraint. Each new company requires a provisioned Tableau site. Automation of site provisioning via the Tableau REST API is the next scalability lever.",
+        },
+        security: {
+          title: "Security & Infrastructure",
+          intro: "A multi-tenant B2B platform handling client BI data requires defense-in-depth across network, application, and data layers.",
+          items: [
+            { icon: "uil uil-shield-check",    title: "Secrets Manager",          desc: "All credentials (DB password, Tableau API key, Mailgun key) are stored in AWS Secrets Manager. Injected at build time by CodeBuild -- never stored in the repository or Docker image.", tag: "Secrets" },
+            { icon: "uil uil-lock-alt",        title: "SSL / Certificate Manager", desc: "HTTPS enforced via ACM certificate attached to the ALB. All HTTP traffic redirected to HTTPS. Tableau embed URLs served only over HTTPS.", tag: "Transport" },
+            { icon: "uil uil-users-alt",       title: "IAM Least Privilege",      desc: "Each AWS service (EB, CodeBuild, S3) has a dedicated IAM role with minimum required permissions. No wildcard policies.", tag: "IAM" },
+            { icon: "uil uil-envelope-shield", title: "Mailgun DKIM/SPF",         desc: "Transactional emails via Mailgun with DKIM and SPF configured. Zero spam risk or spoofing for notification emails.", tag: "Email" },
+          ],
+          perfTitle: "Production Stack",
+          metrics: [
+            { value: "AWS",    label: "EB + RDS + S3 + ECR + ALB" },
+            { value: "Docker", label: "Immutable images published to ECR" },
+            { value: "Multi",  label: "Active tenants running simultaneously in production" },
+            { value: "Zero",   label: "Downtime on rolling deploys to Elastic Beanstalk" },
+          ],
+        },
+        cicd: {
+          title: "CI/CD Pipeline -- 3 Independent Pipelines",
+          intro: "Dataglass has 3 separate AWS CodePipeline pipelines, each with a specific responsibility. The layered Docker image strategy (python-base to app) reduces build time from ~12min to ~3min.",
+          stages: [
+            { title: "python-base pipeline (base image)", desc: "Rebuilds the base Docker image with all Python dependencies (requirements.txt). Published to ECR as dataglass/python-base. Triggered manually only when dependencies change." },
+            { title: "dataglass-dev pipeline (dev environment)", desc: "Triggers automatically on pushes to the dev branch. CodeBuild pulls python-base from ECR, injects Secrets Manager variables, and publishes to ECR as dataglass/dev. Auto-deploys to EB dev." },
+            { title: "dataglass-app pipeline (production)", desc: "Triggers on PR merges to the main branch. Publishes to ECR as dataglass/app and deploys to EB production with a rolling update -- zero downtime." },
+            { title: "Secrets Injection at Build Time", desc: "AWS Secrets Manager injects sensitive credentials directly into the CodeBuild process via environment variables. No credentials in the repository or Docker image." },
+            { title: "CodeArtifact -- Package Cache", desc: "AWS CodeArtifact acts as a caching proxy for PyPI, speeding up package installation at build time and ensuring reproducibility." },
+          ],
+          metricsTitle: "Pipeline Metrics",
+          metrics: [
+            { value: "~3 min",  label: "CodeBuild time (with cached base layer)" },
+            { value: "~7 min",  label: "Total time source to production deploy" },
+            { value: "3",       label: "Independent pipelines (base, dev, prod)" },
+            { value: "Zero",    label: "Downtime on rolling deploy to Elastic Beanstalk" },
+          ],
+        },
+        ctaGithub: null,
+        ctaDemo: "View Dataglass",
+      },
+
+      mcp: {
+        heroDesc: "An MCP (Model Context Protocol) server that turns any AI agent into a GitHub portfolio analyst. Claude and other LLM clients invoke tools like analyze_profile, evaluate_repository, and generate_recruiter_summary in plain language -- no custom integration, no scraping.",
+        tabs: { architecture: "Architecture", tradeoffs: "Trade-offs", scalability: "Scalability", security: "Security & Deploy" },
+        problem: {
+          title: "The Technical Problem",
+          text: "AI agents have no native access to developer data on GitHub -- every application needs its own custom integration. MCP solves this with a standard protocol: a single server exposes typed tools that any MCP client (Claude Desktop, Continue.dev, custom agents) can invoke. The challenge was designing the right set of tools, handling GitHub API rate limits gracefully, and ensuring LLM output is structured enough to be useful -- without being verbose.",
+        },
+        architecture: {
+          title: "MCP Architecture -- Tool Call Flow",
+          intro: "The server follows the MCP protocol (JSON-RPC 2.0 over stdio or HTTP/SSE). The client describes what it wants in natural language; the LLM decides which tool to call and with what arguments; the server executes and returns structured data. The loop repeats until the response is complete.",
+          steps: [
+            { title: "Tool Call via MCP Protocol", desc: "The MCP client (e.g. Claude Desktop) sends a JSON-RPC tool call. FastMCP registers tools using Python type hints -- the JSON schema is generated automatically, eliminating protocol boilerplate." },
+            { title: "analyze_profile(username)", desc: "Fetches all public repositories via GitHub REST API. Computes: most-used languages (by bytes of code), total stars, commit frequency over the last 90 days, and contribution distribution." },
+            { title: "evaluate_repository(repo_url)", desc: "Analyzes a specific repository: file structure, README quality (badges, setup instructions, architecture diagram), commit history, and auto-detected tech stack." },
+            { title: "map_to_job(username, job_description)", desc: "Uses LangChain to extract required skills from the job description and maps them to the developer's repositories. Returns: matched skills, skill gaps, and a percentage match score." },
+            { title: "generate_recruiter_summary(username)", desc: "Synthesizes all data via an LLM call (Groq/Llama 3) with a structured prompt. Output: a formatted Markdown report with strengths, core stack, highlighted projects, and a suggested recruiter approach." },
+            { title: "Cache + Rate Limit Protection", desc: "GitHub API responses are cached in Redis with a 15-minute TTL. Per-IP rate limiting middleware guards against abuse. The GitHub token is injected via environment variable -- zero credentials in code." },
+          ],
+        },
+        tradeoffs: {
+          title: "Trade-off Analysis",
+          intro: "Each design decision was made considering the developer experience of tool consumers, maintenance cost, and alignment with the emerging MCP ecosystem.",
+          items: [
+            {
+              decision: "FastMCP (Anthropic SDK)", alternative: "Raw JSON-RPC / MCP SDK",
+              verdict: "FastMCP eliminated ~80% of protocol boilerplate",
+              pros: ["Python type hints auto-generate MCP JSON schemas", "Same DX as FastAPI -- decorators, validators, auto-docs", "Maintained by Anthropic -- evolves with the protocol", "Native support for stdio and HTTP/SSE transports"],
+              cons: ["Abstracts protocol details -- less fine-grained control", "v1.x still evolving fast -- potential breaking changes"],
+            },
+            {
+              decision: "GitHub REST API v3", alternative: "GitHub GraphQL API v4",
+              verdict: "REST sufficient; GraphQL would reduce round-trips for complex queries",
+              pros: ["Mature Python SDK (PyGithub)", "Simple PAT-scoped authentication", "5000 req/hr rate limit with authenticated token", "Per-URL endpoint caching -- straightforward to implement"],
+              cons: ["Relational queries require multiple round-trips", "GraphQL would reduce this to one query -- relevant at scale"],
+            },
+            {
+              decision: "Railway for deployment", alternative: "AWS ECS / Fly.io",
+              verdict: "Railway: zero-config, 2-minute deploy, minimal cost",
+              pros: ["Dockerfile to auto-deploy without infra configuration", "Env vars via UI -- no SSM needed", "Automatic HTTPS with custom domain", "~$5/month for this usage profile"],
+              cons: ["Less control over networking and scaling policies", "Higher vendor lock-in than AWS -- mitigated by stateless nature of the service"],
+            },
+          ],
+        },
+        scalability: {
+          title: "Scalability & Limits",
+          intro: "The MCP server is stateless by design -- each tool call is independent. The primary bottleneck is the GitHub API (5000 req/hr per token), mitigated by intelligent caching.",
+          pillars: [
+            { icon: "uil uil-database-alt",    color: "blue",   title: "Redis Caching",        desc: "GitHub API responses cached for 15 minutes. A profile with 30 repos (~90 API calls) is reused at no cost for subsequent requests within the same window." },
+            { icon: "uil uil-copy",            color: "green",  title: "Stateless by Design",  desc: "No state is maintained between tool calls. Multiple replicas process requests in parallel without coordination -- horizontal scaling is trivial." },
+            { icon: "uil uil-tachometer-fast", color: "red",    title: "Streaming Response",   desc: "generate_recruiter_summary uses Groq API streaming. The client sees tokens in real time -- perceived latency under 500ms even for long reports." },
+            { icon: "uil uil-shield-check",    color: "purple", title: "Per-IP Rate Limiting", desc: "fastapi-limiter restricts to 30 tool calls per minute per IP. Protects the GitHub API and LLM tokens from abuse without requiring user authentication." },
+          ],
+          bottleneck: "GitHub token rate limit of 5000 req/hr. Long-term solution: GitHub Apps with per-installation tokens (rate limit per org, not per shared token).",
+        },
+        security: {
+          title: "Security & Deploy",
+          intro: "An MCP server exposed on the internet requires strict input validation -- the LLM can be induced to pass malicious arguments to tools.",
+          items: [
+            { icon: "uil uil-key-skeleton-alt", title: "Minimum-Scope Token",      desc: "GitHub PAT scoped to read:public_repo only. Even if compromised, it cannot access private repos, write data, or delete anything.", tag: "Least Privilege" },
+            { icon: "uil uil-shield-check",     title: "Input Validation",          desc: "All tool parameters pass through Pydantic validators before any API call. Path traversal and injection attempts are rejected before leaving the server.", tag: "Input Sanitization" },
+            { icon: "uil uil-lock-alt",         title: "Secrets via Env Vars",      desc: "GitHub token and Groq API key injected via Railway env vars. Zero credentials in code, Dockerfile, or logs. Token rotation needs no redeploy.", tag: "Secrets Management" },
+            { icon: "uil uil-server",           title: "Containerized with Docker", desc: "Slim Docker image (python:3.12-slim). Health check on /health. Automatic restart on failure. Reproducible locally with docker run.", tag: "Reproducibility" },
+          ],
+          perfTitle: "Performance Metrics",
+          metrics: [
+            { value: "< 200ms", label: "analyze_profile (with Redis cache hit)" },
+            { value: "< 2s",    label: "map_to_job (GitHub API + LangChain)" },
+            { value: "~1.5s",   label: "First token of generate_recruiter_summary (streaming)" },
+            { value: "5,000",   label: "GitHub API requests/hour per authenticated token" },
+          ],
+        },
+        ctaGithub: "View on GitHub",
+        ctaDemo: "README & Installation",
+      },
     },
   },
 };
