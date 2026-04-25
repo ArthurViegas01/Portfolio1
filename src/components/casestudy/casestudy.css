@@ -95,6 +95,60 @@
   line-height: 1.65;
 }
 
+/* ── Project Selector ── */
+.csProjectNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.csProjectBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 2rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  background-color: var(--container-color);
+  color: var(--text-color);
+  font-size: var(--normal-font-size);
+  font-family: var(--body-font);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.csProjectBtn i {
+  font-size: 1.15rem;
+}
+
+.csProjectBtn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.csProjectBtn--active {
+  background-color: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+}
+
+.csProjectBadge {
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-semi-bold);
+  background-color: rgba(255, 255, 255, 0.18);
+  padding: 0.1rem 0.55rem;
+  border-radius: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.csProjectBtn:not(.csProjectBtn--active) .csProjectBadge {
+  background-color: var(--body-color);
+  color: var(--text-color-light);
+}
+
 /* ── Tab Nav ── */
 .csTabNav {
   display: flex;
@@ -196,6 +250,7 @@
 .diagNode--purple { fill: hsl(270, 55%, 52%); }
 .diagNode--orange { fill: hsl(30, 90%, 50%); }
 .diagNode--answer { fill: hsl(145, 55%, 42%); }
+.diagNode--muted  { opacity: 0.45; }
 
 .diagLabel {
   fill: #fff;

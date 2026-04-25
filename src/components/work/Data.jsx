@@ -3,7 +3,8 @@ import ImgTransportadora from "../../assets/work2.jpg";
 import ImgContextRag from "../../assets/work3.jpg";
 import ImgJogoGeneral from "../../assets/work4.jpg";
 import ImgDataglass from "../../assets/work6.jpg";
-import ImgUICompGenerator from "../../assets/work7.jpg"; // Nome sugerido para a imagem
+import ImgUICompGenerator from "../../assets/work7.jpg";
+import ImgMCP from "../../assets/work5.jpg"; // MCP Server project
 
 export const projectsData = [
   {
@@ -73,16 +74,29 @@ export const projectsData = [
   },
   {
     id: 6,
+    image: ImgMCP,
+    title: "GitHub Portfolio Intelligence",
+    category: "ai",
+    description_pt:
+      "Servidor MCP (Model Context Protocol) que expõe ferramentas de análise de perfis GitHub para agentes de IA. Claude e outros LLM clients podem analisar repositórios, mapear habilidades para vagas e gerar relatórios de engenheiro em linguagem natural — tudo via protocol nativo de ferramentas. Story: construí uma IA para analisar portfólios de devs, começando pelo meu próprio.",
+    description_en:
+      "MCP (Model Context Protocol) server that exposes GitHub profile analysis tools to AI agents. Claude and other LLM clients can analyze repositories, map skills to job postings, and generate engineering reports in natural language — all via the native tool protocol. Story: I built an AI to analyze developer portfolios, starting with my own.",
+    technologies: ["Python", "FastMCP", "GitHub API", "LangChain", "Docker", "Railway"],
+    link: "https://github.com/ArthurViegas01/mcp-github-analyst",
+    github: "https://github.com/ArthurViegas01/mcp-github-analyst",
+  },
+  {
+    id: 7,
     image: ImgUICompGenerator,
     title: "AI Component Generator",
     category: "ai",
     description_pt:
-      "Gerador de componentes UI em tempo real com IA. Utiliza streaming via ReadableStream (Groq/Llama 3) e um sandbox seguro em iframe com Babel Standalone para compilar e renderizar código TSX/Tailwind instantaneamente. Inclui editor Monaco, gerenciamento de estado com Zustand e sistema de validação contra alucinações.",
+      "Gerador de componentes UI em tempo real com IA. Utiliza streaming via ReadableStream (Groq/Llama 3) e um sandbox seguro em iframe com Babel Standalone para compilar e renderizar codigo TSX/Tailwind instantaneamente. Inclui editor Monaco, gerenciamento de estado com Zustand e sistema de validacao contra alucinacoes.",
     description_en:
       "Real-time AI-powered UI component generator. Features streaming via ReadableStream (Groq/Llama 3) and a secure iframe sandbox using Babel Standalone to compile and render TSX/Tailwind code instantly. Includes Monaco Editor, Zustand state management, and a client-side validation system to prevent AI hallucinations.",
     technologies: ["Next.js 15", "Groq API", "Zustand", "Monaco Editor", "Tailwind CSS", "Framer Motion"],
     link: "https://uicomponentgenerator.netlify.app",
-    github: "https://github.com/ArthurViegas01/UI-Component-Generator", // Ajuste se o repositório for outro
+    github: "https://github.com/ArthurViegas01/UI-Component-Generator",
   },
 ];
 
