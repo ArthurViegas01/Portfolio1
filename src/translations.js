@@ -370,6 +370,9 @@ export const translations = {
             { value: "5000",    label: "GitHub API requests/hora por token autenticado" },
           ],
         },
+        ctaGithub: "Ver no GitHub",
+        ctaDemo: "README & Instalacao",
+      },
   
       aiComponent: {
         heroDesc: "Um gerador de componentes UI em tempo real que usa streaming de LLMs para exibir codigo TSX sendo gerado token por token, compila no browser via Babel Standalone e renderiza em um iframe sandbox isolado — sem etapa de compilacao no servidor.",
@@ -447,9 +450,6 @@ export const translations = {
         },
         ctaGithub: "Ver no GitHub",
         ctaDemo: "Ver Demo ao Vivo",
-      },
-      ctaGithub: "Ver no GitHub",
-        ctaDemo: "README & Instalacao",
       },
     },
   },
@@ -815,6 +815,9 @@ export const translations = {
             { value: "5,000",   label: "GitHub API requests/hour per authenticated token" },
           ],
         },
+        ctaGithub: "View on GitHub",
+        ctaDemo: "README & Installation",
+      },
 
       aiComponent: {
         heroDesc: "A real-time UI component generator that uses LLM streaming to display TSX code being generated token by token, compiles it in the browser via Babel Standalone, and renders it in an isolated iframe sandbox — with no server-side compile step.",
@@ -893,9 +896,6 @@ export const translations = {
         ctaGithub: "View on GitHub",
         ctaDemo: "View Live Demo",
       },
-        ctaGithub: "View on GitHub",
-        ctaDemo: "README & Installation",
-      },
     },
   },
-};
+}
