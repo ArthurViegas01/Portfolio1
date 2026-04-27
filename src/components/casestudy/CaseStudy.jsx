@@ -5,30 +5,35 @@ import ArchDiagram          from "./diagrams/ArchDiagram";
 import ScaleDiagram         from "./diagrams/ScaleDiagram";
 import DataglassDiagram     from "./diagrams/DataglassDiagram";
 import DataglassCICDDiagram from "./diagrams/DataglassCICDDiagram";
-import MCPDiagram           from "./diagrams/MCPDiagram";
+import MCPDiagram            from "./diagrams/MCPDiagram";
+import AIComponentDiagram   from "./diagrams/AIComponentDiagram";
 
 const PROJECTS = [
-  { id: "contextRag", label: "Context (RAG)",           icon: "uil uil-robot",     badge: "AI / RAG"   },
-  { id: "dataglass",  label: "Dataglass",               icon: "uil uil-chart-bar", badge: "SaaS / AWS" },
-  { id: "mcp",        label: "GitHub Portfolio Intel.", icon: "uil uil-plug",       badge: "MCP Server" },
+  { id: "contextRag",   label: "Context (RAG)",           icon: "uil uil-robot",        badge: "AI / RAG"      },
+  { id: "dataglass",    label: "Dataglass",               icon: "uil uil-chart-bar",    badge: "SaaS / AWS"    },
+  { id: "mcp",          label: "GitHub Portfolio Intel.", icon: "uil uil-plug",          badge: "MCP Server"    },
+  { id: "aiComponent",  label: "AI Component Generator", icon: "uil uil-brackets-curly", badge: "AI / Next.js" },
 ];
 
 const TECH_BADGES = {
-  contextRag: ["FastAPI", "Celery", "Redis", "PostgreSQL", "pgvector", "LangChain", "Sentence Transformers", "Groq / Llama 3"],
-  dataglass:  ["Django", "DRF", "Celery", "ElastiCache", "Docker", "ECR", "Elastic Beanstalk", "RDS", "S3", "CodePipeline", "CodeBuild", "Secrets Manager", "Tableau"],
-  mcp:        ["Python", "FastMCP", "GitHub API", "LangChain", "Redis", "Pydantic v2", "Groq / Llama 3", "Docker", "Railway"],
+  contextRag:  ["FastAPI", "Celery", "Redis", "PostgreSQL", "pgvector", "LangChain", "Sentence Transformers", "Groq / Llama 3"],
+  dataglass:   ["Django", "DRF", "Celery", "ElastiCache", "Docker", "ECR", "Elastic Beanstalk", "RDS", "S3", "CodePipeline", "CodeBuild", "Secrets Manager", "Tableau"],
+  mcp:         ["Python", "FastMCP", "GitHub API", "LangChain", "Redis", "Pydantic v2", "Groq / Llama 3", "Docker", "Railway"],
+  aiComponent: ["Next.js 15", "Groq API", "Llama 3", "Babel Standalone", "Monaco Editor", "Zustand", "Tailwind CSS", "Framer Motion"],
 };
 
 const CTAS = {
-  contextRag: { github: "https://github.com/ArthurViegas01/RAG",               demo: "https://contextrag.netlify.app" },
-  dataglass:  { github: null,                                                   demo: "https://dataglass.co" },
-  mcp:        { github: "https://github.com/ArthurViegas01/mcp-github-analyst", demo: "https://github.com/ArthurViegas01/mcp-github-analyst#readme" },
+  contextRag:  { github: "https://github.com/ArthurViegas01/RAG",                    demo: "https://contextrag.netlify.app"          },
+  dataglass:   { github: null,                                                         demo: "https://dataglass.co"                    },
+  mcp:         { github: "https://github.com/ArthurViegas01/mcp-github-analyst",      demo: "https://github.com/ArthurViegas01/mcp-github-analyst#readme" },
+  aiComponent: { github: "https://github.com/ArthurViegas01/UI-Component-Generator", demo: "https://uicomponentgenerator.netlify.app" },
 };
 
 const DIAGRAMS = {
-  contextRag: ArchDiagram,
-  dataglass:  DataglassDiagram,
-  mcp:        MCPDiagram,
+  contextRag:  ArchDiagram,
+  dataglass:   DataglassDiagram,
+  mcp:         MCPDiagram,
+  aiComponent: AIComponentDiagram,
 };
 
 const CaseStudy = () => {
@@ -39,9 +44,10 @@ const CaseStudy = () => {
   const [activeTab,     setActiveTab]     = useState("architecture");
 
   const content =
-    activeProject === "contextRag" ? cs :
-    activeProject === "dataglass"  ? cs.dataglass :
-                                     cs.mcp;
+    activeProject === "contextRag"  ? cs :
+    activeProject === "dataglass"   ? cs.dataglass :
+    activeProject === "mcp"         ? cs.mcp :
+                                      cs.aiComponent;
 
   const tabs = [
     { id: "architecture", icon: "uil uil-sitemap",      label: content.tabs.architecture },

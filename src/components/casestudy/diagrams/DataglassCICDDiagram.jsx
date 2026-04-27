@@ -39,7 +39,7 @@ const DataglassCICDDiagram = ({ lang }) => {
         metricLabels: ["CodeBuild", "Total deploy", "Prod + Dev", "Rolling update"] }
     : { base: "Pipeline Base Image", dev: "Pipeline Dev", prod: "Pipeline Produção",
         baseTrigger: "Trigger manual", devTrigger: "Push na branch dev", prodTrigger: "Merge de PR na main",
-        baseNote: "Reconstrói a camada base quando dependências Python mudam (raramente)",
+        baseNote: "Reconstrói a camada base quando dependências Python mudam",
         metrics: ["~3 min", "~7 min", "2 envs", "Zero downtime"],
         metricLabels: ["CodeBuild", "Deploy total", "Prod + Dev", "Rolling update"] };
 

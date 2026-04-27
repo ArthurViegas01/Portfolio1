@@ -6,7 +6,7 @@ export const translations = {
       services: "Servicos",
       qualification: "Qualificacoes",
       portfolio: "Portfolio",
-      casestudy: "Case Study",
+      casestudy: "Arquiteturas",
       contact: "Contato",
     },
     home: {
@@ -90,7 +90,7 @@ export const translations = {
       viewDetails: "Ver detalhes",
       prev: "Anterior",
       next: "Proximo",
-      categories: { all: "Todos", ai: "AI / ML", fullstack: "Full Stack", web: "Web Apps", "3d": "3D" },
+      categories: { all: "Todos", ai: "AI / ML", fullstack: "Full Stack", devops: "DevOps / IaC", web: "Web Apps", "3d": "3D" },
     },
     contact: {
       title: "Entre em contato",
@@ -373,6 +373,84 @@ export const translations = {
         ctaGithub: "Ver no GitHub",
         ctaDemo: "README & Instalacao",
       },
+  
+      aiComponent: {
+        heroDesc: "Um gerador de componentes UI em tempo real que usa streaming de LLMs para exibir codigo TSX sendo gerado token por token, compila no browser via Babel Standalone e renderiza em um iframe sandbox isolado — sem etapa de compilacao no servidor.",
+        tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Sandbox" },
+        problem: {
+          title: "O Problema Tecnico",
+          text: "Gerar componentes UI com LLMs exige um loop justo entre geracao, compilacao e renderizacao — sem etapa de compile no servidor. O desafio era construir um pipeline de streaming que exibisse codigo aparecendo token a token enquanto mantinha o componente renderizado em sincronia, tudo sem bloquear a thread principal do browser.",
+        },
+        architecture: {
+          title: "Pipeline de Streaming",
+          intro: "O sistema tem 3 camadas: o servidor Next.js que faz streaming da Groq API, o cliente que monta o codigo incrementalmente, e o runtime de compilacao/renderizacao que roda inteiramente no browser.",
+          steps: [
+            { title: "Monaco Editor (prompt)", desc: "O usuario digita o prompt no Monaco Editor. O estado global e gerenciado pelo Zustand — prompt atual, historico de componentes gerados e status do streaming." },
+            { title: "Next.js 15 API Route (Edge Runtime)", desc: "Um POST para /api/generate aciona uma API Route rodando no Edge Runtime. O Groq SDK abre uma conexao de streaming com o Llama 3 e retorna um ReadableStream diretamente ao cliente." },
+            { title: "ReadableStream + TextDecoder", desc: "O cliente le o stream chunk por chunk via ReadableStream. Cada chunk passa pelo TextDecoder e e concatenado ao codigo em construcao. A cada novo chunk, o Monaco Editor atualiza em tempo real." },
+            { title: "Camada de Validacao", desc: "Antes de compilar, o codigo passa por uma camada de validacao que detecta padroes de alucinacao: JSX invalido, chamadas perigosas (eval, window.location), ou codigo incompleto. Codigo invalido e descartado silenciosamente." },
+            { title: "Babel Standalone (compile no browser)", desc: "O Babel Standalone converte o TSX/Tailwind gerado para JavaScript puro diretamente no browser. Nenhum servidor de compilacao necessario — zero custo de infra para compilacao." },
+            { title: "iframe Sandbox (renderizacao isolada)", desc: "O JS compilado e injetado em um iframe com sandbox=allow-scripts. O isolamento previne que o codigo gerado pelo LLM afete o DOM principal, vaze CSS ou execute codigo malicioso." },
+          ],
+        },
+        tradeoffs: {
+          title: "Trade-offs de Design",
+          intro: "Cada decisao foi guiada por dois objetivos: latencia perceptiva minima e custo de infraestrutura zero para compilacao.",
+          items: [
+            {
+              decision: "Babel Standalone (browser)",
+              alternative: "Servidor de compilacao (esbuild/swc)",
+              verdict: "Zero custo de infra, funciona offline, sem cold start",
+              pros: ["Sem servidor de compilacao — custo zero", "Funciona mesmo sem backend (pode virar PWA)", "Compilacao incremental tentativa a cada chunk"],
+              cons: ["Babel e maior (~1.5MB) que esbuild/swc", "Compilacao mais lenta para arquivos grandes (aceitavel para componentes pequenos)"],
+            },
+            {
+              decision: "iframe sandbox",
+              alternative: "Injecao direta no DOM / Shadow DOM",
+              verdict: "Unico jeito seguro de rodar codigo gerado por LLM",
+              pros: ["Isolamento total: sem vazamento de CSS, sem conflito de JS", "sandbox=allow-scripts bloqueia acesso a cookies, storage e navegacao", "LLM pode gerar codigo com erros sem quebrar a aplicacao host"],
+              cons: ["Comunicacao host-iframe so via postMessage", "Alguns recursos de layout (viewport units) se comportam diferente no iframe"],
+            },
+            {
+              decision: "Groq API / Llama 3",
+              alternative: "OpenAI GPT-4 / Claude API",
+              verdict: "< 200ms first token — essencial para UX de streaming",
+              pros: ["First token mais rapido que qualquer alternativa no mercado", "Free tier generoso para demos de portfolio", "SDK com streaming nativo"],
+              cons: ["Qualidade inferior ao GPT-4 para componentes complexos", "Rate limit compartilhado pode afetar demos simultaneous"],
+            },
+          ],
+        },
+        scalability: {
+          title: "Escalabilidade",
+          intro: "A arquitetura e stateless por design — o servidor nao guarda estado, toda a logica de compilacao roda no cliente.",
+          pillars: [
+            { icon: "uil uil-server-network", color: "blue",   title: "API Route Stateless",  desc: "A API Route nao armazena nenhum estado. Cada request e independente — escala horizontalmente no Vercel/Railway sem configuracao adicional." },
+            { icon: "uil uil-database",        color: "green",  title: "Zero Backend Storage", desc: "Nenhum banco de dados. O historico de componentes fica no Zustand (cliente). Para persistencia, bastaria adicionar localStorage ou um banco simples." },
+            { icon: "uil uil-tachometer-fast", color: "purple", title: "Edge Runtime",         desc: "A API Route roda no Edge Runtime (V8 Isolates), nao em Node.js tradicional. Latencia global < 50ms para iniciar o stream, independente da localizacao." },
+            { icon: "uil uil-shield-check",    color: "orange", title: "Rate Limiting",        desc: "O rate limit atual e o da Groq API (key-level). Para multi-usuario, bastaria adicionar Redis + fastapi-limiter por IP — zero mudanca na logica de streaming." },
+          ],
+          bottleneck: "O gargalo principal e o rate limit da Groq API em uso compartilhado. Mitigacao: cache de respostas para prompts identicos + modelo local via Ollama para demos offline.",
+        },
+        security: {
+          title: "Seguranca & Sandbox",
+          intro: "A maior superficie de ataque e o proprio codigo gerado pelo LLM — que pode conter XSS, acesso a APIs sensiveis ou loops infinitos.",
+          items: [
+            { icon: "uil uil-shield-check",  title: "iframe sandbox",          desc: "sandbox=allow-scripts sem allow-same-origin. Codigo gerado nao acessa cookies, localStorage, ou o DOM pai. Mesmo um XSS deliberado fica contido.", tag: "Sandbox" },
+            { icon: "uil uil-filter",         title: "Validacao pre-compile",   desc: "Regex e AST-level checks antes do Babel compilar. Detecta eval(), document.cookie, window.location e padroes de codigo malicioso conhecidos.", tag: "Input Sanitization" },
+            { icon: "uil uil-lock-alt",       title: "API Key server-side",     desc: "A Groq API key nunca sai do servidor. A API Route Next.js age como proxy — o cliente nunca ve a credencial. Rotacao de key nao requer redeploy.", tag: "Secrets" },
+            { icon: "uil uil-hourglass",      title: "Timeout de geracao",      desc: "O stream tem timeout de 30s. Loops infinitos ou geracoes muito longas sao abortados automaticamente pelo Edge Runtime.", tag: "DoS Prevention" },
+          ],
+          perfTitle: "Metricas de Performance",
+          metrics: [
+            { value: "< 200ms", label: "primeiro token do Groq (first token latency)" },
+            { value: "< 500ms", label: "compile Babel Standalone para componente medio" },
+            { value: "0",       label: "servidores de compilacao necessarios" },
+            { value: "100%",    label: "logica de compile e renderizacao no cliente" },
+          ],
+        },
+        ctaGithub: "Ver no GitHub",
+        ctaDemo: "Ver Demo ao Vivo",
+      },
     },
   },
 
@@ -467,7 +545,7 @@ export const translations = {
       viewDetails: "View details",
       prev: "Previous",
       next: "Next",
-      categories: { all: "All", ai: "AI / RAG", fullstack: "Full Stack", web: "Web Apps", "3d": "3D" },
+      categories: { all: "All", ai: "AI / RAG", fullstack: "Full Stack", devops: "DevOps / IaC", web: "Web Apps", "3d": "3D" },
     },
     contact: {
       title: "Get in touch",
@@ -740,6 +818,84 @@ export const translations = {
         ctaGithub: "View on GitHub",
         ctaDemo: "README & Installation",
       },
+
+      aiComponent: {
+        heroDesc: "A real-time UI component generator that uses LLM streaming to display TSX code being generated token by token, compiles it in the browser via Babel Standalone, and renders it in an isolated iframe sandbox — with no server-side compile step.",
+        tabs: { architecture: "Architecture", tradeoffs: "Trade-offs", scalability: "Scalability", security: "Security & Sandbox" },
+        problem: {
+          title: "The Technical Problem",
+          text: "Generating UI components with LLMs requires a tight loop between generation, compilation, and rendering — without a server-side compile step. The challenge was to build a streaming pipeline that shows code appearing token-by-token while keeping the rendered component in sync, all without blocking the browser's main thread.",
+        },
+        architecture: {
+          title: "Streaming Pipeline",
+          intro: "The system has 3 layers: the Next.js server that streams from the Groq API, the client that incrementally assembles the code, and the compile/render runtime that runs entirely in the browser.",
+          steps: [
+            { title: "Monaco Editor (prompt input)", desc: "The user types the prompt in the Monaco Editor. Global state is managed by Zustand — current prompt, generated component history, and streaming status." },
+            { title: "Next.js 15 API Route (Edge Runtime)", desc: "A POST to /api/generate triggers an API Route running on the Edge Runtime. The Groq SDK opens a streaming connection to Llama 3 and returns a ReadableStream directly to the client." },
+            { title: "ReadableStream + TextDecoder", desc: "The client reads the stream chunk by chunk via ReadableStream. Each chunk passes through TextDecoder and is concatenated to the code being built. The Monaco Editor updates in real time on every new chunk." },
+            { title: "Validation Layer", desc: "Before compiling, the code passes through a validation layer that detects hallucination patterns: invalid JSX, dangerous calls (eval, window.location), or incomplete code. Invalid code is silently discarded." },
+            { title: "Babel Standalone (in-browser compile)", desc: "Babel Standalone converts the generated TSX/Tailwind to plain JavaScript directly in the browser. No compile server required — zero infrastructure cost for compilation." },
+            { title: "iframe Sandbox (isolated rendering)", desc: "The compiled JS is injected into an iframe with sandbox=allow-scripts. The isolation prevents LLM-generated code from affecting the main DOM, leaking CSS, or executing malicious code." },
+          ],
+        },
+        tradeoffs: {
+          title: "Design Trade-offs",
+          intro: "Every decision was driven by two goals: minimum perceived latency and zero infrastructure cost for compilation.",
+          items: [
+            {
+              decision: "Babel Standalone (browser)",
+              alternative: "Compile server (esbuild/swc)",
+              verdict: "Zero infra cost, works offline, no cold start",
+              pros: ["No compile server — zero cost", "Works even without a backend (could become a PWA)", "Incremental tentative compilation on each chunk"],
+              cons: ["Babel is larger (~1.5MB) than esbuild/swc", "Slower compilation for large files (acceptable for small components)"],
+            },
+            {
+              decision: "iframe sandbox",
+              alternative: "Direct DOM injection / Shadow DOM",
+              verdict: "The only safe way to run LLM-generated code",
+              pros: ["Full isolation: no CSS leakage, no JS conflicts", "sandbox=allow-scripts blocks access to cookies, storage, and navigation", "LLM can generate buggy code without breaking the host app"],
+              cons: ["Host-iframe communication only via postMessage", "Some layout features (viewport units) behave differently inside the iframe"],
+            },
+            {
+              decision: "Groq API / Llama 3",
+              alternative: "OpenAI GPT-4 / Claude API",
+              verdict: "< 200ms first token — essential for streaming UX",
+              pros: ["Fastest first token of any alternative on the market", "Generous free tier for portfolio demos", "Native streaming SDK"],
+              cons: ["Lower quality than GPT-4 for complex components", "Shared rate limit may affect simultaneous demos"],
+            },
+          ],
+        },
+        scalability: {
+          title: "Scalability",
+          intro: "The architecture is stateless by design — the server holds no state, and all compilation logic runs on the client.",
+          pillars: [
+            { icon: "uil uil-server-network", color: "blue",   title: "Stateless API Route",  desc: "The API Route stores no state. Each request is independent — scales horizontally on Vercel/Railway without additional configuration." },
+            { icon: "uil uil-database",        color: "green",  title: "Zero Backend Storage", desc: "No database. Component history lives in Zustand (client-side). For persistence, adding localStorage or a simple DB requires zero changes to the streaming logic." },
+            { icon: "uil uil-tachometer-fast", color: "purple", title: "Edge Runtime",         desc: "The API Route runs on the Edge Runtime (V8 Isolates), not traditional Node.js. Global latency < 50ms to start the stream, regardless of user location." },
+            { icon: "uil uil-shield-check",    color: "orange", title: "Rate Limiting",        desc: "Current rate limiting is at the Groq API key level. For multi-user, adding Redis + fastapi-limiter per IP requires zero changes to the streaming logic." },
+          ],
+          bottleneck: "The main bottleneck is the Groq API rate limit under shared usage. Mitigation: response cache for identical prompts + local Ollama model for offline demos.",
+        },
+        security: {
+          title: "Security & Sandbox",
+          intro: "The largest attack surface is the LLM-generated code itself — which may contain XSS, access to sensitive APIs, or infinite loops.",
+          items: [
+            { icon: "uil uil-shield-check",  title: "iframe sandbox",          desc: "sandbox=allow-scripts without allow-same-origin. Generated code cannot access cookies, localStorage, or the parent DOM. Even a deliberate XSS stays contained.", tag: "Sandbox" },
+            { icon: "uil uil-filter",         title: "Pre-compile validation",  desc: "Regex and AST-level checks before Babel compiles. Detects eval(), document.cookie, window.location, and known malicious code patterns.", tag: "Input Sanitization" },
+            { icon: "uil uil-lock-alt",       title: "API Key server-side",     desc: "The Groq API key never leaves the server. The Next.js API Route acts as a proxy — the client never sees the credential. Key rotation requires no redeploy.", tag: "Secrets" },
+            { icon: "uil uil-hourglass",      title: "Generation timeout",      desc: "The stream has a 30s timeout. Infinite loops or excessively long generations are automatically aborted by the Edge Runtime.", tag: "DoS Prevention" },
+          ],
+          perfTitle: "Performance Metrics",
+          metrics: [
+            { value: "< 200ms", label: "first token from Groq (first token latency)" },
+            { value: "< 500ms", label: "Babel Standalone compile for an average component" },
+            { value: "0",       label: "compile servers required" },
+            { value: "100%",    label: "compile and render logic runs client-side" },
+          ],
+        },
+        ctaGithub: "View on GitHub",
+        ctaDemo: "View Live Demo",
+      },
     },
   },
-};
+}

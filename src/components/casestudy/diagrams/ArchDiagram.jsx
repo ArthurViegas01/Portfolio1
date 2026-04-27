@@ -53,8 +53,8 @@ const ArchDiagram = ({ lang }) => {
       <text x="591" y="92" textAnchor="middle" className="diagSub">LangChain</text>
 
       <line x1="591" y1="102" x2="591" y2="152" stroke="hsl(230,60%,50%)" strokeWidth="1.8" markerEnd="url(#arr)" />
-      <StepBadge x={565} y={122} num={4} />
-      <StepBadge x={617} y={140} num={5} />
+      <StepBadge x={565} y={115} num={4} />
+      <StepBadge x={565} y={140} num={5} />
 
       <rect x="531" y="154" width="120" height="52" rx="8" className="diagNode diagNode--purple" />
       <text x="591" y="177" textAnchor="middle" className="diagLabel">{L.db}</text>
