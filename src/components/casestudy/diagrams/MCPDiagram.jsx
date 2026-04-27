@@ -37,11 +37,11 @@ const MCPDiagram = ({ lang }) => {
       <rect x="34" y="60" width="124" height="48" rx="8" className="diagNode diagNode--blue" />
       <text x="96" y="81" textAnchor="middle" className="diagLabel">{L.claude}</text>
       <text x="96" y="98" textAnchor="middle" className="diagSub">+ IDE Agents</text>
-      <rect x="34" y="120" width="124" height="78" rx="8" className="diagNode" fill="var(--body-color)" stroke="hsl(230,8%,60%)" strokeWidth="1" />
-      <text x="96" y="143" textAnchor="middle" className="diagLabel" fontSize="9">{L.analyze}</text>
-      <text x="96" y="161" textAnchor="middle" className="diagLabel" fontSize="9">{L.evaluate}</text>
-      <text x="96" y="179" textAnchor="middle" className="diagLabel" fontSize="9">{L.mapJob}</text>
-      <text x="96" y="197" textAnchor="middle" className="diagLabel" fontSize="9">{L.summary}</text>
+      <rect x="34" y="120" width="124" height="90" rx="8" className="diagNode" fill="var(--body-color)" stroke="hsl(230,8%,60%)" strokeWidth="1" />
+      <text x="96" y="141" textAnchor="middle" fontSize="8" fill="hsl(230,30%,70%)">{L.analyze}</text>
+      <text x="96" y="157" textAnchor="middle" fontSize="8" fill="hsl(230,30%,70%)">{L.evaluate}</text>
+      <text x="96" y="173" textAnchor="middle" fontSize="8" fill="hsl(230,30%,70%)">{L.mapJob}</text>
+      <text x="96" y="189" textAnchor="middle" fontSize="8" fill="hsl(230,30%,70%)">{L.summary}</text>
 
       {/* Client ↔ Server arrows */}
       <line x1="170" y1="115" x2="255" y2="115" stroke="hsl(230,60%,50%)" strokeWidth="2" markerEnd="url(#mArr)" />

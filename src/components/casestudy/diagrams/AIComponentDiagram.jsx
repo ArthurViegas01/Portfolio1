@@ -138,7 +138,6 @@ const AIComponentDiagram = ({ lang = "en" }) => {
 
       {/* Stream arrow out of server */}
       <line x1="442" y1="159" x2="474" y2="159" stroke="#d08030" strokeWidth="1.5" markerEnd="url(#acd-arrow-orange)" />
-      <text x="458" y="153" textAnchor="middle" fill="#d08030" fontSize="8">{l.step4}</text>
 
       {/* ── CLIENT RUNTIME ── */}
       <text x="474" y="30" fill="#5a3a10" fontSize="10" fontWeight="600" letterSpacing="1">{l.clientRuntime.toUpperCase()}</text>
@@ -176,7 +175,7 @@ const AIComponentDiagram = ({ lang = "en" }) => {
 
       {/* Babel → iframe */}
       <line x1="622" y1="289" x2="668" y2="289" stroke="#a060e0" strokeWidth="1.5" markerEnd="url(#acd-arrow-purple)" />
-      <text x="645" y="283" textAnchor="middle" fill="#a060e0" fontSize="8">{l.step7}</text>
+      <text x="658" y="281" textAnchor="end" fill="#a060e0" fontSize="8">{l.step7}</text>
 
       {/* iframe Sandbox */}
       <rect x="668" y="260" width="168" height="80" rx="10" fill="#1a2a1a" stroke="#40b040" strokeWidth="2" />
@@ -200,9 +199,8 @@ const AIComponentDiagram = ({ lang = "en" }) => {
       <text x="548" y="356" textAnchor="middle" fill="#c090f0" fontSize="10" fontWeight="600">{l.framer}</text>
       <text x="548" y="372" textAnchor="middle" fill="#7040a0" fontSize="9">{l.framerSub}</text>
 
-      {/* Zustand sync arrow */}
-      <line x1="168" y1="157" x2="474" y2="157" stroke="#6c6cff" strokeWidth="1" strokeDasharray="4,3" markerEnd="url(#acd-arrow)" />
-      <text x="320" y="150" textAnchor="middle" fill="#4040a0" fontSize="8">{"state sync"}</text>
+      {/* Zustand → Babel sync note (indirect, shown via annotation) */}
+      <text x="94" y="210" textAnchor="middle" fill="#4040a0" fontSize="8">{"↕ state sync"}</text>
 
       {/* Bottom legend */}
       <rect x="20" y="430" width="820" height="56" rx="8" fill="#16162a" stroke="#2a2a4a" strokeWidth="1" />
