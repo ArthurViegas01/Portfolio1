@@ -4,7 +4,6 @@ import ImgContextRag from "../../assets/work3.jpg";
 import ImgJogoGeneral from "../../assets/work4.jpg";
 import ImgDataglass from "../../assets/work6.jpg";
 import ImgUICompGenerator from "../../assets/work7.jpg";
-import ImgTerraform from "../../assets/work8.jpg"; // Terraform AWS Infrastructure
 import ImgMCP from "../../assets/work10.jpg"; // MCP Server project
 
 export const projectsData = [
@@ -69,9 +68,9 @@ export const projectsData = [
       "Servidor MCP (Model Context Protocol) que expoem ferramentas de analise de perfis GitHub para agentes de IA. Claude e outros LLM clients podem analisar repositorios, mapear habilidades para vagas e gerar relatorios de engenheiro em linguagem natural — tudo via protocol nativo de ferramentas. Story: construi uma IA para analisar portfolios de devs, comecando pelo meu proprio.",
     description_en:
       "MCP (Model Context Protocol) server that exposes GitHub profile analysis tools to AI agents. Claude and other LLM clients can analyze repositories, map skills to job postings, and generate engineering reports in natural language — all via the native tool protocol. Story: I built an AI to analyze developer portfolios, starting with my own.",
-    technologies: ["Python", "FastMCP", "GitHub API", "LangChain", "Docker", "Railway"],
-    link: "https://github.com/ArthurViegas01/mcp-github-analyst",
-    github: "https://github.com/ArthurViegas01/mcp-github-analyst",
+    technologies: ["Python", "FastMCP", "GitHub API", "LangChain", "Docker", "Railway", "Terraform"],
+    link: "https://github.com/ArthurViegas01/Reporeaver",
+    github: "https://github.com/ArthurViegas01/Reporeaver",
   },
   {
     id: 6,
@@ -84,23 +83,10 @@ export const projectsData = [
       "Real-time AI-powered UI component generator. Features streaming via ReadableStream (Groq/Llama 3) and a secure iframe sandbox using Babel Standalone to compile and render TSX/Tailwind code instantly. Includes Monaco Editor, Zustand state management, and a client-side validation system to prevent AI hallucinations.",
     technologies: ["Next.js 15", "Groq API", "Zustand", "Monaco Editor", "Tailwind CSS", "Framer Motion"],
     link: "https://uicomponentgenerator.netlify.app",
-    github: "https://github.com/ArthurViegas01/UI-Component-Generator",
+    github: "https://github.com/ArthurViegas01/componentgenerator",
   },
   {
     id: 7,
-    image: ImgTerraform,
-    title: "Terraform AWS Infrastructure",
-    category: "devops",
-    description_pt:
-      "Infraestrutura AWS completa como codigo (IaC) com Terraform, estruturada em modulos reutilizaveis: networking (VPC, subnets, security groups), compute (EC2 + nginx + FastAPI via user_data), database (RDS opcional) e storage (S3). Estado remoto com S3 + DynamoDB locking. CI/CD via GitHub Actions: terraform plan automatico em PRs e terraform apply no merge para main.",
-    description_en:
-      "Complete AWS infrastructure as code (IaC) with Terraform, structured in reusable modules: networking (VPC, subnets, security groups), compute (EC2 + nginx + FastAPI via user_data), database (optional RDS), and storage (S3). Remote state with S3 + DynamoDB locking. CI/CD via GitHub Actions: automated terraform plan on PRs and terraform apply on merge to main.",
-    technologies: ["Terraform", "AWS", "EC2", "VPC", "S3", "GitHub Actions", "IAM", "SSM"],
-    link: "https://github.com/ArthurViegas01/terraform-aws-portfolio-infra",
-    github: "https://github.com/ArthurViegas01/terraform-aws-portfolio-infra",
-  },
-  {
-    id: 8,
     image: ImgDonut,
     title: "Donut 3D",
     category: "3d",
@@ -118,7 +104,6 @@ export const projectsNav = [
   { name: "all" },
   { name: "ai" },
   { name: "fullstack" },
-  { name: "devops" },
   { name: "web" },
   { name: "3d" },
 ];

@@ -25,8 +25,8 @@ const TECH_BADGES = {
 const CTAS = {
   contextRag:  { github: "https://github.com/ArthurViegas01/RAG",                    demo: "https://contextrag.netlify.app"          },
   dataglass:   { github: null,                                                         demo: "https://dataglass.co"                    },
-  mcp:         { github: "https://github.com/ArthurViegas01/mcp-github-analyst",      demo: "https://github.com/ArthurViegas01/mcp-github-analyst#readme" },
-  aiComponent: { github: "https://github.com/ArthurViegas01/UI-Component-Generator", demo: "https://uicomponentgenerator.netlify.app" },
+  mcp:         { github: "https://github.com/ArthurViegas01/Reporeaver",              demo: "https://github.com/ArthurViegas01/Reporeaver#readme"           },
+  aiComponent: { github: "https://github.com/ArthurViegas01/componentgenerator",     demo: "https://uicomponentgenerator.netlify.app"                       },
 };
 
 const DIAGRAMS = {

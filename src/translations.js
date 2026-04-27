@@ -90,7 +90,7 @@ export const translations = {
       viewDetails: "Ver detalhes",
       prev: "Anterior",
       next: "Proximo",
-      categories: { all: "Todos", ai: "AI / ML", fullstack: "Full Stack", devops: "DevOps / IaC", web: "Web Apps", "3d": "3D" },
+      categories: { all: "Todos", ai: "AI / ML", fullstack: "Full Stack", web: "Web Apps", "3d": "3D" },
     },
     contact: {
       title: "Entre em contato",
@@ -545,7 +545,7 @@ export const translations = {
       viewDetails: "View details",
       prev: "Previous",
       next: "Next",
-      categories: { all: "All", ai: "AI / RAG", fullstack: "Full Stack", devops: "DevOps / IaC", web: "Web Apps", "3d": "3D" },
+      categories: { all: "All", ai: "AI / RAG", fullstack: "Full Stack", web: "Web Apps", "3d": "3D" },
     },
     contact: {
       title: "Get in touch",
