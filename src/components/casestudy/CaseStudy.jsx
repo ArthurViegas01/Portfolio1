@@ -6,29 +6,35 @@ import ScaleDiagram         from "./diagrams/ScaleDiagram";
 import DataglassDiagram     from "./diagrams/DataglassDiagram";
 import DataglassCICDDiagram from "./diagrams/DataglassCICDDiagram";
 import MCPDiagram           from "./diagrams/MCPDiagram";
+import TerraformDiagram     from "./diagrams/TerraformDiagram";
+import TerraformCICDDiagram from "./diagrams/TerraformCICDDiagram";
 
 const PROJECTS = [
-  { id: "contextRag", label: "Context (RAG)",           icon: "uil uil-robot",     badge: "AI / RAG"   },
-  { id: "dataglass",  label: "Dataglass",               icon: "uil uil-chart-bar", badge: "SaaS / AWS" },
-  { id: "mcp",        label: "GitHub Portfolio Intel.", icon: "uil uil-plug",       badge: "MCP Server" },
+  { id: "contextRag", label: "Context (RAG)",           icon: "uil uil-robot",          badge: "AI / RAG"    },
+  { id: "dataglass",  label: "Dataglass",               icon: "uil uil-chart-bar",      badge: "SaaS / AWS"  },
+  { id: "mcp",        label: "GitHub Portfolio Intel.", icon: "uil uil-plug",            badge: "MCP Server"  },
+  { id: "terraform",  label: "Terraform AWS Infra",    icon: "uil uil-server-network",  badge: "IaC / DevOps" },
 ];
 
 const TECH_BADGES = {
   contextRag: ["FastAPI", "Celery", "Redis", "PostgreSQL", "pgvector", "LangChain", "Sentence Transformers", "Groq / Llama 3"],
   dataglass:  ["Django", "DRF", "Celery", "ElastiCache", "Docker", "ECR", "Elastic Beanstalk", "RDS", "S3", "CodePipeline", "CodeBuild", "Secrets Manager", "Tableau"],
   mcp:        ["Python", "FastMCP", "GitHub API", "LangChain", "Redis", "Pydantic v2", "Groq / Llama 3", "Docker", "Railway"],
+  terraform:  ["Terraform", "AWS", "EC2", "VPC", "RDS", "S3", "IAM", "SSM", "DynamoDB", "GitHub Actions", "nginx", "FastAPI"],
 };
 
 const CTAS = {
-  contextRag: { github: "https://github.com/ArthurViegas01/RAG",               demo: "https://contextrag.netlify.app" },
-  dataglass:  { github: null,                                                   demo: "https://dataglass.co" },
-  mcp:        { github: "https://github.com/ArthurViegas01/mcp-github-analyst", demo: "https://github.com/ArthurViegas01/mcp-github-analyst#readme" },
+  contextRag: { github: "https://github.com/ArthurViegas01/RAG",                              demo: "https://contextrag.netlify.app" },
+  dataglass:  { github: null,                                                                  demo: "https://dataglass.co" },
+  mcp:        { github: "https://github.com/ArthurViegas01/mcp-github-analyst",               demo: "https://github.com/ArthurViegas01/mcp-github-analyst#readme" },
+  terraform:  { github: "https://github.com/ArthurViegas01/terraform-aws-portfolio-infra",    demo: "https://github.com/ArthurViegas01/terraform-aws-portfolio-infra#readme" },
 };
 
 const DIAGRAMS = {
   contextRag: ArchDiagram,
   dataglass:  DataglassDiagram,
   mcp:        MCPDiagram,
+  terraform:  TerraformDiagram,
 };
 
 const CaseStudy = () => {
@@ -41,14 +47,15 @@ const CaseStudy = () => {
   const content =
     activeProject === "contextRag" ? cs :
     activeProject === "dataglass"  ? cs.dataglass :
-                                     cs.mcp;
+    activeProject === "mcp"        ? cs.mcp :
+                                     cs.terraform;
 
   const tabs = [
     { id: "architecture", icon: "uil uil-sitemap",      label: content.tabs.architecture },
     { id: "tradeoffs",    icon: "uil uil-balance-scale", label: content.tabs.tradeoffs    },
     { id: "scalability",  icon: "uil uil-chart-growth",  label: content.tabs.scalability  },
     { id: "security",     icon: "uil uil-shield-check",  label: content.tabs.security     },
-    ...(activeProject === "dataglass"
+    ...(activeProject === "dataglass" || activeProject === "terraform"
       ? [{ id: "cicd", icon: "uil uil-code-branch", label: content.tabs.cicd }]
       : []),
   ];
@@ -245,14 +252,16 @@ const CaseStudy = () => {
           </div>
         )}
 
-        {activeTab === "cicd" && activeProject === "dataglass" && (
+        {activeTab === "cicd" && (activeProject === "dataglass" || activeProject === "terraform") && (
           <div className="csPanelContent">
             <h4 className="csPanel-title">
               <i className="uil uil-code-branch"></i> {content.cicd.title}
             </h4>
             <p className="csPanel-intro">{content.cicd.intro}</p>
             <div className="csDiagramWrapper">
-              <DataglassCICDDiagram lang={lang} />
+              {activeProject === "dataglass"
+                ? <DataglassCICDDiagram lang={lang} />
+                : <TerraformCICDDiagram lang={lang} />}
             </div>
             <div className="csFlowSteps">
               {content.cicd.stages.map((stage, i) => (
@@ -271,34 +280,4 @@ const CaseStudy = () => {
                 {content.cicd.metrics.map((m, i) => (
                   <div key={i} className="csPerfMetric">
                     <span className="csPerfMetric-value">{m.value}</span>
-                    <span className="csPerfMetric-label">{m.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-      </div>
-
-      {/* CTA */}
-      <div className="csCta container">
-        {CTAS[activeProject].github && (
-          <a href={CTAS[activeProject].github} target="_blank" rel="noreferrer" className="button button--flex">
-            <i className="bx bxl-github"></i> {content.ctaGithub || cs.ctaGithub}
-          </a>
-        )}
-        <a
-          href={CTAS[activeProject].demo}
-          target="_blank"
-          rel="noreferrer"
-          className={`button button--flex ${CTAS[activeProject].github ? "button--outline" : ""}`}
-        >
-          <i className="uil uil-external-link-alt"></i> {content.ctaDemo || cs.ctaDemo}
-        </a>
-      </div>
-    </section>
-  );
-};
-
-export default CaseStudy;
+                    <span classNam
