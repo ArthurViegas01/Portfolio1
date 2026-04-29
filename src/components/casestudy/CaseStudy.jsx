@@ -22,6 +22,26 @@ const TECH_BADGES = {
   aiComponent: ["Next.js 15", "Groq API", "Llama 3", "Babel Standalone", "Monaco Editor", "Zustand", "Tailwind CSS", "Framer Motion"],
 };
 
+const GROUPED_TECH_BADGES = {
+  aiComponent: {
+    backend:  ["Next.js 15", "Groq API", "Llama 3"],
+    frontend: ["Babel Standalone", "Monaco Editor", "Zustand", "Tailwind CSS", "Framer Motion"],
+  },
+};
+
+const STEP_ICONS = {
+  aiComponent: [
+    "uil uil-edit-alt",
+    "uil uil-server",
+    "uil uil-arrows-h",
+    "uil uil-filter",
+    "uil uil-brackets-curly",
+    "uil uil-window",
+    "uil uil-exchange-alt",
+    "uil uil-cog",
+  ],
+};
+
 const CTAS = {
   contextRag:  { github: "https://github.com/ArthurViegas01/RAG",                    demo: "https://contextrag.netlify.app"          },
   dataglass:   { github: null,                                                         demo: "https://dataglass.co"                    },
@@ -94,11 +114,29 @@ const CaseStudy = () => {
         </div>
         <h3 className="csHero-title">{activeProjectMeta.label}</h3>
         <p className="csHero-desc">{content.heroDesc}</p>
-        <div className="csTechBadges">
-          {TECH_BADGES[activeProject].map((badge) => (
-            <span key={badge} className="csTechBadge">{badge}</span>
-          ))}
-        </div>
+        {GROUPED_TECH_BADGES[activeProject] ? (
+          <div className="csTechBadgeGroups">
+            {Object.entries(GROUPED_TECH_BADGES[activeProject]).map(([groupKey, badges]) => (
+              <div key={groupKey} className="csTechBadgeGroup">
+                <span className="csTechBadgeGroupLabel">
+                  <i className={groupKey === "backend" ? "uil uil-server" : "uil uil-desktop"}></i>
+                  {groupKey === "backend" ? "Backend" : "Frontend"}
+                </span>
+                <div className="csTechBadges">
+                  {badges.map((badge) => (
+                    <span key={badge} className="csTechBadge">{badge}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="csTechBadges">
+            {TECH_BADGES[activeProject].map((badge) => (
+              <span key={badge} className="csTechBadge">{badge}</span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Problem statement */}
@@ -141,7 +179,12 @@ const CaseStudy = () => {
                 <div key={i} className="csFlowStep">
                   <div className="csFlowStep-num">{i + 1}</div>
                   <div>
-                    <strong>{step.title}</strong>
+                    <strong>
+                      {STEP_ICONS[activeProject]?.[i] && (
+                        <i className={`${STEP_ICONS[activeProject][i]} csFlowStep-icon`}></i>
+                      )}
+                      {step.title}
+                    </strong>
                     <p>{step.desc}</p>
                   </div>
                 </div>
@@ -170,7 +213,7 @@ const CaseStudy = () => {
                   <div className="csToGrid">
                     <div className="csToItem csToItem--pro">
                       <span className="csToItem-label">
-                        <i className="uil uil-thumbs-up"></i> {lang === "en" ? "Why we chose it" : "Por que escolhemos"}
+                        <i className="uil uil-thumbs-up"></i> {lang === "en" ? "Why i chose it" : "Por que escolhi"}
                       </span>
                       <ul>{item.pros.map((p, j) => <li key={j}>{p}</li>)}</ul>
                     </div>
@@ -215,6 +258,12 @@ const CaseStudy = () => {
                 <strong>{lang === "en" ? "Known bottleneck:" : "Gargalo conhecido:"}</strong>{" "}
                 {content.scalability.bottleneck}
               </span>
+              <button
+                className="csBottleneckMitigar"
+                onClick={() => setActiveTab("tradeoffs")}
+              >
+                {lang === "en" ? "How to mitigate" : "Como mitigar"} →
+              </button>
             </div>
           </div>
         )}

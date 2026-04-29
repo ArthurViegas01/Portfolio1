@@ -63,6 +63,40 @@
   letter-spacing: 0.03em;
 }
 
+/* ── Tech Badge Groups (aiComponent) ── */
+.csTechBadgeGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.csTechBadgeGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.csTechBadgeGroupLabel {
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--text-color-light);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  white-space: nowrap;
+  min-width: 72px;
+  justify-content: flex-end;
+}
+
+.csTechBadgeGroupLabel i {
+  font-size: 0.85rem;
+}
+
 /* ── Problem Statement ── */
 .csProblem {
   display: flex;
@@ -321,6 +355,13 @@
   margin-bottom: 0.2rem;
 }
 
+.csFlowStep-icon {
+  margin-right: 0.3rem;
+  color: var(--accent-color);
+  font-size: 0.95rem;
+  vertical-align: -1px;
+}
+
 .csFlowStep p {
   color: var(--text-color);
   font-size: var(--smaller-font-size);
@@ -418,7 +459,7 @@
 .csToItem ul li {
   font-size: var(--smaller-font-size);
   color: var(--text-color);
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
 .csToItem ul li::before {
@@ -501,6 +542,33 @@ body.dark-theme .csBottleneck {
   font-size: 1.1rem;
   flex-shrink: 0;
   margin-top: 0.1rem;
+}
+
+.csBottleneckMitigar {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: none;
+  border: 1px solid hsl(30, 75%, 45%);
+  color: hsl(30, 60%, 30%);
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-semi-bold);
+  padding: 0.28rem 0.7rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--body-font);
+  white-space: nowrap;
+}
+
+.csBottleneckMitigar:hover {
+  background-color: hsl(30, 90%, 50%);
+  color: #fff;
+  border-color: hsl(30, 90%, 50%);
+}
+
+body.dark-theme .csBottleneckMitigar {
+  color: hsl(30, 75%, 68%);
+  border-color: hsl(30, 65%, 45%);
 }
 
 /* ── Security ── */

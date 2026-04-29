@@ -13,7 +13,7 @@ export const projectsData = [
     title: "Context (RAG)",
     category: "ai",
     description_pt:
-      "Pipeline RAG end-to-end com FastAPI e Celery para processamento assincrono de documentos. Faz upload de PDFs e DOCXs, realiza chunking com LangChain, gera embeddings via Sentence Transformers (all-MiniLM-L6-v2), armazena vetores no PostgreSQL + pgvector para busca semantica e consulta o Llama 3 via Groq API para respostas contextualizadas.",
+      "Pipeline RAG end-to-end com FastAPI e Celery para processamento assíncrono de documentos. Faz upload de PDFs e DOCXs, realiza chunking com LangChain, gera embeddings via Sentence Transformers (all-MiniLM-L6-v2), armazena vetores no PostgreSQL + pgvector para busca semântica e consulta o Llama 3 via Groq API para respostas contextualizadas.",
     description_en:
       "End-to-end RAG pipeline built with FastAPI and Celery for async document processing. Uploads PDF and DOCX files, chunks content with LangChain, generates embeddings via Sentence Transformers (all-MiniLM-L6-v2), stores vectors in PostgreSQL + pgvector for semantic search, and queries Llama 3 through the Groq API for context-aware answers.",
     technologies: ["FastAPI", "Celery", "pgvector", "LangChain", "Groq / Llama 3"],
@@ -26,7 +26,7 @@ export const projectsData = [
     title: "Dataglass",
     category: "fullstack",
     description_pt:
-      "Plataforma SaaS brasileira de Business Intelligence integrada ao Tableau. Gerencia dashboards, controla acesso por perfis de empresa e processa dados com Celery e Redis. Deploy em producao na AWS com Docker, Elastic Beanstalk, ECR e S3. Integracao com Mailgun, Bugsnag e Intercom.",
+      "Plataforma SaaS brasileira de Business Intelligence integrada ao Tableau. Gerencia dashboards, controla acesso por perfis de empresa e processa dados com Celery e Redis. Deploy em produção na AWS com Docker, Elastic Beanstalk, ECR e S3. Integração com Mailgun, Bugsnag e Intercom.",
     description_en:
       "Brazilian SaaS Business Intelligence platform integrated with Tableau Server. Manages dashboards, controls access per company profile, and processes data with Celery and Redis. Deployed on AWS with Docker, Elastic Beanstalk, ECR, and S3. Integrated with Mailgun, Bugsnag, and Intercom.",
     technologies: ["Django", "DRF", "Celery", "Docker", "AWS", "Tableau"],
@@ -39,7 +39,7 @@ export const projectsData = [
     title: "Jogo General",
     category: "web",
     description_pt:
-      "Implementacao web do classico jogo de dados General (Yahtzee). Desenvolvido com Vue 3 (Composition API) e Pinia para gerenciamento de estado, com logica completa de pontuacao e interface interativa.",
+      "Implementação web do classico jogo de dados General (Yahtzee). Desenvolvido com Vue 3 (Composition API) e Pinia para gerenciamento de estado, com lógica completa de pontuação e interface interativa.",
     description_en:
       "Web implementation of the classic dice game General (Yahtzee). Built with Vue 3 (Composition API) and Pinia for state management, featuring complete scoring logic and an interactive UI.",
     technologies: ["Vue 3", "Pinia", "JavaScript", "CSS3"],

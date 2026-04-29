@@ -3,9 +3,9 @@ export const translations = {
     nav: {
       home: "Home",
       skills: "Habilidades",
-      services: "Servicos",
-      qualification: "Qualificacoes",
-      portfolio: "Portfolio",
+      services: "Serviços",
+      qualification: "Qualificações",
+      portfolio: "Portfólio",
       casestudy: "Arquiteturas",
       contact: "Contato",
     },
@@ -18,10 +18,10 @@ export const translations = {
     },
     about: {
       title: "Sobre mim",
-      subtitle: "Minha introducao",
+      subtitle: "Minha introdução",
       description: "Full Stack Engineer especializado em backends com IA. Graduado em Engenharia de Software pela PUCRS, construi pipelines RAG end-to-end com FastAPI, LangChain, Sentence Transformers e pgvector. Ingles fluente, com experiencia em projetos reais entregando sistemas que combinam LLMs com arquitetura de dados robusta.",
       downloadCV: "Download Curriculo",
-      experience: "Experiencia",
+      experience: "Experiência",
       experienceYears: "4+ anos de desenvolvimento",
       projects: "Projetos",
       projectsCount: "10+ projetos entregues",
@@ -30,7 +30,7 @@ export const translations = {
     },
     skills: { title: "Skills", subtitle: "Expertise tecnica" },
     services: {
-      title: "Servicos",
+      title: "Serviços",
       subtitle: "O que eu ofeco:",
       items: [
         {
@@ -81,9 +81,9 @@ export const translations = {
       seeMore: "Veja mais",
       close: "Fechar",
     },
-    qualification: { title: "Qualificacao", subtitle: "Minha jornada", education: "Educacao", experience: "Experiencia" },
+    qualification: { title: "Qualificação", subtitle: "Minha jornada", education: "Educação", experience: "Experiência" },
     work: {
-      title: "Portfolio",
+      title: "Portfólio",
       subtitle: "Projetos recentes",
       viewProject: "Ver projeto",
       github: "GitHub",
@@ -385,12 +385,14 @@ export const translations = {
           title: "Pipeline de Streaming",
           intro: "O sistema tem 3 camadas: o servidor Next.js que faz streaming da Groq API, o cliente que monta o codigo incrementalmente, e o runtime de compilacao/renderizacao que roda inteiramente no browser.",
           steps: [
-            { title: "Monaco Editor (prompt)", desc: "O usuario digita o prompt no Monaco Editor. O estado global e gerenciado pelo Zustand — prompt atual, historico de componentes gerados e status do streaming." },
-            { title: "Next.js 15 API Route (Edge Runtime)", desc: "Um POST para /api/generate aciona uma API Route rodando no Edge Runtime. O Groq SDK abre uma conexao de streaming com o Llama 3 e retorna um ReadableStream diretamente ao cliente." },
+            { title: "Monaco Editor (prompt)", desc: "O usuario digita o prompt no Monaco Editor. O estado global é gerenciado pelo Zustand — prompt atual, historico de componentes gerados e status do streaming." },
+            { title: "Next.js 15 API Route (Node.js Runtime)", desc: "Um POST para /api/generate aciona uma API Route rodando no Node.js Runtime. O Groq SDK abre uma conexao de streaming com o Llama 3 e retorna um ReadableStream diretamente ao cliente." },
             { title: "ReadableStream + TextDecoder", desc: "O cliente le o stream chunk por chunk via ReadableStream. Cada chunk passa pelo TextDecoder e e concatenado ao codigo em construcao. A cada novo chunk, o Monaco Editor atualiza em tempo real." },
             { title: "Camada de Validacao", desc: "Antes de compilar, o codigo passa por uma camada de validacao que detecta padroes de alucinacao: JSX invalido, chamadas perigosas (eval, window.location), ou codigo incompleto. Codigo invalido e descartado silenciosamente." },
             { title: "Babel Standalone (compile no browser)", desc: "O Babel Standalone converte o TSX/Tailwind gerado para JavaScript puro diretamente no browser. Nenhum servidor de compilacao necessario — zero custo de infra para compilacao." },
-            { title: "iframe Sandbox (renderizacao isolada)", desc: "O JS compilado e injetado em um iframe com sandbox=allow-scripts. O isolamento previne que o codigo gerado pelo LLM afete o DOM principal, vaze CSS ou execute codigo malicioso." },
+            { title: "iframe Sandbox (renderizacao isolada)", desc: "O JS compilado e injetado em um iframe com sandbox=allow-scripts. O isolamento previne que o codigo gerado pelo LLM afete o DOM principal, vaze CSS ou execute codigo malicioso. Import shim: todos os import statements do TSX gerado sao reescritos via regex para usar um registro de modulos injetado (React, Framer Motion, Lucide, cn helper) — necessario porque scripts inline nao tem sistema de modulos nativo." },
+            { title: "Multi-Provider LLM (AI_PROVIDER)", desc: "O sistema suporta 4 provedores de LLM via variavel de ambiente AI_PROVIDER: Groq (padrao, gratuito), Ollama (local, offline), OpenAI (GPT) e Anthropic (Claude). A troca de provedor nao exige mudanca de codigo — apenas a variavel de ambiente." },
+            { title: "Mock Props Automatico", desc: "O app parseia a interface Props do componente gerado e cria valores ficticio para cada prop declarada, evitando que o preview quebre em componentes com props obrigatorias. Strings recebem placeholders, numeros recebem valores padrao, booleans recebem true." },
           ],
         },
         tradeoffs: {
@@ -416,7 +418,7 @@ export const translations = {
               alternative: "OpenAI GPT-4 / Claude API",
               verdict: "< 200ms first token — essencial para UX de streaming",
               pros: ["First token mais rapido que qualquer alternativa no mercado", "Free tier generoso para demos de portfolio", "SDK com streaming nativo"],
-              cons: ["Qualidade inferior ao GPT-4 para componentes complexos", "Rate limit compartilhado pode afetar demos simultaneous"],
+              cons: ["Qualidade inferior ao GPT-4 para componentes complexos", "Rate limit compartilhado pode afetar demos simultaneos", "O preview renderiza apos o stream completar — compilar TSX incompleto geraria erros transitorios."],
             },
           ],
         },
@@ -426,7 +428,7 @@ export const translations = {
           pillars: [
             { icon: "uil uil-server-network", color: "blue",   title: "API Route Stateless",  desc: "A API Route nao armazena nenhum estado. Cada request e independente — escala horizontalmente no Vercel/Railway sem configuracao adicional." },
             { icon: "uil uil-database",        color: "green",  title: "Zero Backend Storage", desc: "Nenhum banco de dados. O historico de componentes fica no Zustand (cliente). Para persistencia, bastaria adicionar localStorage ou um banco simples." },
-            { icon: "uil uil-tachometer-fast", color: "purple", title: "Edge Runtime",         desc: "A API Route roda no Edge Runtime (V8 Isolates), nao em Node.js tradicional. Latencia global < 50ms para iniciar o stream, independente da localizacao." },
+            { icon: "uil uil-tachometer-fast", color: "purple", title: "Node.js Runtime",      desc: "A API Route roda em Node.js Runtime. O Vercel/Railway gerenciam distribuicao e auto-scaling — sem configuracao adicional de infra." },
             { icon: "uil uil-shield-check",    color: "orange", title: "Rate Limiting",        desc: "O rate limit atual e o da Groq API (key-level). Para multi-usuario, bastaria adicionar Redis + fastapi-limiter por IP — zero mudanca na logica de streaming." },
           ],
           bottleneck: "O gargalo principal e o rate limit da Groq API em uso compartilhado. Mitigacao: cache de respostas para prompts identicos + modelo local via Ollama para demos offline.",
@@ -436,9 +438,9 @@ export const translations = {
           intro: "A maior superficie de ataque e o proprio codigo gerado pelo LLM — que pode conter XSS, acesso a APIs sensiveis ou loops infinitos.",
           items: [
             { icon: "uil uil-shield-check",  title: "iframe sandbox",          desc: "sandbox=allow-scripts sem allow-same-origin. Codigo gerado nao acessa cookies, localStorage, ou o DOM pai. Mesmo um XSS deliberado fica contido.", tag: "Sandbox" },
-            { icon: "uil uil-filter",         title: "Validacao pre-compile",   desc: "Regex e AST-level checks antes do Babel compilar. Detecta eval(), document.cookie, window.location e padroes de codigo malicioso conhecidos.", tag: "Input Sanitization" },
+            { icon: "uil uil-filter",         title: "Validacao pre-compile",   desc: "Regex e analise estatica heuristica antes do Babel compilar. Detecta eval(), document.cookie, window.location e padroes de codigo malicioso conhecidos.", tag: "Input Sanitization" },
             { icon: "uil uil-lock-alt",       title: "API Key server-side",     desc: "A Groq API key nunca sai do servidor. A API Route Next.js age como proxy — o cliente nunca ve a credencial. Rotacao de key nao requer redeploy.", tag: "Secrets" },
-            { icon: "uil uil-hourglass",      title: "Timeout de geracao",      desc: "O stream tem timeout de 30s. Loops infinitos ou geracoes muito longas sao abortados automaticamente pelo Edge Runtime.", tag: "DoS Prevention" },
+            { icon: "uil uil-hourglass",      title: "Timeout de geracao",      desc: "O stream pode ser cancelado pelo usuario a qualquer momento via AbortController. Timeouts de plataforma (Vercel/Railway) se aplicam automaticamente.", tag: "DoS Prevention" },
           ],
           perfTitle: "Metricas de Performance",
           metrics: [
@@ -831,11 +833,13 @@ export const translations = {
           intro: "The system has 3 layers: the Next.js server that streams from the Groq API, the client that incrementally assembles the code, and the compile/render runtime that runs entirely in the browser.",
           steps: [
             { title: "Monaco Editor (prompt input)", desc: "The user types the prompt in the Monaco Editor. Global state is managed by Zustand — current prompt, generated component history, and streaming status." },
-            { title: "Next.js 15 API Route (Edge Runtime)", desc: "A POST to /api/generate triggers an API Route running on the Edge Runtime. The Groq SDK opens a streaming connection to Llama 3 and returns a ReadableStream directly to the client." },
+            { title: "Next.js 15 API Route (Node.js Runtime)", desc: "A POST to /api/generate triggers an API Route running on the Node.js Runtime. The Groq SDK opens a streaming connection to Llama 3 and returns a ReadableStream directly to the client." },
             { title: "ReadableStream + TextDecoder", desc: "The client reads the stream chunk by chunk via ReadableStream. Each chunk passes through TextDecoder and is concatenated to the code being built. The Monaco Editor updates in real time on every new chunk." },
             { title: "Validation Layer", desc: "Before compiling, the code passes through a validation layer that detects hallucination patterns: invalid JSX, dangerous calls (eval, window.location), or incomplete code. Invalid code is silently discarded." },
             { title: "Babel Standalone (in-browser compile)", desc: "Babel Standalone converts the generated TSX/Tailwind to plain JavaScript directly in the browser. No compile server required — zero infrastructure cost for compilation." },
-            { title: "iframe Sandbox (isolated rendering)", desc: "The compiled JS is injected into an iframe with sandbox=allow-scripts. The isolation prevents LLM-generated code from affecting the main DOM, leaking CSS, or executing malicious code." },
+            { title: "iframe Sandbox (isolated rendering)", desc: "The compiled JS is injected into an iframe with sandbox=allow-scripts. The isolation prevents LLM-generated code from affecting the main DOM, leaking CSS, or executing malicious code. Import shim: all import statements in the generated TSX are rewritten via regex to use an injected module registry (React, Framer Motion, Lucide, cn helper) — required because inline scripts have no native module system." },
+            { title: "Multi-Provider LLM (AI_PROVIDER)", desc: "The system supports 4 LLM providers via the AI_PROVIDER environment variable: Groq (default, free), Ollama (local, offline), OpenAI (GPT), and Anthropic (Claude). Switching providers requires no code changes — only an environment variable update." },
+            { title: "Auto Mock Props", desc: "The app parses the Props interface of the generated component and creates placeholder values for each declared prop, preventing preview errors for components with required props. Strings get placeholders, numbers get defaults, booleans get true." },
           ],
         },
         tradeoffs: {
@@ -861,7 +865,7 @@ export const translations = {
               alternative: "OpenAI GPT-4 / Claude API",
               verdict: "< 200ms first token — essential for streaming UX",
               pros: ["Fastest first token of any alternative on the market", "Generous free tier for portfolio demos", "Native streaming SDK"],
-              cons: ["Lower quality than GPT-4 for complex components", "Shared rate limit may affect simultaneous demos"],
+              cons: ["Lower quality than GPT-4 for complex components", "Shared rate limit may affect simultaneous demos", "Preview renders after the stream completes — compiling incomplete TSX would cause transient errors."],
             },
           ],
         },
@@ -871,7 +875,7 @@ export const translations = {
           pillars: [
             { icon: "uil uil-server-network", color: "blue",   title: "Stateless API Route",  desc: "The API Route stores no state. Each request is independent — scales horizontally on Vercel/Railway without additional configuration." },
             { icon: "uil uil-database",        color: "green",  title: "Zero Backend Storage", desc: "No database. Component history lives in Zustand (client-side). For persistence, adding localStorage or a simple DB requires zero changes to the streaming logic." },
-            { icon: "uil uil-tachometer-fast", color: "purple", title: "Edge Runtime",         desc: "The API Route runs on the Edge Runtime (V8 Isolates), not traditional Node.js. Global latency < 50ms to start the stream, regardless of user location." },
+            { icon: "uil uil-tachometer-fast", color: "purple", title: "Node.js Runtime",      desc: "The API Route runs on Node.js Runtime. Vercel/Railway handle distribution and auto-scaling — no additional infrastructure configuration needed." },
             { icon: "uil uil-shield-check",    color: "orange", title: "Rate Limiting",        desc: "Current rate limiting is at the Groq API key level. For multi-user, adding Redis + fastapi-limiter per IP requires zero changes to the streaming logic." },
           ],
           bottleneck: "The main bottleneck is the Groq API rate limit under shared usage. Mitigation: response cache for identical prompts + local Ollama model for offline demos.",
@@ -881,9 +885,9 @@ export const translations = {
           intro: "The largest attack surface is the LLM-generated code itself — which may contain XSS, access to sensitive APIs, or infinite loops.",
           items: [
             { icon: "uil uil-shield-check",  title: "iframe sandbox",          desc: "sandbox=allow-scripts without allow-same-origin. Generated code cannot access cookies, localStorage, or the parent DOM. Even a deliberate XSS stays contained.", tag: "Sandbox" },
-            { icon: "uil uil-filter",         title: "Pre-compile validation",  desc: "Regex and AST-level checks before Babel compiles. Detects eval(), document.cookie, window.location, and known malicious code patterns.", tag: "Input Sanitization" },
+            { icon: "uil uil-filter",         title: "Pre-compile validation",  desc: "Regex and heuristic static analysis before Babel compiles. Detects eval(), document.cookie, window.location, and known malicious code patterns.", tag: "Input Sanitization" },
             { icon: "uil uil-lock-alt",       title: "API Key server-side",     desc: "The Groq API key never leaves the server. The Next.js API Route acts as a proxy — the client never sees the credential. Key rotation requires no redeploy.", tag: "Secrets" },
-            { icon: "uil uil-hourglass",      title: "Generation timeout",      desc: "The stream has a 30s timeout. Infinite loops or excessively long generations are automatically aborted by the Edge Runtime.", tag: "DoS Prevention" },
+            { icon: "uil uil-hourglass",      title: "Generation timeout",      desc: "The stream can be cancelled by the user at any time via AbortController. Platform timeouts (Vercel/Railway) apply automatically.", tag: "DoS Prevention" },
           ],
           perfTitle: "Performance Metrics",
           metrics: [
