@@ -11,7 +11,7 @@ export const translations = {
     },
     home: {
       subtitle: "Full Stack & AI Engineer",
-      description: "Engenheiro de Software graduado pela PUCRS especializado em AI Engineering. Construo pipelines RAG end-to-end, servidores MCP para agentes de IA e infraestrutura AWS com Terraform. FastAPI, LangChain, Docker e busca semantica com pgvector — do backend ao deploy.",
+      description: "Engenheiro de Software com 4 anos de experiencia construindo sistemas de IA em producao. Especializado em pipelines RAG, orquestracao multi-agente com LangGraph, servidores MCP e arquitetura AWS com Terraform. Atualmente construindo o ZapAgent, um SaaS multi-tenant de IA para WhatsApp.",
       cta: "Fale comigo",
       scrollDown: "Role pra baixo",
       available: "Disponivel",
@@ -19,7 +19,7 @@ export const translations = {
     about: {
       title: "Sobre mim",
       subtitle: "Minha introducao",
-      description: "Full Stack Engineer especializado em backends com IA. Graduado em Engenharia de Software pela PUCRS, construi pipelines RAG end-to-end com FastAPI, LangChain, Sentence Transformers e pgvector. Ingles fluente, com experiencia em projetos reais entregando sistemas que combinam LLMs com arquitetura de dados robusta.",
+      description: "Engenheiro de Software full-stack com 4 anos de experiencia, graduado pela PUCRS. Na Dataglass, liderei a Dockerizacao completa da plataforma e construi pipelines CI/CD na AWS que eliminaram 100% dos passos manuais de deploy. Em paralelo, construo sistemas de IA em producao: pipelines RAG, orquestracao multi-agente com LangGraph, servidores MCP e infraestrutura como codigo com Terraform. Ingles fluente, com experiencia em times internacionais distribuidos.",
       downloadCV: "Download Curriculo",
       experience: "Experiencia",
       experienceYears: "4+ anos de desenvolvimento",
@@ -118,7 +118,7 @@ export const translations = {
       tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Performance" },
       problem: {
         title: "O Problema Tecnico",
-        text: "Sistemas de Q&A com LLMs puros alucinam quando a resposta nao esta no contexto de treinamento. O desafio era construir um sistema que processasse documentos grandes de forma nao-bloqueante, armazenasse representacoes semanticas com eficiencia e consultasse um LLM apenas com contexto relevante — tudo isso com latencia aceitavel e custo operacional controlado.",
+        text: "Sistemas de Q&A com LLMs puros alucinam quando a resposta nao esta no contexto de treinamento. O desafio era construir um sistema que processasse documentos grandes de forma nao-bloqueante, armazenasse representacoes semanticas com eficiencia e consultasse um LLM apenas com contexto relevante, tudo isso com latencia aceitavel e custo operacional controlado.",
       },
       architecture: {
         title: "Arquitetura e Fluxo de Dados",
@@ -133,7 +133,7 @@ export const translations = {
         ],
       },
       tradeoffs: {
-        title: "Analise de Trade-offs — Decisoes Criticas",
+        title: "Analise de Trade-offs: Decisoes Criticas",
         intro: "Engenheiros seniors nao escolhem ferramentas por tendencia. Cada decisao aqui foi guiada por latencia, custo operacional, complexidade de manutencao e o perfil de carga esperado.",
         items: [
           {
@@ -196,12 +196,103 @@ export const translations = {
       },
       ctaGithub: "Ver no GitHub",
       ctaDemo: "Ver Demo",
+      encaixe: {
+        heroDesc: "Um SaaS de atendimento via WhatsApp construido como sistema multi-tenant com isolamento por RLS, agente LLM orquestrado por LangGraph e arquitetura hexagonal que desacopla a aplicacao dos provedores de WhatsApp -- para trocar Evolution API por WPP Connect, Meta Cloud API ou Twilio basta implementar uma interface.",
+        tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Performance" },
+        problem: {
+          title: "O Problema Tecnico",
+          text: "Pequenos negocios brasileiros (barbearias, clinicas, pet shops) perdem 40-60% das mensagens recebidas fora do horario comercial e nao tem orcamento para um atendente 24/7. A solucao generica -- bot baseado em regras -- falha porque pessoas escrevem com girias, erros de digitacao e contexto implicito (\"oi quero marcar pra amanha 10h\"). Ja o caminho oposto -- LLM puro sem contexto -- alucina precos, horarios e enderecos que nunca viu. O desafio era construir um agente que entendesse pt-BR coloquial, respondesse a partir do FAQ de cada cliente sem alucinacao, agendasse no Google Calendar e reconhecesse quando passar a conversa para um humano, com isolamento estrito entre tenants e latencia dentro dos 5s de retry do gateway de WhatsApp.",
+        },
+        architecture: {
+          title: "Arquitetura e Fluxo de Dados",
+          intro: "O sistema tem dois fluxos distintos. Webhook (ingestao) aceita o evento da Evolution API em < 200ms, persiste e enfileira um job; o gateway nunca espera o LLM. Worker (processamento) roda o pipeline LangGraph fora do request HTTP, com retry e backoff. A separacao evita que latencia variavel do LLM (3-15s) cause timeouts e mensagens duplicadas no WhatsApp.",
+          steps: [
+            { title: "Recepcao do webhook (com idempotencia)", desc: "Evolution POSTa em /webhooks/whatsapp com token per-instance (nao usa o apikey global; least privilege). FastAPI valida via WhatsAppProvider.verify_webhook_auth e grava em webhook_events com unique (source, external_id). Retries silenciosos da Evolution caem em conflito e voltam 200 sem reprocessar." },
+            { title: "Resolucao de tenant + dispatch assincrono", desc: "instance_name resolve para tenant_id via tabela integrations. Sem mapping, mensagem e dropada com tenant: null -- cross-tenant data leak impossivel por design. Webhook retorna 200 em < 200ms e dispara process_whatsapp_message.delay(). Retry do Celery garante resiliencia mesmo se o worker cair." },
+            { title: "classify_intent (Claude Haiku)", desc: "Claude Haiku classifica em {scheduling, pricing, information, greeting, opt_out, other} com fallback de keywords em pt-BR. \"PARAR\" e hardcoded para opt_out por LGPD, sem depender do LLM." },
+            { title: "retrieve_context (Voyage AI + pgvector)", desc: "Voyage AI voyage-3-lite gera embedding de 1024-dim da pergunta. pgvector busca top-4 FAQs por similaridade coseno (HNSW: m=16, ef_search=64) e concatena com o historico das ultimas 10 mensagens da conversa." },
+            { title: "generate_response (Claude Haiku)", desc: "Haiku compoe a resposta com persona do tenant + FAQ matches como contexto. Limite de 1500 chars evita verbosidade. Fallback offline para falhas da Anthropic responde com mensagem padrao do tenant em vez de quebrar a conversa." },
+            { title: "check_confidence + roteamento", desc: "Score em [0, 1] derivado do top-FAQ + intent + presenca de appointment slot. Limiar configuravel por tenant (default 0.65). Rotas possiveis: respond | schedule | handoff -- a decisao e feita no grafo LangGraph, nao em if/else espalhado." },
+            { title: "schedule / handoff / respond (3 branches)", desc: "schedule_appointment: OAuth refresh automatico do Google Calendar e insert no calendario do tenant, persiste em appointments com google_event_id. handoff_human: notifica o dono via Evolution, marca conversations.status = handoff e o agente para de responder. respond: provider.send_text() vai pra Evolution em prod e pro StubProvider em CI/demo." },
+          ],
+        },
+        tradeoffs: {
+          title: "Analise de Trade-offs: Decisoes Criticas",
+          intro: "Engenheiros seniors nao escolhem ferramentas por tendencia. Cada decisao aqui foi guiada por vendor risk, latencia do gateway de WhatsApp, custo de operacao e capacidade de testar end-to-end sem depender de servicos externos.",
+          items: [
+            {
+              decision: "Arquitetura hexagonal (provider port)", alternative: "Cliente Evolution direto",
+              verdict: "Pluggable WhatsAppProvider isola vendor risk e habilita E2E sem rede",
+              pros: ["WhatsApp provider e vendor risk: Baileys depende de protocolo reverso engineered, conta pode ser banida", "Migrar para Meta Cloud API oficial = 1 novo arquivo, 0 mudancas em rota/worker", "StubProvider permite E2E em CI sem nenhuma conta WhatsApp real"],
+              cons: ["Indirecao extra na pilha de chamadas", "Cada novo metodo na interface precisa ser implementado em N adapters"],
+            },
+            {
+              decision: "Webhook assincrono + Celery", alternative: "Resposta sincrona ao gateway",
+              verdict: "ACK < 200ms desacopla a latencia variavel do LLM (3-15s) do timeout do gateway",
+              pros: ["LLM leva 3-15s; Evolution faz retry em 5s -> mensagens duplicadas no caminho sincrono", "Worker reaproveitavel para retention LGPD nightly e refresh OAuth", "Backpressure natural via fila Redis"],
+              cons: ["Extra hop de Redis + serializacao do payload", "Estado distribuido precisa de PostgresSaver do LangGraph para estado duravel (no roadmap)"],
+            },
+            {
+              decision: "RLS + GUC app.tenant_id", alternative: "Filtragem na camada de aplicacao",
+              verdict: "Defesa em profundidade: bug em rota nao vaza dados de outro tenant",
+              pros: ["Isolamento garantido no nivel do banco mesmo se o codigo aplicacional errar", "Auditoria continua: SET LOCAL app.tenant_id e log-friendly", "Supabase dashboard usa auth.jwt() ->> 'tenant_id' nativamente"],
+              cons: ["Cada query async precisa abrir tx + setar GUC (overhead ~1ms)", "Migration 0002 precisou de policies extras para o JS client (que nao seta GUCs)"],
+            },
+            {
+              decision: "Claude Haiku", alternative: "GPT-4 / Llama 3 local",
+              verdict: "Latencia < 800ms e custo ~10x menor ainda da margem dentro dos 5s do gateway",
+              pros: ["~10x mais barato que GPT-4 por token (~US$0.25/1M input)", "Latencia media < 800ms cabe no SLA de 5s da Evolution", "Suficiente para classificacao e respostas curtas em pt-BR"],
+              cons: ["Raciocinio multi-turno mais fraco que GPT-4 (mitigado: persona + historico explicito no prompt)", "Dependencia de provedor externo (mitigado: fallback heuristico em classify_intent + fallback offline em generate_response)"],
+            },
+            {
+              decision: "Evolution API self-hosted", alternative: "WhatsApp Cloud API oficial / Twilio",
+              verdict: "Zero custo por mensagem e zero lead time -- com vendor risk mitigado pela port hexagonal",
+              pros: ["Zero custo por mensagem (WhatsApp Cloud cobra apos 1k/mes free tier)", "Sem aprovacao Meta (lead time de 5-10 dias)", "Baileys sem Chrome -> roda em VPS pequena (~10 EUR/mes)"],
+              cons: ["Vendor risk (protocolo reverso engineered), sem garantia de SLA, conta pode ser banida", "Mitigacao: WhatsAppProvider abstraction -- trocar para Meta Cloud e flip de env var"],
+            },
+          ],
+        },
+        scalability: {
+          title: "Escalabilidade: De MVP a 100k Requisicoes",
+          intro: "A arquitetura atual atende ~5k turnos/dia em uma VPS Hetzner cax21 (~10 EUR/mes). As alavancas abaixo escalam para 100k req/dia (media ~1.2 req/s, pico ~10 req/s) sem reescrever o core.",
+          pillars: [
+            { icon: "uil uil-server",          color: "blue",   title: "FastAPI Horizontal",    desc: "Stateless. Replicas atras de Caddy/ALB com auto-scale por CPU. Webhook e I/O-bound: cada replica aguenta ~2k req/s antes de gargalo de event loop." },
+            { icon: "uil uil-process",         color: "green",  title: "Celery Workers (KEDA)", desc: "Autoscale por queue depth (KEDA / Celery-watcher). Concorrencia 2-4 por worker para nao saturar a rate limit da Anthropic (limite e por org, nao por worker)." },
+            { icon: "uil uil-database",        color: "purple", title: "Postgres Read Replicas",desc: "Dashboard analytics e historico de conversas vao pra replica. Writes (mensagens, agendamentos) so na primary. pgvector em replica e seguro (indice deterministico)." },
+            { icon: "uil uil-bolt",            color: "orange", title: "Cache de Embeddings",   desc: "Mesma pergunta gera mesmo embedding. Cache Redis em sha256(pergunta) -> vetor corta latencia e custo Voyage para FAQs repetidas (greeting, pricing, horario)." },
+            { icon: "uil uil-shield",          color: "teal",   title: "Rate Limit por Tenant", desc: "SlowAPI + Redis sliding window por tenant e por IP. Hoje e fail-open se Redis cai; circuit breaker esta no roadmap para nao bloquear webhooks legitimos." },
+          ],
+          bottleneck: "Claude Haiku rate limit. Mitigacao: cache de respostas FAQ + fallback deterministico quando intent e simples (greeting, pricing direto do FAQ sem LLM).",
+        },
+        security: {
+          title: "Seguranca e Performance",
+          intro: "Sistemas multi-tenant com LLMs tem tres classes de risco unicas: vazamento cross-tenant, prompt injection e exfiltracao de dados sensiveis via LLM. As medidas abaixo cobrem rede, aplicacao e dados.",
+          items: [
+            { icon: "uil uil-shield-check",  title: "Isolamento triplo (RLS + GUC + service role)", desc: "Migration 0001 + dependency injection no FastAPI: cada request abre tx, seta SET LOCAL app.tenant_id e a policy RLS filtra por GUC. Bug em rota nao vaza dados de outro tenant.", tag: "Multi-Tenant" },
+            { icon: "uil uil-key-skeleton",  title: "Webhook auth com token per-instance",          desc: "EVOLUTION_WEBHOOK_TOKEN diferente por instancia (nao o apikey global). Cada tenant recebe seu proprio token; compromisso de um nao expoe os outros. Token vai em headers.token na criacao da instancia.", tag: "Webhook Auth" },
+            { icon: "uil uil-sync",           title: "Idempotencia em webhook_events",                desc: "Unique constraint em (source, external_id). Retries silenciosos da Evolution caem em conflito e voltam 200 sem reprocessar. Nada de mensagem duplicada no WhatsApp por reentrega.", tag: "Resiliencia" },
+            { icon: "uil uil-file-shield-alt",title: "LGPD: retention + opt-out keywords",            desc: "tenants.data_retention_days configuravel + Celery beat nightly purge. \"PARAR\" hardcoded como opt_out sem depender do LLM (LGPD exige resposta deterministica a opt-out).", tag: "Compliance" },
+            { icon: "uil uil-filter",        title: "Prompt sanitization + persona fixa",             desc: "System prompt parametrizado por tenant, user_message vai como Human: separado. Contexto FAQ vai com role explicito. Reduz prompt injection basico via separacao de canais.", tag: "LLM Security" },
+            { icon: "uil uil-lock-alt",      title: "Secrets em AWS Secrets Manager",                 desc: "Terraform modules/secrets em prod; .env so em dev. Nada hardcoded no repo. ANTHROPIC_API_KEY, VOYAGE_API_KEY e EVOLUTION_WEBHOOK_TOKEN injetados em runtime, rotacao sem rebuild.", tag: "Secrets" },
+          ],
+          perfTitle: "Performance: numeros medidos",
+          metrics: [
+            { value: "p50 87ms",  label: "Webhook receive -> 200 ACK (sem LLM no caminho)" },
+            { value: "p50 4.1s",  label: "Pipeline completo (dominado por 2 calls de LLM em sequencia)" },
+            { value: "~120ms",    label: "Embed Voyage + retrieve pgvector top-4 (HNSW)" },
+            { value: "2/worker",  label: "Concorrencia (gargalo e Anthropic rate limit, nao CPU)" },
+          ],
+        },
+        ctaGithub: "Ver no GitHub",
+        ctaDemo: "README & Instalacao",
+      },
+
       dataglass: {
         heroDesc: "Plataforma SaaS de Business Intelligence multi-tenant integrada ao Tableau Server. Gerencia dashboards isolados por empresa, controla acesso por perfil e sincroniza dados via filas assincronas. Deploy em producao na AWS com Docker, Elastic Beanstalk, ECR, RDS e S3.",
         tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Infra", cicd: "Pipeline CI/CD" },
         problem: {
           title: "O Desafio Tecnico",
-          text: "Empresas diferentes precisavam de dashboards Tableau completamente isolados (multi-tenancy), com controle de acesso granular por usuario. Sincronizacoes com o Tableau Server eram lentas e bloqueantes — impossivel de fazer inline em requests HTTP. A infraestrutura precisava ser confiavel e gerenciavel em producao real com multiplos clientes ativos simultaneamente.",
+          text: "Empresas diferentes precisavam de dashboards Tableau completamente isolados (multi-tenancy), com controle de acesso granular por usuario. Sincronizacoes com o Tableau Server eram lentas e bloqueantes, impossivel de fazer inline em requests HTTP. A infraestrutura precisava ser confiavel e gerenciavel em producao real com multiplos clientes ativos simultaneamente.",
         },
         architecture: {
           title: "Arquitetura AWS Multi-Tenant",
@@ -216,7 +307,7 @@ export const translations = {
           ],
         },
         tradeoffs: {
-          title: "Analise de Trade-offs — Decisoes de Arquitetura",
+          title: "Analise de Trade-offs: Decisoes de Arquitetura",
           intro: "Cada decisao foi guiada pelo contexto: sistema multi-tenant em producao, time pequeno, deadline real. Pragmatismo sobre pureza arquitetural.",
           items: [
             {
@@ -278,14 +369,14 @@ export const translations = {
           ],
         },
         cicd: {
-          title: "Pipeline CI/CD — 3 Pipelines Independentes",
+          title: "Pipeline CI/CD: 3 Pipelines Independentes",
           intro: "O Dataglass tem 3 pipelines separadas no AWS CodePipeline, cada uma com responsabilidade especifica. A estrategia de imagem Docker em camadas (python-base → app) reduz o tempo de build de ~12min para ~3min, pois as dependencias pesadas do Python so sao recompiladas quando mudam.",
           stages: [
-            { title: "python-base pipeline (imagem base)", desc: "Reconstroi a imagem Docker base com todas as dependencias Python (requirements.txt). Publicada no ECR como dataglass/python-base. Executada manualmente apenas quando dependencias mudam — evita rebuild desnecessario em cada deploy." },
+            { title: "python-base pipeline (imagem base)", desc: "Reconstroi a imagem Docker base com todas as dependencias Python (requirements.txt). Publicada no ECR como dataglass/python-base. Executada manualmente apenas quando dependencias mudam, evita rebuild desnecessario em cada deploy." },
             { title: "dataglass-dev pipeline (ambiente dev)", desc: "Triggera automaticamente em pushes para a branch dev. CodeBuild puxa a python-base do ECR, injeta variaveis de ambiente do Secrets Manager, compila o codigo da aplicacao e publica a imagem no ECR como dataglass/dev. Deploy automatico no EB dev environment." },
-            { title: "dataglass-app pipeline (producao)", desc: "Triggera em merges de PR para a branch main. Identico ao pipeline dev, mas publica no ECR como dataglass/app e faz deploy no EB production environment com rolling update — zero downtime." },
+            { title: "dataglass-app pipeline (producao)", desc: "Triggera em merges de PR para a branch main. Identico ao pipeline dev, mas publica no ECR como dataglass/app e faz deploy no EB production environment com rolling update, zero downtime." },
             { title: "Injecao de Segredos no Build", desc: "O AWS Secrets Manager injeta credenciais sensiveis (DB URL, Tableau API key, Mailgun key) diretamente no processo do CodeBuild via environment variables. Nenhuma credencial e armazenada no repositorio ou na imagem Docker final." },
-            { title: "CodeArtifact — Cache de Pacotes", desc: "O AWS CodeArtifact funciona como proxy de cache para o PyPI, acelerando a instalacao de pacotes no build e garantindo reproducibilidade. Pacotes internos/privados podem ser publicados aqui sem expor ao PyPI publico." },
+            { title: "CodeArtifact: Cache de Pacotes", desc: "O AWS CodeArtifact funciona como proxy de cache para o PyPI, acelerando a instalacao de pacotes no build e garantindo reproducibilidade. Pacotes internos/privados podem ser publicados aqui sem expor ao PyPI publico." },
           ],
           metricsTitle: "Metricas do Pipeline",
           metrics: [
@@ -300,22 +391,22 @@ export const translations = {
       },
 
       mcp: {
-        heroDesc: "Um servidor MCP (Model Context Protocol) que transforma qualquer agente de IA em um analista de portfolios GitHub. Claude e outros LLM clients chamam ferramentas como analyze_profile, evaluate_repository e generate_recruiter_summary em linguagem natural — sem integracao manual, sem scraping.",
+        heroDesc: "Um servidor MCP (Model Context Protocol) que transforma qualquer agente de IA em um analista de portfolios GitHub. Claude e outros LLM clients chamam ferramentas como analyze_profile, evaluate_repository e generate_recruiter_summary em linguagem natural, sem integracao manual, sem scraping.",
         tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Deploy" },
         problem: {
           title: "O Problema Tecnico",
-          text: "Agentes de IA nao tem acesso nativo a dados de desenvolvedores no GitHub — precisam de integracao customizada em cada aplicacao. O MCP resolve isso com um protocolo padrao: um unico servidor expoe ferramentas tipadas que qualquer cliente MCP (Claude Desktop, Continue.dev, agentes customizados) pode invocar. O desafio era projetar as ferramentas certas, lidar com rate limits da GitHub API e garantir que o output do LLM seja estruturado o suficiente para ser util — sem ser verbose demais.",
+          text: "Agentes de IA nao tem acesso nativo a dados de desenvolvedores no GitHub, precisam de integracao customizada em cada aplicacao. O MCP resolve isso com um protocolo padrao: um unico servidor expoe ferramentas tipadas que qualquer cliente MCP (Claude Desktop, Continue.dev, agentes customizados) pode invocar. O desafio era projetar as ferramentas certas, lidar com rate limits da GitHub API e garantir que o output do LLM seja estruturado o suficiente para ser util, sem ser verbose demais.",
         },
         architecture: {
-          title: "Arquitetura MCP — Fluxo de Ferramentas",
+          title: "Arquitetura MCP: Fluxo de Ferramentas",
           intro: "O servidor segue o protocolo MCP (JSON-RPC 2.0 sobre stdio ou HTTP/SSE). O cliente descreve o que quer em linguagem natural; o LLM decide qual ferramenta chamar e com quais argumentos; o servidor executa e retorna dados estruturados. O loop repete ate a resposta estar completa.",
           steps: [
-            { title: "Tool Call via MCP Protocol", desc: "O cliente MCP (ex: Claude Desktop) envia uma tool call JSON-RPC. O FastMCP server registra as ferramentas com type hints Python — o schema JSON e gerado automaticamente, eliminando boilerplate." },
+            { title: "Tool Call via MCP Protocol", desc: "O cliente MCP (ex: Claude Desktop) envia uma tool call JSON-RPC. O FastMCP server registra as ferramentas com type hints Python, o schema JSON e gerado automaticamente, eliminando boilerplate." },
             { title: "analyze_profile(username)", desc: "Busca todos os repositorios publicos do usuario via GitHub REST API. Calcula: linguagens mais usadas (por bytes de codigo), estrelas totais, frequencia de commits nos ultimos 90 dias e distribuicao de contribuicoes." },
             { title: "evaluate_repository(repo_url)", desc: "Analisa um repositorio especifico: estrutura de arquivos, qualidade do README (presenca de badges, setup instructions, arquitetura), historico de commits e tech stack detectado automaticamente." },
             { title: "map_to_job(username, job_description)", desc: "Usa LangChain para extrair skills requeridas da descricao da vaga e mapeia para repositorios do desenvolvedor. Retorna: skills matched, skills gap e nivel de match percentual." },
             { title: "generate_recruiter_summary(username)", desc: "Sintetiza todos os dados via LLM call (Groq/Llama 3) com um prompt estruturado. Output: um relatorio Markdown formatado com pontos fortes, stack principal, projetos destacados e sugestao de abordagem para o recrutador." },
-            { title: "Cache + Rate Limit Protection", desc: "Respostas da GitHub API sao cacheadas em Redis com TTL de 15 minutos. Um middleware de rate limiting por IP protege contra abuso. O token GitHub e injetado via variavel de ambiente — zero credenciais em codigo." },
+            { title: "Cache + Rate Limit Protection", desc: "Respostas da GitHub API sao cacheadas em Redis com TTL de 15 minutos. Um middleware de rate limiting por IP protege contra abuso. O token GitHub e injetado via variavel de ambiente, zero credenciais em codigo." },
           ],
         },
         tradeoffs: {
@@ -325,42 +416,42 @@ export const translations = {
             {
               decision: "FastMCP (Anthropic SDK)", alternative: "JSON-RPC manual / MCP SDK raw",
               verdict: "FastMCP eliminou ~80% do boilerplate de protocolo",
-              pros: ["Type hints Python viram schema MCP automaticamente", "Mesma DX do FastAPI — decorators, validators, docs", "Mantido pela Anthropic — evolui com o protocolo", "Suporte nativo a stdio e HTTP/SSE transport"],
-              cons: ["Abstrai detalhes do protocolo — menos controle fino", "Versao 1.x ainda em evolucao rapida — breaking changes possiveis"],
+              pros: ["Type hints Python viram schema MCP automaticamente", "Mesma DX do FastAPI, decorators, validators, docs", "Mantido pela Anthropic, evolui com o protocolo", "Suporte nativo a stdio e HTTP/SSE transport"],
+              cons: ["Abstrai detalhes do protocolo, menos controle fino", "Versao 1.x ainda em evolucao rapida, breaking changes possiveis"],
             },
             {
               decision: "GitHub REST API v3", alternative: "GitHub GraphQL API v4",
               verdict: "REST suficiente; GraphQL eliminaria round-trips em queries complexas",
-              pros: ["SDK Python oficial (PyGithub) bem maduro", "Autenticacao simples com PAT scoped", "Rate limit de 5000 req/hr com token autenticado", "Caching por URL de endpoint — simples de implementar"],
-              cons: ["Queries de dados relacionais (repos + commits + languages) exigem multiplos round-trips", "GraphQL reduziria isso a uma query — relevante em escala"],
+              pros: ["SDK Python oficial (PyGithub) bem maduro", "Autenticacao simples com PAT scoped", "Rate limit de 5000 req/hr com token autenticado", "Caching por URL de endpoint, simples de implementar"],
+              cons: ["Queries de dados relacionais (repos + commits + languages) exigem multiplos round-trips", "GraphQL reduziria isso a uma query, relevante em escala"],
             },
             {
               decision: "Railway para deploy", alternative: "AWS ECS / Fly.io",
               verdict: "Railway: zero-config, deploy em 2 minutos, custo minimo",
-              pros: ["Dockerfile → deploy automatico sem config de infra", "Variaveis de ambiente via UI — sem SSM ou Secrets Manager", "HTTPS automatico com dominio customizado", "Custo ~$5/mes para este perfil de uso"],
-              cons: ["Menos controle sobre networking, VPC, scaling policies", "Vendor lock-in maior que AWS — mitigado pela natureza stateless do servico"],
+              pros: ["Dockerfile → deploy automatico sem config de infra", "Variaveis de ambiente via UI, sem SSM ou Secrets Manager", "HTTPS automatico com dominio customizado", "Custo ~$5/mes para este perfil de uso"],
+              cons: ["Menos controle sobre networking, VPC, scaling policies", "Vendor lock-in maior que AWS, mitigado pela natureza stateless do servico"],
             },
           ],
         },
         scalability: {
           title: "Escalabilidade e Limites",
-          intro: "O servidor MCP e stateless por design — cada tool call e independente. O principal gargalo e a GitHub API (5000 req/hr por token), mitigado por caching inteligente.",
+          intro: "O servidor MCP e stateless por design, cada tool call e independente. O principal gargalo e a GitHub API (5000 req/hr por token), mitigado por caching inteligente.",
           pillars: [
             { icon: "uil uil-database-alt", color: "blue",   title: "Cache com Redis", desc: "Respostas da GitHub API cacheadas por 15 minutos. Um perfil com 30 repos que gera ~90 chamadas API e reutilizado sem custo adicional para requests subsequentes no mesmo periodo." },
-            { icon: "uil uil-copy", color: "green",          title: "Stateless por Design", desc: "Nenhum estado e mantido entre tool calls. Multiplas replicas do servidor podem processar requests em paralelo sem coordenacao — scale horizontal e trivial." },
-            { icon: "uil uil-tachometer-fast", color: "red", title: "Streaming de Resposta", desc: "O generate_recruiter_summary usa streaming via Groq API (ReadableStream). O cliente ve os tokens chegando em tempo real — latencia percebida < 500ms mesmo para relatorios longos." },
+            { icon: "uil uil-copy", color: "green",          title: "Stateless por Design", desc: "Nenhum estado e mantido entre tool calls. Multiplas replicas do servidor podem processar requests em paralelo sem coordenacao, scale horizontal e trivial." },
+            { icon: "uil uil-tachometer-fast", color: "red", title: "Streaming de Resposta", desc: "O generate_recruiter_summary usa streaming via Groq API (ReadableStream). O cliente ve os tokens chegando em tempo real, latencia percebida < 500ms mesmo para relatorios longos." },
             { icon: "uil uil-shield-check", color: "purple", title: "Rate Limit por IP", desc: "Middleware fastapi-limiter restringe a 30 tool calls por minuto por IP. Protege tanto a GitHub API quanto os tokens de LLM contra abuso sem necessidade de autenticacao de usuarios." },
           ],
           bottleneck: "Token GitHub com rate limit de 5000 req/hr. Solucao de longo prazo: GitHub Apps com tokens por instalacao (rate limit por organizacao, nao por token compartilhado).",
         },
         security: {
           title: "Seguranca & Deploy",
-          intro: "Um servidor MCP exposto na internet precisa de validacao de input rigorosa — o LLM pode ser induzido a passar argumentos maliciosos para as ferramentas.",
+          intro: "Um servidor MCP exposto na internet precisa de validacao de input rigorosa, o LLM pode ser induzido a passar argumentos maliciosos para as ferramentas.",
           items: [
             { icon: "uil uil-key-skeleton-alt", title: "Token com Escopo Minimo",    desc: "GitHub PAT configurado com read:public_repo apenas. Mesmo comprometido, nao permite acesso a repos privados, write, ou deletar dados.", tag: "Least Privilege" },
             { icon: "uil uil-shield-check",     title: "Validacao de Input",          desc: "Todos os parametros das ferramentas passam por validators Pydantic antes de qualquer chamada de API. Tentativas de path traversal ou injection sao rejeitadas antes de sair do servidor.", tag: "Input Sanitization" },
             { icon: "uil uil-lock-alt",         title: "Secrets via Env Vars",        desc: "GitHub token e Groq API key injetados via variaveis de ambiente no Railway. Zero credenciais em codigo, Dockerfile ou logs. Rotacao de tokens sem redeploy.", tag: "Secrets Management" },
-            { icon: "uil uil-server",           title: "Containerizado com Docker",   desc: "Imagem Docker slim (python:3.12-slim). Health check no /health endpoint. Restart automatico em falha. Reproducivel localmente com docker run — sem environment-specific bugs.", tag: "Reproducibility" },
+            { icon: "uil uil-server",           title: "Containerizado com Docker",   desc: "Imagem Docker slim (python:3.12-slim). Health check no /health endpoint. Restart automatico em falha. Reproducivel localmente com docker run, sem environment-specific bugs.", tag: "Reproducibility" },
           ],
           perfTitle: "Metricas de Performance",
           metrics: [
@@ -375,21 +466,21 @@ export const translations = {
       },
   
       aiComponent: {
-        heroDesc: "Um gerador de componentes UI em tempo real que usa streaming de LLMs para exibir codigo TSX sendo gerado token por token, compila no browser via Babel Standalone e renderiza em um iframe sandbox isolado — sem etapa de compilacao no servidor.",
+        heroDesc: "Um gerador de componentes UI em tempo real que usa streaming de LLMs para exibir codigo TSX sendo gerado token por token, compila no browser via Babel Standalone e renderiza em um iframe sandbox isolado, sem etapa de compilacao no servidor.",
         tabs: { architecture: "Arquitetura", tradeoffs: "Trade-offs", scalability: "Escalabilidade", security: "Seguranca & Sandbox" },
         problem: {
           title: "O Problema Tecnico",
-          text: "Gerar componentes UI com LLMs exige um loop justo entre geracao, compilacao e renderizacao — sem etapa de compile no servidor. O desafio era construir um pipeline de streaming que exibisse codigo aparecendo token a token enquanto mantinha o componente renderizado em sincronia, tudo sem bloquear a thread principal do browser.",
+          text: "Gerar componentes UI com LLMs exige um loop justo entre geracao, compilacao e renderizacao, sem etapa de compile no servidor. O desafio era construir um pipeline de streaming que exibisse codigo aparecendo token a token enquanto mantinha o componente renderizado em sincronia, tudo sem bloquear a thread principal do browser.",
         },
         architecture: {
           title: "Pipeline de Streaming",
           intro: "O sistema tem 3 camadas: o servidor Next.js que faz streaming da Groq API, o cliente que monta o codigo incrementalmente, e o runtime de compilacao/renderizacao que roda inteiramente no browser.",
           steps: [
-            { title: "Monaco Editor (prompt)", desc: "O usuario digita o prompt no Monaco Editor. O estado global e gerenciado pelo Zustand — prompt atual, historico de componentes gerados e status do streaming." },
+            { title: "Monaco Editor (prompt)", desc: "O usuario digita o prompt no Monaco Editor. O estado global e gerenciado pelo Zustand, prompt atual, historico de componentes gerados e status do streaming." },
             { title: "Next.js 15 API Route (Edge Runtime)", desc: "Um POST para /api/generate aciona uma API Route rodando no Edge Runtime. O Groq SDK abre uma conexao de streaming com o Llama 3 e retorna um ReadableStream diretamente ao cliente." },
             { title: "ReadableStream + TextDecoder", desc: "O cliente le o stream chunk por chunk via ReadableStream. Cada chunk passa pelo TextDecoder e e concatenado ao codigo em construcao. A cada novo chunk, o Monaco Editor atualiza em tempo real." },
             { title: "Camada de Validacao", desc: "Antes de compilar, o codigo passa por uma camada de validacao que detecta padroes de alucinacao: JSX invalido, chamadas perigosas (eval, window.location), ou codigo incompleto. Codigo invalido e descartado silenciosamente." },
-            { title: "Babel Standalone (compile no browser)", desc: "O Babel Standalone converte o TSX/Tailwind gerado para JavaScript puro diretamente no browser. Nenhum servidor de compilacao necessario — zero custo de infra para compilacao." },
+            { title: "Babel Standalone (compile no browser)", desc: "O Babel Standalone converte o TSX/Tailwind gerado para JavaScript puro diretamente no browser. Nenhum servidor de compilacao necessario, zero custo de infra para compilacao." },
             { title: "iframe Sandbox (renderizacao isolada)", desc: "O JS compilado e injetado em um iframe com sandbox=allow-scripts. O isolamento previne que o codigo gerado pelo LLM afete o DOM principal, vaze CSS ou execute codigo malicioso." },
           ],
         },
@@ -401,7 +492,7 @@ export const translations = {
               decision: "Babel Standalone (browser)",
               alternative: "Servidor de compilacao (esbuild/swc)",
               verdict: "Zero custo de infra, funciona offline, sem cold start",
-              pros: ["Sem servidor de compilacao — custo zero", "Funciona mesmo sem backend (pode virar PWA)", "Compilacao incremental tentativa a cada chunk"],
+              pros: ["Sem servidor de compilacao, custo zero", "Funciona mesmo sem backend (pode virar PWA)", "Compilacao incremental tentativa a cada chunk"],
               cons: ["Babel e maior (~1.5MB) que esbuild/swc", "Compilacao mais lenta para arquivos grandes (aceitavel para componentes pequenos)"],
             },
             {
@@ -414,7 +505,7 @@ export const translations = {
             {
               decision: "Groq API / Llama 3",
               alternative: "OpenAI GPT-4 / Claude API",
-              verdict: "< 200ms first token — essencial para UX de streaming",
+              verdict: "< 200ms first token, essencial para UX de streaming",
               pros: ["First token mais rapido que qualquer alternativa no mercado", "Free tier generoso para demos de portfolio", "SDK com streaming nativo"],
               cons: ["Qualidade inferior ao GPT-4 para componentes complexos", "Rate limit compartilhado pode afetar demos simultaneous"],
             },
@@ -422,22 +513,22 @@ export const translations = {
         },
         scalability: {
           title: "Escalabilidade",
-          intro: "A arquitetura e stateless por design — o servidor nao guarda estado, toda a logica de compilacao roda no cliente.",
+          intro: "A arquitetura e stateless por design, o servidor nao guarda estado, toda a logica de compilacao roda no cliente.",
           pillars: [
-            { icon: "uil uil-server-network", color: "blue",   title: "API Route Stateless",  desc: "A API Route nao armazena nenhum estado. Cada request e independente — escala horizontalmente no Vercel/Railway sem configuracao adicional." },
+            { icon: "uil uil-server-network", color: "blue",   title: "API Route Stateless",  desc: "A API Route nao armazena nenhum estado. Cada request e independente, escala horizontalmente no Vercel/Railway sem configuracao adicional." },
             { icon: "uil uil-database",        color: "green",  title: "Zero Backend Storage", desc: "Nenhum banco de dados. O historico de componentes fica no Zustand (cliente). Para persistencia, bastaria adicionar localStorage ou um banco simples." },
             { icon: "uil uil-tachometer-fast", color: "purple", title: "Edge Runtime",         desc: "A API Route roda no Edge Runtime (V8 Isolates), nao em Node.js tradicional. Latencia global < 50ms para iniciar o stream, independente da localizacao." },
-            { icon: "uil uil-shield-check",    color: "orange", title: "Rate Limiting",        desc: "O rate limit atual e o da Groq API (key-level). Para multi-usuario, bastaria adicionar Redis + fastapi-limiter por IP — zero mudanca na logica de streaming." },
+            { icon: "uil uil-shield-check",    color: "orange", title: "Rate Limiting",        desc: "O rate limit atual e o da Groq API (key-level). Para multi-usuario, bastaria adicionar Redis + fastapi-limiter por IP, zero mudanca na logica de streaming." },
           ],
           bottleneck: "O gargalo principal e o rate limit da Groq API em uso compartilhado. Mitigacao: cache de respostas para prompts identicos + modelo local via Ollama para demos offline.",
         },
         security: {
           title: "Seguranca & Sandbox",
-          intro: "A maior superficie de ataque e o proprio codigo gerado pelo LLM — que pode conter XSS, acesso a APIs sensiveis ou loops infinitos.",
+          intro: "A maior superficie de ataque e o proprio codigo gerado pelo LLM, que pode conter XSS, acesso a APIs sensiveis ou loops infinitos.",
           items: [
             { icon: "uil uil-shield-check",  title: "iframe sandbox",          desc: "sandbox=allow-scripts sem allow-same-origin. Codigo gerado nao acessa cookies, localStorage, ou o DOM pai. Mesmo um XSS deliberado fica contido.", tag: "Sandbox" },
             { icon: "uil uil-filter",         title: "Validacao pre-compile",   desc: "Regex e AST-level checks antes do Babel compilar. Detecta eval(), document.cookie, window.location e padroes de codigo malicioso conhecidos.", tag: "Input Sanitization" },
-            { icon: "uil uil-lock-alt",       title: "API Key server-side",     desc: "A Groq API key nunca sai do servidor. A API Route Next.js age como proxy — o cliente nunca ve a credencial. Rotacao de key nao requer redeploy.", tag: "Secrets" },
+            { icon: "uil uil-lock-alt",       title: "API Key server-side",     desc: "A Groq API key nunca sai do servidor. A API Route Next.js age como proxy, o cliente nunca ve a credencial. Rotacao de key nao requer redeploy.", tag: "Secrets" },
             { icon: "uil uil-hourglass",      title: "Timeout de geracao",      desc: "O stream tem timeout de 30s. Loops infinitos ou geracoes muito longas sao abortados automaticamente pelo Edge Runtime.", tag: "DoS Prevention" },
           ],
           perfTitle: "Metricas de Performance",
@@ -466,7 +557,7 @@ export const translations = {
     },
     home: {
       subtitle: "Full Stack & AI Engineer",
-      description: "Software Engineer graduated from PUCRS, specialized in AI Engineering. I build end-to-end RAG pipelines, MCP servers for AI agents, and AWS infrastructure with Terraform. FastAPI, LangChain, Docker, and semantic search with pgvector — from backend design to production deploy.",
+      description: "Software Engineer with 4 years of experience building production AI systems. Specialized in RAG pipelines, multi-agent orchestration with LangGraph, MCP servers, and AWS cloud architecture with Terraform. Currently shipping ZapAgent, a multi-tenant WhatsApp AI SaaS.",
       cta: "Let's talk",
       scrollDown: "Scroll down",
       available: "Available",
@@ -474,7 +565,7 @@ export const translations = {
     about: {
       title: "About me",
       subtitle: "My introduction",
-      description: "AI Engineer and Full Stack Developer with a B.Sc. in Software Engineering from PUCRS. I build RAG pipelines, MCP servers for AI agents, and provision AWS infrastructure with Terraform. Fluent in English, with hands-on experience shipping systems that combine LLMs with robust data architecture.",
+      description: "Full-Stack Software Engineer with 4 years of experience, graduated from PUCRS. At Dataglass, I led the full Dockerization of the platform and built AWS CI/CD pipelines that eliminated 100% of manual deploy steps. In parallel, I ship production AI systems: RAG pipelines, multi-agent orchestration with LangGraph, MCP servers, and infrastructure-as-code with Terraform. Fluent in English, experienced in distributed international teams.",
       downloadCV: "Download CV",
       experience: "Experience",
       experienceYears: "4+ years of development",
@@ -573,7 +664,7 @@ export const translations = {
       tabs: { architecture: "Architecture", tradeoffs: "Trade-offs", scalability: "Scalability", security: "Security & Performance" },
       problem: {
         title: "The Technical Problem",
-        text: "Pure LLM Q&A systems hallucinate when the answer is not within their training context. The challenge was to build a system that processes large documents in a non-blocking manner, stores semantic representations efficiently, and queries an LLM only with relevant context — all with acceptable latency and controlled operational cost.",
+        text: "Pure LLM Q&A systems hallucinate when the answer is not within their training context. The challenge was to build a system that processes large documents in a non-blocking manner, stores semantic representations efficiently, and queries an LLM only with relevant context, all with acceptable latency and controlled operational cost.",
       },
       architecture: {
         title: "Architecture & Data Flow",
@@ -588,7 +679,7 @@ export const translations = {
         ],
       },
       tradeoffs: {
-        title: "Trade-off Analysis — Critical Decisions",
+        title: "Trade-off Analysis: Critical Decisions",
         intro: "Senior engineers don't choose tools by trend. Every decision here was guided by latency, operational cost, maintenance complexity, and the expected load profile.",
         items: [
           {
@@ -651,12 +742,103 @@ export const translations = {
       },
       ctaGithub: "View on GitHub",
       ctaDemo: "View Demo",
+      encaixe: {
+        heroDesc: "A WhatsApp customer-service SaaS built as a multi-tenant system with RLS-based isolation, an LLM agent orchestrated by LangGraph, and a hexagonal architecture that decouples the application from WhatsApp providers -- swapping Evolution API for WPP Connect, Meta Cloud API, or Twilio is just implementing an interface.",
+        tabs: { architecture: "Architecture", tradeoffs: "Trade-offs", scalability: "Scalability", security: "Security & Performance" },
+        problem: {
+          title: "The Technical Problem",
+          text: "Small Brazilian businesses (barbershops, clinics, pet stores) lose 40-60% of messages received outside business hours and cannot afford a 24/7 attendant. The generic solution -- a rules-based bot -- fails because people write with slang, typos, and implicit context (\"hi want to book tomorrow 10am\"). The opposite path -- a raw LLM with no context -- hallucinates prices, schedules, and addresses it has never seen. The challenge was building an agent that understands colloquial pt-BR, answers from each customer's FAQ without hallucinating, books real appointments on Google Calendar, and recognizes when to hand off to a human -- all with strict cross-tenant isolation and latency that fits within the WhatsApp gateway's 5-second retry window.",
+        },
+        architecture: {
+          title: "Architecture & Data Flow",
+          intro: "The system has two distinct flows. The Webhook (ingestion) accepts the Evolution API event in under 200ms, persists it, and enqueues a job -- the gateway never waits on the LLM. The Worker (processing) runs the LangGraph pipeline outside the HTTP request, with retry and backoff. The separation prevents variable LLM latency (3-15s) from causing timeouts and duplicate messages on WhatsApp.",
+          steps: [
+            { title: "Webhook reception (with idempotency)", desc: "Evolution POSTs to /webhooks/whatsapp with a per-instance token (not the global apikey -- least privilege). FastAPI validates via WhatsAppProvider.verify_webhook_auth and writes to webhook_events with unique (source, external_id). Silent retries from Evolution conflict and return 200 without reprocessing." },
+            { title: "Tenant resolution + async dispatch", desc: "instance_name resolves to tenant_id via the integrations table. With no mapping, the message is dropped with tenant: null -- cross-tenant data leaks impossible by design. The webhook returns 200 in under 200ms and fires process_whatsapp_message.delay(). Celery's retry ensures resilience even if the worker crashes." },
+            { title: "classify_intent (Claude Haiku)", desc: "Claude Haiku classifies into {scheduling, pricing, information, greeting, opt_out, other} with a pt-BR keyword fallback. \"PARAR\" (stop) is hardcoded as opt_out -- required by LGPD, not delegated to the LLM." },
+            { title: "retrieve_context (Voyage AI + pgvector)", desc: "Voyage AI voyage-3-lite generates a 1024-dim embedding of the question. pgvector retrieves the top-4 FAQs by cosine similarity (HNSW: m=16, ef_search=64) and concatenates with the last 10 messages of conversation history." },
+            { title: "generate_response (Claude Haiku)", desc: "Haiku composes the answer using the tenant persona + retrieved FAQ matches as context. A 1500-char cap prevents verbosity. An offline fallback responds with the tenant's default message instead of breaking the conversation when Anthropic fails." },
+            { title: "check_confidence + routing", desc: "Score in [0, 1] derived from top-FAQ + intent + appointment-slot presence. Per-tenant configurable threshold (default 0.65). Possible routes: respond | schedule | handoff -- decided inside the LangGraph graph, not in scattered if/else." },
+            { title: "schedule / handoff / respond (3 branches)", desc: "schedule_appointment: automatic OAuth refresh for Google Calendar, insert into the tenant's calendar, persists in appointments with google_event_id. handoff_human: notifies the owner via Evolution, marks conversations.status = handoff, and the agent stops replying. respond: provider.send_text() goes to Evolution in prod and to StubProvider in CI/demo." },
+          ],
+        },
+        tradeoffs: {
+          title: "Trade-off Analysis: Critical Decisions",
+          intro: "Senior engineers don't choose tools by trend. Every decision here was guided by vendor risk, WhatsApp gateway latency, operating cost, and the ability to test end-to-end without depending on external services.",
+          items: [
+            {
+              decision: "Hexagonal architecture (provider port)", alternative: "Direct Evolution client",
+              verdict: "Pluggable WhatsAppProvider isolates vendor risk and enables E2E without network",
+              pros: ["WhatsApp provider is vendor risk: Baileys depends on a reverse-engineered protocol -- accounts can be banned", "Migrating to the official Meta Cloud API = 1 new file, 0 changes to route/worker", "StubProvider enables E2E in CI with no real WhatsApp account"],
+              cons: ["Extra indirection in the call stack", "Every new method on the interface must be implemented in N adapters"],
+            },
+            {
+              decision: "Async webhook + Celery", alternative: "Synchronous reply to the gateway",
+              verdict: "ACK under 200ms decouples variable LLM latency (3-15s) from the gateway timeout",
+              pros: ["LLM takes 3-15s; Evolution retries in 5s -> duplicate messages on the sync path", "Worker reused for nightly LGPD retention and OAuth refresh", "Natural backpressure via Redis queue"],
+              cons: ["Extra Redis hop + payload serialization", "Distributed state needs LangGraph PostgresSaver for durable state (on the roadmap)"],
+            },
+            {
+              decision: "RLS + GUC app.tenant_id", alternative: "Application-layer filtering",
+              verdict: "Defense in depth: a route bug cannot leak another tenant's data",
+              pros: ["Isolation enforced at the database level even if application code is wrong", "Continuous auditability: SET LOCAL app.tenant_id is log-friendly", "Supabase dashboard uses auth.jwt() ->> 'tenant_id' natively"],
+              cons: ["Every async query must open a tx + set the GUC (~1ms overhead)", "Migration 0002 needed extra policies for the JS client (which doesn't set GUCs)"],
+            },
+            {
+              decision: "Claude Haiku", alternative: "GPT-4 / local Llama 3",
+              verdict: "Under 800ms latency and ~10x lower cost still fit within the gateway's 5s window",
+              pros: ["~10x cheaper than GPT-4 per token (~US$0.25/1M input)", "Average latency under 800ms fits the Evolution 5s SLA", "Sufficient for classification and short pt-BR replies"],
+              cons: ["Weaker multi-turn reasoning than GPT-4 (mitigated: persona + explicit history in the prompt)", "External provider dependency (mitigated: heuristic fallback in classify_intent + offline fallback in generate_response)"],
+            },
+            {
+              decision: "Self-hosted Evolution API", alternative: "Official WhatsApp Cloud API / Twilio",
+              verdict: "Zero per-message cost and zero lead time -- with vendor risk mitigated by the hexagonal port",
+              pros: ["Zero per-message cost (WhatsApp Cloud charges after 1k/month free tier)", "No Meta approval (5-10 day lead time)", "Baileys with no Chrome -> runs on a small VPS (~10 EUR/month)"],
+              cons: ["Vendor risk (reverse-engineered protocol), no SLA, account can be banned", "Mitigation: WhatsAppProvider abstraction -- switching to Meta Cloud is an env-var flip"],
+            },
+          ],
+        },
+        scalability: {
+          title: "Scalability: From MVP to 100k Requests",
+          intro: "The current architecture handles ~5k turns/day on a Hetzner cax21 VPS (~10 EUR/month). The levers below scale to 100k req/day (avg ~1.2 req/s, peak ~10 req/s) without rewriting the core.",
+          pillars: [
+            { icon: "uil uil-server",   color: "blue",   title: "Horizontal FastAPI",       desc: "Stateless. Replicas behind Caddy/ALB with CPU-based auto-scale. The webhook is I/O-bound: each replica handles ~2k req/s before the event loop bottlenecks." },
+            { icon: "uil uil-process",  color: "green",  title: "Celery Workers (KEDA)",    desc: "Auto-scaling by queue depth (KEDA / Celery-watcher). Concurrency 2-4 per worker to avoid saturating Anthropic's rate limit (per-org, not per-worker)." },
+            { icon: "uil uil-database", color: "purple", title: "Postgres Read Replicas",   desc: "Dashboard analytics and conversation history hit a read replica. Writes (messages, appointments) only on the primary. pgvector on a replica is safe -- the index is deterministic." },
+            { icon: "uil uil-bolt",     color: "orange", title: "Embedding Cache",          desc: "Same question yields the same embedding. Redis cache keyed by sha256(question) -> vector cuts Voyage latency and cost for repeated FAQs (greeting, pricing, hours)." },
+            { icon: "uil uil-shield",   color: "teal",   title: "Per-Tenant Rate Limiting", desc: "SlowAPI + Redis sliding window per tenant and per IP. Currently fail-open if Redis is down; a circuit breaker is on the roadmap to avoid blocking legitimate webhooks." },
+          ],
+          bottleneck: "Claude Haiku rate limit. Mitigation: cached FAQ responses + deterministic fallback when intent is simple (greeting, direct FAQ pricing without LLM).",
+        },
+        security: {
+          title: "Security & Performance",
+          intro: "Multi-tenant LLM systems have three unique risk classes: cross-tenant data leakage, prompt injection, and sensitive data exfiltration via the LLM. The measures below cover network, application, and data layers.",
+          items: [
+            { icon: "uil uil-shield-check",   title: "Triple isolation (RLS + GUC + service role)", desc: "Migration 0001 + dependency injection in FastAPI: every request opens a tx, sets SET LOCAL app.tenant_id, and the RLS policy filters by the GUC. A route bug cannot leak another tenant's data.", tag: "Multi-Tenant" },
+            { icon: "uil uil-key-skeleton",   title: "Per-instance webhook token",                   desc: "EVOLUTION_WEBHOOK_TOKEN is per-instance (not the global apikey). Each tenant gets its own token; compromising one doesn't expose the others. Token sent in headers.token at instance creation.", tag: "Webhook Auth" },
+            { icon: "uil uil-sync",           title: "Idempotency on webhook_events",                 desc: "Unique constraint on (source, external_id). Silent retries from Evolution conflict and return 200 without reprocessing. No duplicate WhatsApp messages from re-delivery.", tag: "Resilience" },
+            { icon: "uil uil-file-shield-alt",title: "LGPD: retention + opt-out keywords",            desc: "Configurable tenants.data_retention_days + nightly Celery beat purge. \"PARAR\" hardcoded as opt_out without LLM involvement (LGPD requires deterministic opt-out responses).", tag: "Compliance" },
+            { icon: "uil uil-filter",         title: "Prompt sanitization + fixed persona",           desc: "Per-tenant parameterized system prompt, user_message sent as a separate Human: role. Retrieved FAQ context goes with an explicit role. Reduces basic prompt injection via channel separation.", tag: "LLM Security" },
+            { icon: "uil uil-lock-alt",       title: "Secrets in AWS Secrets Manager",                desc: "Terraform modules/secrets in prod; .env only in dev. Nothing hardcoded in the repo. ANTHROPIC_API_KEY, VOYAGE_API_KEY, and EVOLUTION_WEBHOOK_TOKEN injected at runtime -- rotation without rebuild.", tag: "Secrets" },
+          ],
+          perfTitle: "Performance: measured numbers",
+          metrics: [
+            { value: "p50 87ms",  label: "Webhook receive -> 200 ACK (no LLM on the path)" },
+            { value: "p50 4.1s",  label: "End-to-end pipeline (dominated by 2 sequential LLM calls)" },
+            { value: "~120ms",    label: "Voyage embed + pgvector top-4 retrieve (HNSW)" },
+            { value: "2/worker",  label: "Concurrency (bottleneck is Anthropic rate limit, not CPU)" },
+          ],
+        },
+        ctaGithub: "View on GitHub",
+        ctaDemo: "README & Installation",
+      },
+
       dataglass: {
         heroDesc: "Multi-tenant SaaS Business Intelligence platform integrated with Tableau Server. Manages isolated dashboards per company, controls access by profile, and syncs data via async queues. Deployed in production on AWS with Docker, Elastic Beanstalk, ECR, RDS, and S3.",
         tabs: { architecture: "Architecture", tradeoffs: "Trade-offs", scalability: "Scalability", security: "Security & Infra", cicd: "CI/CD Pipeline" },
         problem: {
           title: "The Technical Challenge",
-          text: "Different companies needed fully isolated Tableau dashboards (multi-tenancy) with granular per-user access control. Syncing with Tableau Server was slow and blocking — impossible to do inline in HTTP requests. The infrastructure needed to be reliable and manageable in real production with multiple active clients running simultaneously.",
+          text: "Different companies needed fully isolated Tableau dashboards (multi-tenancy) with granular per-user access control. Syncing with Tableau Server was slow and blocking, impossible to do inline in HTTP requests. The infrastructure needed to be reliable and manageable in real production with multiple active clients running simultaneously.",
         },
         architecture: {
           title: "AWS Multi-Tenant Architecture",
@@ -820,21 +1002,21 @@ export const translations = {
       },
 
       aiComponent: {
-        heroDesc: "A real-time UI component generator that uses LLM streaming to display TSX code being generated token by token, compiles it in the browser via Babel Standalone, and renders it in an isolated iframe sandbox — with no server-side compile step.",
+        heroDesc: "A real-time UI component generator that uses LLM streaming to display TSX code being generated token by token, compiles it in the browser via Babel Standalone, and renders it in an isolated iframe sandbox, with no server-side compile step.",
         tabs: { architecture: "Architecture", tradeoffs: "Trade-offs", scalability: "Scalability", security: "Security & Sandbox" },
         problem: {
           title: "The Technical Problem",
-          text: "Generating UI components with LLMs requires a tight loop between generation, compilation, and rendering — without a server-side compile step. The challenge was to build a streaming pipeline that shows code appearing token-by-token while keeping the rendered component in sync, all without blocking the browser's main thread.",
+          text: "Generating UI components with LLMs requires a tight loop between generation, compilation, and rendering, without a server-side compile step. The challenge was to build a streaming pipeline that shows code appearing token-by-token while keeping the rendered component in sync, all without blocking the browser's main thread.",
         },
         architecture: {
           title: "Streaming Pipeline",
           intro: "The system has 3 layers: the Next.js server that streams from the Groq API, the client that incrementally assembles the code, and the compile/render runtime that runs entirely in the browser.",
           steps: [
-            { title: "Monaco Editor (prompt input)", desc: "The user types the prompt in the Monaco Editor. Global state is managed by Zustand — current prompt, generated component history, and streaming status." },
+            { title: "Monaco Editor (prompt input)", desc: "The user types the prompt in the Monaco Editor. Global state is managed by Zustand, current prompt, generated component history, and streaming status." },
             { title: "Next.js 15 API Route (Edge Runtime)", desc: "A POST to /api/generate triggers an API Route running on the Edge Runtime. The Groq SDK opens a streaming connection to Llama 3 and returns a ReadableStream directly to the client." },
             { title: "ReadableStream + TextDecoder", desc: "The client reads the stream chunk by chunk via ReadableStream. Each chunk passes through TextDecoder and is concatenated to the code being built. The Monaco Editor updates in real time on every new chunk." },
             { title: "Validation Layer", desc: "Before compiling, the code passes through a validation layer that detects hallucination patterns: invalid JSX, dangerous calls (eval, window.location), or incomplete code. Invalid code is silently discarded." },
-            { title: "Babel Standalone (in-browser compile)", desc: "Babel Standalone converts the generated TSX/Tailwind to plain JavaScript directly in the browser. No compile server required — zero infrastructure cost for compilation." },
+            { title: "Babel Standalone (in-browser compile)", desc: "Babel Standalone converts the generated TSX/Tailwind to plain JavaScript directly in the browser. No compile server required, zero infrastructure cost for compilation." },
             { title: "iframe Sandbox (isolated rendering)", desc: "The compiled JS is injected into an iframe with sandbox=allow-scripts. The isolation prevents LLM-generated code from affecting the main DOM, leaking CSS, or executing malicious code." },
           ],
         },
@@ -846,7 +1028,7 @@ export const translations = {
               decision: "Babel Standalone (browser)",
               alternative: "Compile server (esbuild/swc)",
               verdict: "Zero infra cost, works offline, no cold start",
-              pros: ["No compile server — zero cost", "Works even without a backend (could become a PWA)", "Incremental tentative compilation on each chunk"],
+              pros: ["No compile server, zero cost", "Works even without a backend (could become a PWA)", "Incremental tentative compilation on each chunk"],
               cons: ["Babel is larger (~1.5MB) than esbuild/swc", "Slower compilation for large files (acceptable for small components)"],
             },
             {
@@ -859,7 +1041,7 @@ export const translations = {
             {
               decision: "Groq API / Llama 3",
               alternative: "OpenAI GPT-4 / Claude API",
-              verdict: "< 200ms first token — essential for streaming UX",
+              verdict: "< 200ms first token, essential for streaming UX",
               pros: ["Fastest first token of any alternative on the market", "Generous free tier for portfolio demos", "Native streaming SDK"],
               cons: ["Lower quality than GPT-4 for complex components", "Shared rate limit may affect simultaneous demos"],
             },
@@ -867,9 +1049,9 @@ export const translations = {
         },
         scalability: {
           title: "Scalability",
-          intro: "The architecture is stateless by design — the server holds no state, and all compilation logic runs on the client.",
+          intro: "The architecture is stateless by design, the server holds no state, and all compilation logic runs on the client.",
           pillars: [
-            { icon: "uil uil-server-network", color: "blue",   title: "Stateless API Route",  desc: "The API Route stores no state. Each request is independent — scales horizontally on Vercel/Railway without additional configuration." },
+            { icon: "uil uil-server-network", color: "blue",   title: "Stateless API Route",  desc: "The API Route stores no state. Each request is independent, scales horizontally on Vercel/Railway without additional configuration." },
             { icon: "uil uil-database",        color: "green",  title: "Zero Backend Storage", desc: "No database. Component history lives in Zustand (client-side). For persistence, adding localStorage or a simple DB requires zero changes to the streaming logic." },
             { icon: "uil uil-tachometer-fast", color: "purple", title: "Edge Runtime",         desc: "The API Route runs on the Edge Runtime (V8 Isolates), not traditional Node.js. Global latency < 50ms to start the stream, regardless of user location." },
             { icon: "uil uil-shield-check",    color: "orange", title: "Rate Limiting",        desc: "Current rate limiting is at the Groq API key level. For multi-user, adding Redis + fastapi-limiter per IP requires zero changes to the streaming logic." },
@@ -878,11 +1060,11 @@ export const translations = {
         },
         security: {
           title: "Security & Sandbox",
-          intro: "The largest attack surface is the LLM-generated code itself — which may contain XSS, access to sensitive APIs, or infinite loops.",
+          intro: "The largest attack surface is the LLM-generated code itself, which may contain XSS, access to sensitive APIs, or infinite loops.",
           items: [
             { icon: "uil uil-shield-check",  title: "iframe sandbox",          desc: "sandbox=allow-scripts without allow-same-origin. Generated code cannot access cookies, localStorage, or the parent DOM. Even a deliberate XSS stays contained.", tag: "Sandbox" },
             { icon: "uil uil-filter",         title: "Pre-compile validation",  desc: "Regex and AST-level checks before Babel compiles. Detects eval(), document.cookie, window.location, and known malicious code patterns.", tag: "Input Sanitization" },
-            { icon: "uil uil-lock-alt",       title: "API Key server-side",     desc: "The Groq API key never leaves the server. The Next.js API Route acts as a proxy — the client never sees the credential. Key rotation requires no redeploy.", tag: "Secrets" },
+            { icon: "uil uil-lock-alt",       title: "API Key server-side",     desc: "The Groq API key never leaves the server. The Next.js API Route acts as a proxy, the client never sees the credential. Key rotation requires no redeploy.", tag: "Secrets" },
             { icon: "uil uil-hourglass",      title: "Generation timeout",      desc: "The stream has a 30s timeout. Infinite loops or excessively long generations are automatically aborted by the Edge Runtime.", tag: "DoS Prevention" },
           ],
           perfTitle: "Performance Metrics",

@@ -5,8 +5,22 @@ import ImgJogoGeneral from "../../assets/work4.jpg";
 import ImgDataglass from "../../assets/work6.jpg";
 import ImgUICompGenerator from "../../assets/work7.jpg";
 import ImgMCP from "../../assets/work10.jpg"; // MCP Server project
+import ImgEncaixe from "../../assets/encaixe.jpg";
 
 export const projectsData = [
+  {
+    id: 0,
+    image: ImgEncaixe,
+    title: "Encaixe",
+    category: "ai",
+    description_pt:
+      "SaaS multi-tenant de atendimento via WhatsApp com IA. Agente LangGraph classifica intencao, busca FAQ por similaridade (pgvector + Voyage AI), agenda no Google Calendar e transfere para humano quando a confianca e baixa. Arquitetura hexagonal com adapter pluggable de provider WhatsApp (Evolution / WPP / Meta Cloud) e fallback Stub para E2E sem rede.",
+    description_en:
+      "Multi-tenant WhatsApp customer-service SaaS powered by AI. A LangGraph agent classifies intent, retrieves FAQ via similarity search (pgvector + Voyage AI), books appointments in Google Calendar, and hands off to a human when confidence drops. Hexagonal architecture with a pluggable WhatsApp provider adapter (Evolution / WPP / Meta Cloud) and a Stub fallback for E2E without network.",
+    technologies: ["FastAPI", "LangGraph", "Claude Haiku", "pgvector", "Next.js 14", "Supabase", "Evolution API"],
+    link: "https://github.com/ArthurViegas01/ZapAgent",
+    github: "https://github.com/ArthurViegas01/ZapAgent",
+  },
   {
     id: 1,
     image: ImgContextRag,
@@ -65,9 +79,9 @@ export const projectsData = [
     title: "GitHub Portfolio Intelligence",
     category: "ai",
     description_pt:
-      "Servidor MCP (Model Context Protocol) que expoem ferramentas de analise de perfis GitHub para agentes de IA. Claude e outros LLM clients podem analisar repositorios, mapear habilidades para vagas e gerar relatorios de engenheiro em linguagem natural — tudo via protocol nativo de ferramentas. Story: construi uma IA para analisar portfolios de devs, comecando pelo meu proprio.",
+      "Servidor MCP (Model Context Protocol) que expoem ferramentas de analise de perfis GitHub para agentes de IA. Claude e outros LLM clients podem analisar repositorios, mapear habilidades para vagas e gerar relatorios de engenheiro em linguagem natural, tudo via protocol nativo de ferramentas. Story: construi uma IA para analisar portfolios de devs, comecando pelo meu proprio.",
     description_en:
-      "MCP (Model Context Protocol) server that exposes GitHub profile analysis tools to AI agents. Claude and other LLM clients can analyze repositories, map skills to job postings, and generate engineering reports in natural language — all via the native tool protocol. Story: I built an AI to analyze developer portfolios, starting with my own.",
+      "MCP (Model Context Protocol) server that exposes GitHub profile analysis tools to AI agents. Claude and other LLM clients can analyze repositories, map skills to job postings, and generate engineering reports in natural language, all via the native tool protocol. Story: I built an AI to analyze developer portfolios, starting with my own.",
     technologies: ["Python", "FastMCP", "GitHub API", "LangChain", "Docker", "Railway", "Terraform"],
     link: "https://github.com/ArthurViegas01/Reporeaver",
     github: "https://github.com/ArthurViegas01/Reporeaver",
