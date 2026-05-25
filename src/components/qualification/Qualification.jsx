@@ -24,7 +24,7 @@ const Qualification = () => {
       },
       {
         title: "Engenharia de Software",
-        subtitle: "PUCRS — Pontifícia Universidade Católica do Rio Grande do Sul",
+        subtitle: "PUCRS, Pontifícia Universidade Católica do Rio Grande do Sul",
         year: "2021 – 2025",
       },
     ],
@@ -41,7 +41,7 @@ const Qualification = () => {
       },
       {
         title: "B.Sc. Software Engineering",
-        subtitle: "PUCRS — Pontifical Catholic University of Rio Grande do Sul",
+        subtitle: "PUCRS, Pontifical Catholic University of Rio Grande do Sul",
         year: "2021 – 2025",
       },
     ],
@@ -50,13 +50,13 @@ const Qualification = () => {
   const experience = {
     pt: [
       {
-        title: "Analista de Dados — Estágio",
+        title: "Analista de Dados, Estágio",
         subtitle: "Dell / PUCRS",
         desc: "Analisei dados educacionais e construí dashboards em Tableau para apoiar decisões pedagógicas. Automatizei relatórios e pipelines de dados em parceria com a PUCRS.",
         year: "2021 – 2022",
       },
       {
-        title: "Desenvolvedor Fullstack — Estágio",
+        title: "Desenvolvedor Fullstack, Estágio",
         subtitle: "Dataglass",
         desc: "Desenvolvi features em Django REST e React, integrei APIs de terceiros, containerizei serviços com Docker e realizei deploys na AWS (EC2, Elastic Beanstalk). Atuei em sprints Scrum com código revisado em pull requests.",
         year: "2023 – 2024",

@@ -11,7 +11,7 @@ export const translations = {
     },
     home: {
       subtitle: "Full Stack & AI Engineer",
-      description: "Engenheiro de Software com 4 anos de experiencia construindo sistemas de IA em producao. Especializado em pipelines RAG, orquestracao multi-agente com LangGraph, servidores MCP e arquitetura AWS com Terraform. Atualmente construindo o ZapAgent, um SaaS multi-tenant de IA para WhatsApp.",
+      description: "Engenheiro de Software com 4 anos de experiencia construindo sistemas de IA em producao. Especializado em pipelines RAG, orquestracao multi-agente com LangGraph, servidores MCP e arquitetura AWS com Terraform.",
       cta: "Fale comigo",
       scrollDown: "Role pra baixo",
       available: "Disponivel",

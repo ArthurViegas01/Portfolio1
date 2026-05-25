@@ -5,7 +5,8 @@
       "Bash(wait)",
       "Bash(npx react-scripts *)",
       "Bash(node -e \"require\\('./node_modules/isexe'\\); console.log\\('isexe OK'\\)\")",
-      "Bash(node -e \"require\\('./node_modules/which'\\); console.log\\('which OK'\\)\")"
+      "Bash(node -e \"require\\('./node_modules/which'\\); console.log\\('which OK'\\)\")",
+      "Bash(git -C \"C:/Users/Arthur/Desktop/Central/Projetos/Portfolio1\" diff src/translations.js)"
     ]
   }
 }
