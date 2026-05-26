@@ -5,8 +5,22 @@ import ImgJogoGeneral from "../../assets/work4.jpg";
 import ImgDataglass from "../../assets/work6.jpg";
 import ImgUICompGenerator from "../../assets/work7.jpg";
 import ImgMCP from "../../assets/work10.jpg"; // MCP Server project
+import ImgEncaixe from "../../assets/encaixe.jpg";
 
 export const projectsData = [
+  {
+    id: 0,
+    image: ImgEncaixe,
+    title: "Encaixe",
+    category: "ai",
+    description_pt:
+      "SaaS multi-tenant de atendimento via WhatsApp com IA. Agente LangGraph classifica intencao, busca FAQ por similaridade (pgvector + Voyage AI), agenda no Google Calendar e transfere para humano quando a confianca e baixa. Arquitetura hexagonal com adapter pluggable de provider WhatsApp (Evolution / WPP / Meta Cloud) e fallback Stub para E2E sem rede.",
+    description_en:
+      "Multi-tenant WhatsApp customer-service SaaS powered by AI. A LangGraph agent classifies intent, retrieves FAQ via similarity search (pgvector + Voyage AI), books appointments in Google Calendar, and hands off to a human when confidence drops. Hexagonal architecture with a pluggable WhatsApp provider adapter (Evolution / WPP / Meta Cloud) and a Stub fallback for E2E without network.",
+    technologies: ["FastAPI", "LangGraph", "Claude Haiku", "pgvector", "Next.js 14", "Supabase", "Evolution API"],
+    link: "https://github.com/ArthurViegas01/ZapAgent",
+    github: "https://github.com/ArthurViegas01/ZapAgent",
+  },
   {
     id: 1,
     image: ImgContextRag,
