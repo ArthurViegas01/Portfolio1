@@ -21,6 +21,15 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 - `src/components/work/Data.jsx`: 2 em dashes substituídos nas descrições dos cards (PT/EN do MCP Server).
 - `src/components/qualification/Qualification.jsx`: 4 em dashes substituídos em subtítulos de educação e cargos.
 
+## [2026-05-26]
+
+### Adicionado
+- `src/assets/`: novas thumbnails para projetos com variante dark e light mode — `Encaixe.png/Encaixe (1).png`, `Context _RAG_.png/Context _RAG_ (1).png`, `Dataglass.png/Dataglass (1).png`, `Dely.png/Dely (1).png`, `Devscope.png/Devscope (1).png` (Devscope ainda sem projeto associado, ver pendente).
+
+### Alterado
+- `src/components/work/Data.jsx`: imports atualizados para usar as novas thumbs com variantes dark/light por projeto (Encaixe, Context RAG, Dataglass, Transportadora). Projetos sem thumb dedicada (Jogo General, MCP, AI Component Generator, Donut 3D) mantêm fallback.
+- `src/components/work/WorksItems.jsx`: adicionado hook `useDarkMode` via `MutationObserver` na classe do `body`; thumbnail do card agora troca automaticamente entre variante dark e light sem re-render do tema.
+
 ### Pendente (próximas sessões)
 - Adicionar ZapAgent como 5º case study (card em `Data.jsx`, entrada em `PROJECTS` do `CaseStudy.jsx`, novo `ZapAgentDiagram.jsx`, traduções PT/EN). Maior payoff visual pendente.
 - Remover dead code: `src/components/casestudy/diagrams/TerraformDiagram.jsx` e `TerraformCICDDiagram.jsx` (orfãos).
@@ -28,6 +37,7 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 - Avaliar migração de CRA para Vite (opcional, baixa prioridade).
 - Publicar conteúdo do LinkedIn (ação manual no perfil pessoal, fora do código).
 - Exportar `CV_arthurviegas_v2.md` para PDF e atualizar `src/assets/CVarthurviegas.pdf`.
+- ~~Associar `Devscope.png/Devscope (1).png` ao projeto correto~~ — resolvido: mapeado para "Devscope" (ex-GitHub Portfolio Intelligence).
 
 ---
 

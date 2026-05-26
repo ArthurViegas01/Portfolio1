@@ -10,11 +10,11 @@ import AIComponentDiagram   from "./diagrams/AIComponentDiagram";
 import EncaixeDiagram       from "./diagrams/EncaixeDiagram";
 
 const PROJECTS = [
-  { id: "encaixe",      label: "Encaixe",                 icon: "uil uil-whatsapp",      badge: "AI / SaaS"      },
-  { id: "contextRag",   label: "Context (RAG)",           icon: "uil uil-robot",         badge: "AI / RAG"       },
-  { id: "dataglass",    label: "Dataglass",               icon: "uil uil-chart-bar",     badge: "SaaS / AWS"     },
-  { id: "mcp",          label: "GitHub Portfolio Intel.", icon: "uil uil-plug",          badge: "MCP Server"     },
-  { id: "aiComponent",  label: "AI Component Generator", icon: "uil uil-brackets-curly", badge: "AI / Next.js"   },
+  { id: "dataglass",    label: "Dataglass",      icon: "uil uil-chart-bar",      badge: "SaaS / AWS"  },
+  { id: "encaixe",      label: "Encaixe",        icon: "uil uil-whatsapp",       badge: "AI / SaaS"   },
+  { id: "mcp",          label: "Devscope",        icon: "uil uil-plug",           badge: "MCP Server"  },
+  { id: "contextRag",   label: "Context (RAG)",  icon: "uil uil-robot",          badge: "AI / RAG"    },
+  { id: "aiComponent",  label: "Synth",          icon: "uil uil-brackets-curly", badge: "AI / Next.js"},
 ];
 
 const TECH_BADGES = {
@@ -65,7 +65,7 @@ const CaseStudy = () => {
   const { t, lang } = useLanguage();
   const cs = t.caseStudy;
 
-  const [activeProject, setActiveProject] = useState("encaixe");
+  const [activeProject, setActiveProject] = useState("dataglass");
   const [activeTab,     setActiveTab]     = useState("architecture");
 
   const content =
