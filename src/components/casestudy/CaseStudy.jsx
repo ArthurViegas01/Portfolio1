@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import "./casestudy.css";
 import { useLanguage } from "../../context/LanguageContext";
-import ArchDiagram          from "./diagrams/ArchDiagram";
-import ScaleDiagram         from "./diagrams/ScaleDiagram";
-import DataglassDiagram     from "./diagrams/DataglassDiagram";
-import DataglassCICDDiagram from "./diagrams/DataglassCICDDiagram";
-import MCPDiagram            from "./diagrams/MCPDiagram";
-import AIComponentDiagram   from "./diagrams/AIComponentDiagram";
-import EncaixeDiagram       from "./diagrams/EncaixeDiagram";
+import { ArchDiagram } from "./diagrams";
 
 const PROJECTS = [
   { id: "dataglass",    label: "Dataglass",      icon: "uil uil-chart-bar",      badge: "SaaS / AWS"  },
@@ -53,14 +47,6 @@ const CTAS = {
   aiComponent: { github: "https://github.com/ArthurViegas01/componentgenerator",     demo: "https://uicomponentgenerator.netlify.app"                       },
 };
 
-const DIAGRAMS = {
-  encaixe:     EncaixeDiagram,
-  contextRag:  ArchDiagram,
-  dataglass:   DataglassDiagram,
-  mcp:         MCPDiagram,
-  aiComponent: AIComponentDiagram,
-};
-
 const CaseStudy = () => {
   const { t, lang } = useLanguage();
   const cs = t.caseStudy;
@@ -86,7 +72,6 @@ const CaseStudy = () => {
   ];
 
   const activeProjectMeta = PROJECTS.find((p) => p.id === activeProject);
-  const Diagram = DIAGRAMS[activeProject];
 
   const handleProjectChange = (id) => {
     setActiveProject(id);
@@ -178,7 +163,7 @@ const CaseStudy = () => {
             </h4>
             <p className="csPanel-intro">{content.architecture.intro}</p>
             <div className="csDiagramWrapper">
-              <Diagram lang={lang} />
+              <ArchDiagram id={activeProject} />
             </div>
             <div className="csFlowSteps">
               {content.architecture.steps.map((step, i) => (
@@ -244,7 +229,7 @@ const CaseStudy = () => {
             <p className="csPanel-intro">{content.scalability.intro}</p>
             {activeProject === "contextRag" && (
               <div className="csDiagramWrapper">
-                <ScaleDiagram lang={lang} />
+                <ArchDiagram id="contextRag:scale" />
               </div>
             )}
             <div className="csScaleGrid">
@@ -313,7 +298,7 @@ const CaseStudy = () => {
             </h4>
             <p className="csPanel-intro">{content.cicd.intro}</p>
             <div className="csDiagramWrapper">
-              <DataglassCICDDiagram lang={lang} />
+              <ArchDiagram id="dataglass:cicd" />
             </div>
             <div className="csFlowSteps">
               {content.cicd.stages.map((stage, i) => (
