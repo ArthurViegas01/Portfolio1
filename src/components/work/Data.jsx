@@ -1,16 +1,43 @@
 import ImgDonut from "../../assets/donutblender.png";
-import ImgTransportadora from "../../assets/work2.jpg";
-import ImgContextRag from "../../assets/work3.jpg";
-import ImgJogoGeneral from "../../assets/work4.jpg";
-import ImgDataglass from "../../assets/work6.jpg";
-import ImgUICompGenerator from "../../assets/work7.jpg";
-import ImgMCP from "../../assets/work10.jpg"; // MCP Server project
-import ImgEncaixe from "../../assets/encaixe.jpg";
+
+// Thumbs com variantes dark / light  [(1) = light mode]
+import ImgEncaixeDark  from "../../assets/Encaixe.png";
+import ImgEncaixeLight from "../../assets/Encaixe (1).png";
+
+import ImgContextRagDark  from "../../assets/Context _RAG_.png";
+import ImgContextRagLight from "../../assets/Context _RAG_ (1).png";
+
+import ImgDataglassDark  from "../../assets/Dataglass.png";
+import ImgDataglassLight from "../../assets/Dataglass (1).png";
+
+import ImgDelyDark  from "../../assets/Dely.png";
+import ImgDelyLight from "../../assets/Dely (1).png";
+
+import ImgJogoGeneralDark  from "../../assets/Jogo General.png";
+import ImgJogoGeneralLight from "../../assets/Jogo General (1).png";
+
+import ImgSynthDark  from "../../assets/Synth _AI Component Generator_.png";
+import ImgSynthLight from "../../assets/Synth _AI Component Generator_ (1).png";
+
+import ImgDevscopeDark  from "../../assets/Devscope.png";
+import ImgDevscLight    from "../../assets/Devscope (1).png";
+
+// Screenshots reais dos apps (exibidas no hover dos cards)
+import ScreenEncaixe        from "../../assets/encaixe.jpg";
+import ScreenContextRag     from "../../assets/work3.jpg";
+import ScreenDataglass      from "../../assets/work6.jpg";
+import ScreenTransportadora from "../../assets/TransportadoraDely.png";
+import ScreenJogoGeneral    from "../../assets/work4.jpg";
+import ScreenSynth          from "../../assets/work7.jpg";
+import ScreenDevscope       from "../../assets/work10.jpg";
 
 export const projectsData = [
+  // ── Página 1 ────────────────────────────────────────────────────────────────
   {
     id: 0,
-    image: ImgEncaixe,
+    image: ImgEncaixeDark,
+    imageLight: ImgEncaixeLight,
+    screenshot: ScreenEncaixe,
     title: "Encaixe",
     category: "ai",
     description_pt:
@@ -23,7 +50,9 @@ export const projectsData = [
   },
   {
     id: 1,
-    image: ImgContextRag,
+    image: ImgContextRagDark,
+    imageLight: ImgContextRagLight,
+    screenshot: ScreenContextRag,
     title: "Context (RAG)",
     category: "ai",
     description_pt:
@@ -36,9 +65,11 @@ export const projectsData = [
   },
   {
     id: 2,
-    image: ImgDataglass,
+    image: ImgDataglassDark,
+    imageLight: ImgDataglassLight,
+    screenshot: ScreenDataglass,
     title: "Dataglass",
-    category: "fullstack",
+    category: ["fullstack", "web"],
     description_pt:
       "Plataforma SaaS brasileira de Business Intelligence integrada ao Tableau. Gerencia dashboards, controla acesso por perfis de empresa e processa dados com Celery e Redis. Deploy em produção na AWS com Docker, Elastic Beanstalk, ECR e S3. Integração com Mailgun, Bugsnag e Intercom.",
     description_en:
@@ -49,7 +80,9 @@ export const projectsData = [
   },
   {
     id: 3,
-    image: ImgJogoGeneral,
+    image: ImgJogoGeneralDark,
+    imageLight: ImgJogoGeneralLight,
+    screenshot: ScreenJogoGeneral,
     title: "Jogo General",
     category: "web",
     description_pt:
@@ -62,21 +95,10 @@ export const projectsData = [
   },
   {
     id: 4,
-    image: ImgTransportadora,
-    title: "Transportadora",
-    category: "web",
-    description_pt:
-      "Sistema de gestão de transporte de cargas com calculadora de rotas (dados DNIT), formulário multi-step, dashboard analítico com gráficos de custo por rota, exportação CSV e estado global com Context API + useReducer.",
-    description_en:
-      "Full rewrite of a legacy project (CRA + jQuery) to a modern stack. Freight transport management system with a route calculator (DNIT data), multi-step form, analytics dashboard with cost-per-route charts, CSV export, and global state via Context API + useReducer.",
-    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Recharts", "React Router"],
-    link: "https://delytransporte.netlify.app",
-    github: "https://github.com/ArthurViegas01/TransporteCargas",
-  },
-  {
-    id: 5,
-    image: ImgMCP,
-    title: "GitHub Portfolio Intelligence",
+    image: ImgDevscopeDark,
+    imageLight: ImgDevscLight,
+    screenshot: ScreenDevscope,
+    title: "Devscope",
     category: "ai",
     description_pt:
       "Servidor MCP (Model Context Protocol) que expõe ferramentas de análise de perfis GitHub para agentes de IA. Claude e outros LLM clients podem analisar repositórios, mapear habilidades para vagas e gerar relatórios de engenheiro em linguagem natural — tudo via protocolo nativo de ferramentas. Story: construí uma IA para analisar portfólios de devs, começando pelo meu próprio.",
@@ -87,9 +109,11 @@ export const projectsData = [
     github: "https://github.com/ArthurViegas01/Reporeaver",
   },
   {
-    id: 6,
-    image: ImgUICompGenerator,
-    title: "AI Component Generator",
+    id: 5,
+    image: ImgSynthDark,
+    imageLight: ImgSynthLight,
+    screenshot: ScreenSynth,
+    title: "Synth",
     category: "ai",
     description_pt:
       "Gerador de componentes UI em tempo real com IA. Utiliza streaming via ReadableStream (Groq/Llama 3) e um sandbox seguro em iframe com Babel Standalone para compilar e renderizar código TSX/Tailwind instantaneamente. Inclui editor Monaco, gerenciamento de estado com Zustand e sistema de validação contra alucinações.",
@@ -98,6 +122,23 @@ export const projectsData = [
     technologies: ["Next.js 15", "Groq API", "Zustand", "Monaco Editor", "Tailwind CSS", "Framer Motion"],
     link: "https://uicomponentgenerator.netlify.app",
     github: "https://github.com/ArthurViegas01/componentgenerator",
+  },
+
+  // ── Página 2 ────────────────────────────────────────────────────────────────
+  {
+    id: 6,
+    image: ImgDelyDark,
+    imageLight: ImgDelyLight,
+    screenshot: ScreenTransportadora,
+    title: "Transportadora",
+    category: "web",
+    description_pt:
+      "Sistema de gestão de transporte de cargas com calculadora de rotas (dados DNIT), formulário multi-step, dashboard analítico com gráficos de custo por rota, exportação CSV e estado global com Context API + useReducer.",
+    description_en:
+      "Full rewrite of a legacy project (CRA + jQuery) to a modern stack. Freight transport management system with a route calculator (DNIT data), multi-step form, analytics dashboard with cost-per-route charts, CSV export, and global state via Context API + useReducer.",
+    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Recharts", "React Router"],
+    link: "https://delytransporte.netlify.app",
+    github: "https://github.com/ArthurViegas01/TransporteCargas",
   },
   {
     id: 7,

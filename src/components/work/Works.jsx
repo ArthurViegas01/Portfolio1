@@ -14,7 +14,11 @@ const Works = () => {
 
   const filtered = activeCategory === "all"
     ? projectsData
-    : projectsData.filter((p) => p.category === activeCategory);
+    : projectsData.filter((p) =>
+        Array.isArray(p.category)
+          ? p.category.includes(activeCategory)
+          : p.category === activeCategory
+      );
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice(

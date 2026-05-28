@@ -275,15 +275,14 @@
   display: block;
 }
 
-/* SVG node classes */
+/* SVG node classes — backed by --diag-* tokens in App.css */
 .diagNode { rx: 8; }
-.diagNode--blue   { fill: hsl(220, 70%, 54%); }
-.diagNode--accent { fill: hsl(230, 60%, 50%); }
-.diagNode--red    { fill: hsl(0, 65%, 52%); }
-.diagNode--green  { fill: hsl(145, 55%, 42%); }
-.diagNode--purple { fill: hsl(270, 55%, 52%); }
-.diagNode--orange { fill: hsl(30, 90%, 50%); }
-.diagNode--answer { fill: hsl(145, 55%, 42%); }
+.diagNode--blue   { fill: var(--diag-blue); }
+.diagNode--accent { fill: var(--diag-accent); }
+.diagNode--red    { fill: var(--diag-red); }
+.diagNode--green  { fill: var(--diag-green); }
+.diagNode--purple { fill: var(--diag-purple); }
+.diagNode--orange { fill: var(--diag-orange); }
 .diagNode--muted  { opacity: 0.45; }
 
 .diagLabel {
@@ -299,6 +298,19 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.diagInfo {
+  fill: var(--diag-info);
+  font-size: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.diagInfoBold {
+  fill: var(--diag-info-bold);
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
 .diagStep {
   fill: var(--text-color);
   font-size: 8.5px;
@@ -306,11 +318,10 @@
 }
 
 .diagLane {
-  fill: var(--text-color);
+  fill: var(--diag-lane);
   font-size: 9px;
   font-style: italic;
   font-family: 'Poppins', sans-serif;
-  opacity: 0.6;
 }
 
 /* ── Flow Steps ── */
