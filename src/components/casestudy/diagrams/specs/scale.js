@@ -5,7 +5,9 @@
 const scale = {
   i18nNamespace: "scale",
   ariaLabel: { key: "ariaLabel", fallback: "Scale Architecture" },
-  size: { w: 740, h: 280 },
+  accent: "blue",
+  title: "Horizontal Scale",
+  size: { w: 740, h: 300 },
 
   lanes: [
     { id: "main", y: 50, divider: false },

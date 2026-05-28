@@ -7,6 +7,8 @@
 const encaixe = {
   i18nNamespace: "encaixe",
   ariaLabel: { key: "ariaLabel", fallback: "Encaixe LangGraph Architecture" },
+  accent: "green",
+  title: "LangGraph · WhatsApp",
   size: { w: 920, h: 540 },
 
   lanes: [

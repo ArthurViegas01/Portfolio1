@@ -5,7 +5,9 @@
 const contextRag = {
   i18nNamespace: "contextRag",
   ariaLabel: { key: "ariaLabel", fallback: "RAG Architecture Diagram" },
-  size: { w: 820, h: 420 },
+  accent: "accent",
+  title: "RAG · Pipeline",
+  size: { w: 820, h: 440 },
 
   lanes: [
     { id: "ingest", y: 50,  labelKey: "lanes.ingest", divider: false },

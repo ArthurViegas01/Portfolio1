@@ -318,11 +318,10 @@
 }
 
 .diagLane {
-  fill: var(--text-color);
+  fill: var(--diag-lane);
   font-size: 9px;
   font-style: italic;
   font-family: 'Poppins', sans-serif;
-  opacity: 0.6;
 }
 
 /* ── Flow Steps ── */

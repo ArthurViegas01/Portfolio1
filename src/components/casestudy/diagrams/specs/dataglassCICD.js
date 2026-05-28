@@ -7,7 +7,9 @@
 const dataglassCICD = {
   i18nNamespace: "dataglassCICD",
   ariaLabel: { key: "ariaLabel", fallback: "Dataglass CI/CD Pipeline" },
-  size: { w: 820, h: 440 },
+  accent: "orange",
+  title: "CI/CD · ECR + EB",
+  size: { w: 820, h: 460 },
 
   lanes: [
     { id: "base", y: 36,  labelKey: "lanes.base", divider: false },

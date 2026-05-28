@@ -30,16 +30,31 @@ const ArchDiagram = ({ id, spec: specProp }) => {
 
   const layout = computeLayout(spec);
 
+  const title = tr(spec.title) ?? trKey(spec.titleKey);
+  const headerH = title ? 40 : 0;
+  const totalH = spec.size.h + headerH;
+  const gridId = `diag-grid-${(id || "spec").replace(/[^a-zA-Z0-9]/g, "-")}`;
+
   return (
     <svg
-      viewBox={`0 0 ${spec.size.w} ${spec.size.h}`}
+      viewBox={`0 0 ${spec.size.w} ${totalH}`}
       xmlns="http://www.w3.org/2000/svg"
       className="archDiagram"
       aria-label={tr(spec.ariaLabel) || "Architecture diagram"}
     >
       <Defs />
-      {spec.chrome !== false && <Chrome w={spec.size.w} h={spec.size.h} />}
+      {spec.chrome !== false && (
+        <Chrome
+          w={spec.size.w}
+          h={totalH}
+          accent={spec.accent}
+          title={title}
+          headerH={headerH}
+          gridId={gridId}
+        />
+      )}
 
+      <g transform={`translate(0, ${headerH})`}>
       {spec.groups?.map((g) => (
         <Group
           key={g.id}
@@ -75,6 +90,7 @@ const ArchDiagram = ({ id, spec: specProp }) => {
           port={edge.port}
           label={tr(edge.label) ?? trKey(edge.labelKey)}
           labelOffset={edge.labelOffset}
+          accent={spec.accent}
         />
       ))}
 
@@ -97,6 +113,7 @@ const ArchDiagram = ({ id, spec: specProp }) => {
           rect={layout.sidecars[i]}
           label={tr(s.label) ?? trKey(s.labelKey)}
           sub={tr(s.sub) ?? trKey(s.subKey)}
+          accent={spec.accent}
         />
       ))}
 
@@ -128,6 +145,7 @@ const ArchDiagram = ({ id, spec: specProp }) => {
           </text>
         );
       })}
+      </g>
     </svg>
   );
 };

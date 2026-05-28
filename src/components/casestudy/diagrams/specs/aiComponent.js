@@ -7,7 +7,9 @@
 const aiComponent = {
   i18nNamespace: "aiComponent",
   ariaLabel: { key: "ariaLabel", fallback: "AI Component Architecture" },
-  size: { w: 860, h: 480 },
+  accent: "purple",
+  title: "Streaming · Sandbox",
+  size: { w: 860, h: 500 },
 
   groups: [
     { id: "user",    x: 14,  y: 14,  w: 168, h: 200, labelKey: "groups.user",    variant: "blue",   labelAlign: "left" },

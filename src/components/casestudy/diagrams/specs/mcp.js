@@ -7,7 +7,9 @@
 const mcp = {
   i18nNamespace: "mcp",
   ariaLabel: { key: "ariaLabel", fallback: "MCP Server Architecture" },
-  size: { w: 860, h: 430 },
+  accent: "orange",
+  title: "MCP · Tool Protocol",
+  size: { w: 860, h: 450 },
 
   groups: [
     { id: "client", contains: ["claude", "toolList"], padding: 14,

@@ -4,6 +4,8 @@
 const dataglass = {
   i18nNamespace: "dataglass",
   ariaLabel: { key: "ariaLabel", fallback: "Dataglass AWS Architecture" },
+  accent: "orange",
+  title: "AWS · Multi-Tenant",
   size: { w: 820, h: 410 },
 
   lanes: [
