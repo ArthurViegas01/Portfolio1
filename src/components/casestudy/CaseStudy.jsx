@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import "./casestudy.css";
 import { useLanguage } from "../../context/LanguageContext";
-import ArchDiagram          from "./diagrams/ArchDiagram";
-import ScaleDiagram         from "./diagrams/ScaleDiagram";
-import DataglassDiagram     from "./diagrams/DataglassDiagram";
-import DataglassCICDDiagram from "./diagrams/DataglassCICDDiagram";
-import MCPDiagram            from "./diagrams/MCPDiagram";
-import AIComponentDiagram   from "./diagrams/AIComponentDiagram";
+import { ArchDiagram } from "./diagrams";
 
 const PROJECTS = [
-  { id: "contextRag",   label: "Context (RAG)",           icon: "uil uil-robot",        badge: "AI / RAG"      },
-  { id: "dataglass",    label: "Dataglass",               icon: "uil uil-chart-bar",    badge: "SaaS / AWS"    },
-  { id: "mcp",          label: "GitHub Portfolio Intel.", icon: "uil uil-plug",          badge: "MCP Server"    },
-  { id: "aiComponent",  label: "AI Component Generator", icon: "uil uil-brackets-curly", badge: "AI / Next.js" },
+  { id: "dataglass",    label: "Dataglass",      icon: "uil uil-chart-bar",      badge: "SaaS / AWS"  },
+  { id: "encaixe",      label: "Encaixe",        icon: "uil uil-whatsapp",       badge: "AI / SaaS"   },
+  { id: "mcp",          label: "Devscope",        icon: "uil uil-plug",           badge: "MCP Server"  },
+  { id: "contextRag",   label: "Context (RAG)",  icon: "uil uil-robot",          badge: "AI / RAG"    },
+  { id: "aiComponent",  label: "Synth",          icon: "uil uil-brackets-curly", badge: "AI / Next.js"},
 ];
 
 const TECH_BADGES = {
+  encaixe:     ["FastAPI", "LangGraph", "Claude Haiku", "PostgreSQL", "pgvector", "Next.js 14", "Supabase", "Celery", "Redis", "Docker", "Railway", "Netlify", "Evolution API", "GitHub Actions"],
   contextRag:  ["FastAPI", "Celery", "Redis", "PostgreSQL", "pgvector", "LangChain", "Sentence Transformers", "Groq / Llama 3"],
   dataglass:   ["Django", "DRF", "Celery", "ElastiCache", "Docker", "ECR", "Elastic Beanstalk", "RDS", "S3", "CodePipeline", "CodeBuild", "Secrets Manager", "Tableau"],
   mcp:         ["Python", "FastMCP", "GitHub API", "LangChain", "Redis", "Pydantic v2", "Groq / Llama 3", "Docker", "Railway"],
@@ -43,30 +40,25 @@ const STEP_ICONS = {
 };
 
 const CTAS = {
+  encaixe:     { github: "https://github.com/ArthurViegas01/ZapAgent",               demo: "https://github.com/ArthurViegas01/ZapAgent#readme"             },
   contextRag:  { github: "https://github.com/ArthurViegas01/RAG",                    demo: "https://contextrag.netlify.app"          },
   dataglass:   { github: null,                                                         demo: "https://dataglass.co"                    },
   mcp:         { github: "https://github.com/ArthurViegas01/Reporeaver",              demo: "https://github.com/ArthurViegas01/Reporeaver#readme"           },
   aiComponent: { github: "https://github.com/ArthurViegas01/componentgenerator",     demo: "https://uicomponentgenerator.netlify.app"                       },
 };
 
-const DIAGRAMS = {
-  contextRag:  ArchDiagram,
-  dataglass:   DataglassDiagram,
-  mcp:         MCPDiagram,
-  aiComponent: AIComponentDiagram,
-};
-
 const CaseStudy = () => {
   const { t, lang } = useLanguage();
   const cs = t.caseStudy;
 
-  const [activeProject, setActiveProject] = useState("contextRag");
+  const [activeProject, setActiveProject] = useState("dataglass");
   const [activeTab,     setActiveTab]     = useState("architecture");
 
   const content =
     activeProject === "contextRag"  ? cs :
     activeProject === "dataglass"   ? cs.dataglass :
     activeProject === "mcp"         ? cs.mcp :
+    activeProject === "encaixe"     ? cs.encaixe :
                                       cs.aiComponent;
 
   const tabs = [
@@ -80,7 +72,6 @@ const CaseStudy = () => {
   ];
 
   const activeProjectMeta = PROJECTS.find((p) => p.id === activeProject);
-  const Diagram = DIAGRAMS[activeProject];
 
   const handleProjectChange = (id) => {
     setActiveProject(id);
@@ -172,7 +163,7 @@ const CaseStudy = () => {
             </h4>
             <p className="csPanel-intro">{content.architecture.intro}</p>
             <div className="csDiagramWrapper">
-              <Diagram lang={lang} />
+              <ArchDiagram id={activeProject} />
             </div>
             <div className="csFlowSteps">
               {content.architecture.steps.map((step, i) => (
@@ -238,7 +229,7 @@ const CaseStudy = () => {
             <p className="csPanel-intro">{content.scalability.intro}</p>
             {activeProject === "contextRag" && (
               <div className="csDiagramWrapper">
-                <ScaleDiagram lang={lang} />
+                <ArchDiagram id="contextRag:scale" />
               </div>
             )}
             <div className="csScaleGrid">
@@ -284,7 +275,7 @@ const CaseStudy = () => {
                 </div>
               ))}
             </div>
-            {(activeProject === "dataglass" || activeProject === "mcp") && (
+            {(activeProject === "dataglass" || activeProject === "mcp" || activeProject === "encaixe") && (
               <div className="csPerfBox">
                 <h5><i className="uil uil-tachometer-fast"></i> {content.security.perfTitle}</h5>
                 <div className="csPerfMetrics">
@@ -307,7 +298,7 @@ const CaseStudy = () => {
             </h4>
             <p className="csPanel-intro">{content.cicd.intro}</p>
             <div className="csDiagramWrapper">
-              <DataglassCICDDiagram lang={lang} />
+              <ArchDiagram id="dataglass:cicd" />
             </div>
             <div className="csFlowSteps">
               {content.cicd.stages.map((stage, i) => (

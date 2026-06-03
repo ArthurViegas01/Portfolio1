@@ -48,6 +48,23 @@
   --mb-2-5: 2.5rem;
   --mb-3: 3rem;
 
+  /*========== Diagram tokens ==========*/
+  --diag-bg:           hsl(230, 30%, 97%);
+  --diag-inner:        #ffffff;
+  --diag-grid:         hsl(230, 20%, 92%);
+  --diag-ghost:        hsl(230, 30%, 94%);
+  --diag-ghost-border: hsl(230, 20%, 75%);
+  --diag-info:         hsl(230, 20%, 28%);
+  --diag-info-bold:    hsl(230, 30%, 14%);
+  --diag-lane:         hsl(230, 12%, 45%);
+  --diag-blue:    hsl(220, 70%, 54%);
+  --diag-accent:  hsl(230, 60%, 50%);
+  --diag-red:     hsl(0, 65%, 52%);
+  --diag-green:   hsl(145, 55%, 42%);
+  --diag-purple:  hsl(270, 55%, 52%);
+  --diag-orange:  hsl(30, 90%, 50%);
+  --diag-muted:   hsl(230, 8%, 60%);
+
   /*========== z index ==========*/
   --z-tooltip: 10;
   --z-fixed: 100;
@@ -63,6 +80,22 @@ body.dark-theme {
   --container-color: hsl(var(--hue), 20%, 18%);
   --accent-color: hsl(var(--hue), var(--sat), 65%);
   --accent-color-light: hsl(var(--hue), 20%, 22%);
+
+  --diag-bg:           hsl(230, 22%, 14%);
+  --diag-inner:        hsl(230, 20%, 18%);
+  --diag-grid:         hsl(230, 18%, 24%);
+  --diag-ghost:        hsl(230, 18%, 22%);
+  --diag-ghost-border: hsl(230, 12%, 42%);
+  --diag-info:         hsl(230, 18%, 78%);
+  --diag-info-bold:    hsl(230, 25%, 94%);
+  --diag-lane:         hsl(230, 15%, 60%);
+  --diag-blue:    hsl(220, 70%, 60%);
+  --diag-accent:  hsl(230, 65%, 60%);
+  --diag-red:     hsl(0, 65%, 58%);
+  --diag-green:   hsl(145, 50%, 50%);
+  --diag-purple:  hsl(270, 60%, 60%);
+  --diag-orange:  hsl(30, 90%, 58%);
+  --diag-muted:   hsl(230, 8%, 50%);
 }
 
 /* Responsive typography */
