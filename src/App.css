@@ -18,6 +18,10 @@
   /*========== Accent Color ==========*/
   --accent-color: hsl(var(--hue), var(--sat), 50%);
   --accent-color-light: hsl(var(--hue), var(--sat), 92%);
+  /* Foreground for text/icons sitting ON a solid accent fill.
+     Pure white passes AA on the light-mode accent; dark mode needs a
+     dark ink because the dark accent is too light for white to clear 4.5:1. */
+  --on-accent: #fff;
 
   /*========== Font and typography ==========*/
   --body-font: "Poppins", sans-serif;
@@ -80,6 +84,7 @@ body.dark-theme {
   --container-color: hsl(var(--hue), 20%, 18%);
   --accent-color: hsl(var(--hue), var(--sat), 65%);
   --accent-color-light: hsl(var(--hue), 20%, 22%);
+  --on-accent: hsl(var(--hue), 35%, 12%);
 
   --diag-bg:           hsl(230, 22%, 14%);
   --diag-inner:        hsl(230, 20%, 18%);
