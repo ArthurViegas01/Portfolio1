@@ -67,24 +67,6 @@ const Header = () => {
             </li>
             <li className="navItem">
               <a
-                href="#services"
-                onClick={() => handleNavClick("#services")}
-                className={activeNav === "#services" ? "navLink active-link" : "navLink"}
-              >
-                <i className="uil uil-briefcase-alt navIcon"></i>{t.nav.services}
-              </a>
-            </li>
-            <li className="navItem">
-              <a
-                href="#qualification"
-                onClick={() => handleNavClick("#qualification")}
-                className={activeNav === "#qualification" ? "navLink active-link" : "navLink"}
-              >
-                <i className="uil uil-user navIcon"></i>{t.nav.qualification}
-              </a>
-            </li>
-            <li className="navItem">
-              <a
                 href="#portfolio"
                 onClick={() => handleNavClick("#portfolio")}
                 className={activeNav === "#portfolio" ? "navLink active-link" : "navLink"}
@@ -99,6 +81,15 @@ const Header = () => {
                 className={activeNav === "#casestudy" ? "navLink active-link" : "navLink"}
               >
                 <i className="uil uil-sitemap navIcon"></i>{t.nav.casestudy}
+              </a>
+            </li>
+            <li className="navItem">
+              <a
+                href="#qualification"
+                onClick={() => handleNavClick("#qualification")}
+                className={activeNav === "#qualification" ? "navLink active-link" : "navLink"}
+              >
+                <i className="uil uil-user navIcon"></i>{t.nav.qualification}
               </a>
             </li>
             <li className="navItem">

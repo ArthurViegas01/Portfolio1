@@ -1,91 +1,498 @@
-.skillsContainer{
-    grid-template-columns: repeat(3, 350px);
-    column-gap: 3rem;
-    row-gap: 2rem;
-    justify-content: center;
+/* ============================================================
+   SKILLS SECTION
+   ============================================================ */
+
+.skillsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.skillsContent{
-    background-color: var(--container-color);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 2rem 4rem;
-    border-radius: 1.25rem;
+/* Visually hidden but available to assistive tech */
+.skills .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.skillsTitle{
-    font-size: var(--normal-font-size);
-    font-weight: var(--font-medium);
-    text-align: center;
-    margin-bottom: var(--mb-1-5);
+/* Keyboard focus — the global reset strips outlines, so restore one here.
+   :focus-visible keeps it keyboard-only (no ring on mouse click). */
+.skillsFilter:focus-visible,
+.skillsLegend-item:focus-visible,
+.skillsLegend-clear:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
-.skillsBox{
-    display: flex;
-    justify-content: center;
-    column-gap: 2.5rem;
+/* ── Lead / verified-in-code claim ── */
+.skillsLead {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 640px;
+  margin: -0.75rem auto 2rem;
+  text-align: center;
+  font-size: var(--small-font-size);
+  line-height: 1.6;
+  color: var(--text-color);
 }
 
-.skillsGroup{
-    display: grid;
-    align-items: flex-start;
-    row-gap: 1rem;
+.skillsLead i {
+  color: var(--accent-color);
+  font-size: 1.15rem;
+  flex-shrink: 0;
 }
 
-.skillsData{
-    display: flex;
-    column-gap: 0.5rem;
+/* ── Stats strip ── */
+.skillsStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: 2.5rem;
 }
 
-.skills .bx-badge-check{
-    font-size: 1rem;
-    color: var(--title-color);
+.skillsStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 1rem 0.75rem;
+  background-color: var(--container-color);
+  border: 1px solid var(--diag-grid);
+  border-color: color-mix(in srgb, var(--title-color) 9%, transparent);
+  border-radius: 0.9rem;
+  text-align: center;
 }
 
-.skillsName{
-    font-size: var(--normal-font-size);
-    font-weight: var(--font-medium);
-    line-height: 18px;
+.skillsStat-value {
+  font-size: var(--h2-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--accent-color);
+  line-height: 1.1;
 }
 
-.skillsLevel{
-    font-size: var(--tiny-font-size);
+.skillsStat-label {
+  font-size: var(--smaller-font-size);
+  color: var(--text-color);
+  letter-spacing: 0.01em;
 }
 
-/*=============== BREAKPOINTS ===============*/
-/* For large devices */
-@media screen and (max-width: 1200px) {
-    .skillsContainer{
-        grid-template-columns: repeat(2, 350px);
-    }
+/* ── Category filter ── */
+.skillsFilters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  max-width: 980px;
 }
 
-@media screen and (max-width: 992px) {
-    .skillsContainer{
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 2rem;
-    }
+.skillsFilter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 2rem;
+  border: 1px solid var(--diag-grid);
+  border-color: color-mix(in srgb, var(--title-color) 12%, transparent);
+  background-color: var(--container-color);
+  color: var(--text-color);
+  font-family: var(--body-font);
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s, transform 0.2s;
 }
 
-/* For medium devices */
+.skillsFilter i {
+  font-size: 1.05rem;
+}
+
+.skillsFilter:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.skillsFilter--active {
+  background-color: var(--title-color);
+  border-color: var(--title-color);
+  color: var(--container-color);
+}
+
+.skillsFilter-count {
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-semi-bold);
+  padding: 0.05rem 0.45rem;
+  border-radius: 1rem;
+  background-color: color-mix(in srgb, var(--title-color) 8%, transparent);
+  color: var(--text-color);
+}
+
+.skillsFilter--active .skillsFilter-count {
+  background-color: color-mix(in srgb, var(--container-color) 24%, transparent);
+  color: var(--container-color);
+}
+
+/* ── Cards grid (masonry) ──
+   Multi-column flow instead of an align-start grid: cards stack independently
+   and pack tightly, so a tall card (e.g. AI with 20 skills) no longer forces a
+   big empty gap beside short neighbours the way a rigid grid row would. */
+.skillsGrid {
+  columns: 290px;
+  column-gap: 1.25rem;
+  width: 100%;
+}
+
+.skillsCard {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+  background-color: var(--container-color);
+  border: 1px solid var(--diag-grid);
+  border-color: color-mix(in srgb, var(--title-color) 9%, transparent);
+  border-radius: 1.1rem;
+  padding: 1.5rem 1.5rem 1.65rem;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s, opacity 0.3s;
+  animation: skillsCardIn 0.45s ease backwards;
+  /* capped so the "All" view (13 cards) never drags past ~360ms total */
+  animation-delay: calc(min(var(--i) * 45ms, 360ms));
+}
+
+.skillsCard:hover {
+  border-color: color-mix(in srgb, var(--accent-color) 45%, transparent);
+  box-shadow: 0 12px 28px -18px color-mix(in srgb, var(--title-color) 55%, transparent);
+  transform: translateY(-3px);
+}
+
+.skillsCard.is-dim {
+  opacity: 0.4;
+  filter: saturate(0.4);
+}
+
+.skillsCard.is-dim:hover {
+  opacity: 1;
+  filter: none;
+}
+
+/* ── Card header ── */
+.skillsCard-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
+}
+
+.skillsCard-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.7rem;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.skillsCard-title {
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--title-color);
+  line-height: 1.25;
+  flex: 1;
+}
+
+.skillsCard-count {
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--text-color);
+  background-color: color-mix(in srgb, var(--title-color) 7%, transparent);
+  padding: 0.1rem 0.5rem;
+  border-radius: 1rem;
+  flex-shrink: 0;
+}
+
+/* Accent variants — driven by the shared diagram color tokens */
+.skillsCard-icon--blue   { color: var(--diag-blue);   background-color: color-mix(in srgb, var(--diag-blue)   14%, transparent); }
+.skillsCard-icon--green  { color: var(--diag-green);  background-color: color-mix(in srgb, var(--diag-green)  14%, transparent); }
+.skillsCard-icon--red    { color: var(--diag-red);    background-color: color-mix(in srgb, var(--diag-red)    14%, transparent); }
+.skillsCard-icon--purple { color: var(--diag-purple); background-color: color-mix(in srgb, var(--diag-purple) 14%, transparent); }
+.skillsCard-icon--orange { color: var(--diag-orange); background-color: color-mix(in srgb, var(--diag-orange) 14%, transparent); }
+.skillsCard-icon--accent { color: var(--accent-color);background-color: var(--accent-color-light); }
+
+/* ── Skill chips ── */
+.skillsChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.skillChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--diag-grid);
+  border-color: color-mix(in srgb, var(--title-color) 12%, transparent);
+  background-color: color-mix(in srgb, var(--title-color) 3%, transparent);
+  color: var(--text-color);
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  cursor: default;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s, opacity 0.25s, filter 0.25s, transform 0.2s;
+}
+
+.skillChip:hover {
+  border-color: var(--accent-color);
+  color: var(--title-color);
+  transform: translateY(-1px);
+}
+
+/* Core / signature strengths */
+.skillChip--core {
+  border-color: color-mix(in srgb, var(--accent-color) 40%, transparent);
+  background-color: var(--accent-color-light);
+  color: var(--accent-color);
+  font-weight: var(--font-semi-bold);
+}
+
+.skillChip--core:hover {
+  color: var(--accent-color);
+}
+
+.skillChip-pro {
+  font-size: 0.85rem;
+  color: var(--diag-orange);
+}
+
+/* Project-trace highlighting */
+.skillChip.is-match {
+  border-color: var(--accent-color);
+  background-color: var(--accent-color);
+  color: var(--on-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px -8px color-mix(in srgb, var(--accent-color) 80%, transparent);
+}
+
+.skillChip.is-match .skillChip-pro {
+  color: var(--on-accent);
+}
+
+.skillChip.is-dim {
+  opacity: 0.32;
+  filter: saturate(0.35);
+}
+
+/* ── Empty state (filtered category has no skills from the traced project) ── */
+.skillsEmpty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 0.75rem;
+  border: 1px dashed color-mix(in srgb, var(--title-color) 18%, transparent);
+  background-color: color-mix(in srgb, var(--title-color) 3%, transparent);
+  color: var(--text-color);
+  font-size: var(--small-font-size);
+}
+
+.skillsEmpty i {
+  color: var(--accent-color);
+  font-size: 1.1rem;
+}
+
+/* ── Provenance legend ── */
+.skillsLegend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2.75rem;
+  text-align: center;
+}
+
+.skillsLegend-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--title-color);
+}
+
+.skillsLegend-title i {
+  color: var(--accent-color);
+}
+
+.skillsLegend-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.skillsLegend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 2rem;
+  border: 1px solid var(--diag-grid);
+  border-color: color-mix(in srgb, var(--title-color) 14%, transparent);
+  background-color: var(--container-color);
+  color: var(--text-color);
+  font-family: var(--body-font);
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.skillsLegend-item:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.skillsLegend-item.is-active {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--on-accent);
+}
+
+.skillsLegend-pro {
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-semi-bold);
+  padding: 0.02rem 0.35rem;
+  border-radius: 1rem;
+  background-color: color-mix(in srgb, var(--diag-orange) 18%, transparent);
+  color: var(--diag-orange);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.skillsLegend-item.is-active .skillsLegend-pro {
+  background-color: color-mix(in srgb, var(--on-accent) 22%, transparent);
+  color: var(--on-accent);
+}
+
+.skillsLegend-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 2rem;
+  border: 1px dashed color-mix(in srgb, var(--title-color) 22%, transparent);
+  background: transparent;
+  color: var(--text-color);
+  font-family: var(--body-font);
+  font-size: var(--smaller-font-size);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.skillsLegend-clear:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.skillsLegend-hint {
+  font-size: var(--smaller-font-size);
+  color: var(--text-color);
+  opacity: 0.85;
+}
+
+/* ── Spoken languages ── */
+.skillsSpoken {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.75rem;
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+}
+
+.skillsSpoken i {
+  color: var(--accent-color);
+  font-size: 1.1rem;
+}
+
+/* ── Entrance animation ── */
+@keyframes skillsCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   BREAKPOINTS
+   ============================================================ */
+@media screen and (max-width: 768px) {
+  .skillsStats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .skillsGrid {
+    columns: 1;
+  }
+}
 
 @media screen and (max-width: 576px) {
-    .skillsContainer{
-        grid-template-columns: 1fr;
-    }
+  /* Keep labels readable: one swipeable row instead of icon-only pills */
+  .skillsFilters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
 
-    .skillsContent{
-        padding: 1.5rem;
-    }
+  .skillsFilter {
+    flex-shrink: 0;
+  }
+
+  .skillsCard {
+    padding: 1.25rem 1.25rem 1.4rem;
+  }
 }
 
-/* For small devices */
 @media screen and (max-width: 350px) {
-  .skillsBox{
-    column-gap: 1.25rem;
-  }
-
-  .skillsName{
-    font-size: var(--small-font-size);
+  .skillsStats {
+    grid-template-columns: 1fr;
   }
 }
-  
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .skillsCard,
+  .skillsFilter,
+  .skillChip,
+  .skillsLegend-item {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .skillsCard:hover,
+  .skillChip:hover,
+  .skillsFilter:hover,
+  .skillsLegend-item:hover {
+    transform: none;
+  }
+}
