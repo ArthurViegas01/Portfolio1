@@ -233,17 +233,6 @@ export const CATEGORIES = [
       s("Agile / Scrum / Kanban", ["dataglass"]),
     ],
   },
-  {
-    id: "domain",
-    icon: "uil uil-brain",
-    accent: "purple",
-    skills: [
-      s("Portuguese NLP", ["context", "encaixe"], true),
-      s("Document processing (PDF / DOCX)", ["context"]),
-      s("Business algorithms", ["dely"]),
-      s("Data visualization", ["dely", "dataglass"]),
-    ],
-  },
 ];
 
 // Derived aggregates for the stats strip — computed once, never

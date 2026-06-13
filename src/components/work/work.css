@@ -17,7 +17,7 @@
   border-radius: 0.5rem;
   text-transform: capitalize;
   border: 1px solid transparent;
-  transition: all 0.3s;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
 }
 
 .workItem:hover {
@@ -33,9 +33,9 @@
 
 /*=============== GRID ===============*/
 .workContainer {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  max-width: 1050px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -46,41 +46,52 @@
   border-radius: 1rem;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  contain: layout style;
+}
+
+body.dark-theme .workCard {
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .workCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.15);
 }
 
+body.dark-theme .workCard:hover {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+}
+
+/*=============== CARD IMAGE ===============*/
 .workCard-imgWrapper {
   position: relative;
   overflow: hidden;
+  aspect-ratio: 16 / 9;
 }
 
 .workImage {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s;
+  transition: transform 0.45s ease;
 }
 
 .workCard:hover .workImage {
-  transform: scale(1.06);
+  transform: scale(1.07);
 }
 
 /*=============== SCREENSHOT HOVER ===============*/
 .workImage--screenshot {
   position: absolute;
   inset: 0;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transform: scale(1.06);
+  transform: scale(1.07);
   transition: opacity 0.45s ease;
-  /* impede que o pointer bloqueie o overlay */
   pointer-events: none;
 }
 
@@ -91,7 +102,7 @@
 .workCard-overlay {
   position: absolute;
   inset: 0;
-  background-color: hsla(var(--hue), var(--sat), 30%, 0.75);
+  background-color: hsla(var(--hue), var(--sat), 30%, 0.78);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,28 +118,33 @@
   color: #fff;
   font-weight: var(--font-semi-bold);
   font-size: var(--small-font-size);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
+/*=============== CARD BODY ===============*/
 .workCard-body {
-  padding: 1rem 1.25rem 1.25rem;
+  padding: 0.9rem 1.15rem 1.1rem;
 }
 
 .workTitle {
   font-size: var(--normal-font-size);
   font-weight: var(--font-semi-bold);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   color: var(--title-color);
+  text-wrap: balance;
 }
 
-/*=============== DESCRIPTION ===============*/
 .workDescription {
-  font-size: 0.78rem;
+  font-size: 0.775rem;
   color: var(--text-color);
   line-height: 1.6;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -137,168 +153,256 @@
 .workTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-bottom: 0.75rem;
+  gap: 0.3rem;
 }
 
 .workTag {
-  font-size: 0.7rem;
+  font-size: 0.69rem;
   font-weight: var(--font-medium);
   background-color: var(--accent-color-light);
   color: var(--accent-color);
-  padding: 0.2rem 0.55rem;
-  border-radius: 0.35rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 2rem;
+  white-space: nowrap;
 }
 
-/*=============== CARD ACTIONS ===============*/
-.workCard-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.25rem;
-}
-
-/*=============== BUTTON (card) ===============*/
-.workButton {
-  color: var(--accent-color);
-  font-size: var(--small-font-size);
-  font-weight: var(--font-medium);
-  display: inline-flex;
-  align-items: center;
-  column-gap: 0.25rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: gap 0.3s;
-}
-
-.workButton-icon {
-  font-size: 1.1rem;
-  transition: transform 0.3s;
-}
-
-.workButton:hover .workButton-icon {
-  transform: translateX(0.3rem);
-}
-
-.workButton--outline {
+.workTag--more {
+  background-color: transparent;
   border: 1px solid var(--accent-color);
-  padding: 0.2rem 0.6rem;
-  border-radius: 0.35rem;
-  font-size: var(--small-font-size);
-  text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
+  opacity: 0.8;
 }
 
-.workButton--outline:hover {
-  background-color: var(--accent-color);
-  color: #fff;
-}
-
-/*=============== MODAL ===============*/
-.workModal {
+/*=============== MODAL OVERLAY ===============*/
+.workModalOverlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: var(--z-modal);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
   padding: 1rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
+  animation: overlayIn 0.3s ease both;
 }
 
-.activeWorkModal {
-  opacity: 1;
-  visibility: visible;
+@keyframes overlayIn {
+  from { opacity: 0; }
 }
 
+.workModalOverlay--out {
+  animation: overlayOut 0.28s ease both;
+}
+
+@keyframes overlayOut {
+  to { opacity: 0; }
+}
+
+/*=============== MODAL CONTENT ===============*/
 .workModal-content {
   background-color: var(--container-color);
-  border-radius: 1.25rem;
-  padding: 2rem 2rem 2.5rem;
+  border-radius: 1.5rem;
   width: 100%;
-  max-width: 520px;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-width: 940px;
+  max-height: 88vh;
+  overflow: hidden;
   position: relative;
-  animation: modalSlideIn 0.3s ease;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+  animation: modalContentIn 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-@keyframes modalSlideIn {
+@keyframes modalContentIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: scale(0.88) translateY(32px);
   }
 }
 
+.workModal-content--out {
+  animation: modalContentOut 0.22s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes modalContentOut {
+  to {
+    opacity: 0;
+    transform: scale(0.94) translateY(14px);
+  }
+}
+
+/*=============== MODAL CLOSE BUTTON ===============*/
 .workModal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background-color: var(--container-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   color: var(--text-color);
-  background: none;
-  border: none;
+  font-size: 1.25rem;
   cursor: pointer;
-  line-height: 1;
-  transition: color 0.3s;
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s, transform 0.25s;
+  z-index: 2;
+}
+
+body.dark-theme .workModal-close {
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .workModal-close:hover {
-  color: var(--title-color);
+  background-color: var(--title-color);
+  color: var(--container-color);
+  transform: rotate(90deg) scale(1.05);
+}
+
+/*=============== MODAL INNER GRID ===============*/
+.workModal-grid {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  height: 100%;
+  max-height: 88vh;
+}
+
+/*=============== MODAL LEFT: MEDIA ===============*/
+.workModal-media {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 1.5rem 0 0 1.5rem;
+}
+
+body.dark-theme .workModal-media {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.workModal-imgContainer {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.workModal-heroImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s ease;
+}
+
+.workModal-heroImg:hover {
+  transform: scale(1.04);
+}
+
+.workModal-logoRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+body.dark-theme .workModal-logoRow {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.workModal-thumb {
+  width: 2.4rem;
+  height: 2.4rem;
+  object-fit: contain;
+  border-radius: 0.4rem;
+  background-color: var(--container-color);
+  padding: 0.15rem;
+  flex-shrink: 0;
+}
+
+.workModal-logoLabel {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  font-weight: var(--font-medium);
+}
+
+/*=============== MODAL RIGHT: INFO ===============*/
+.workModal-info {
+  padding: 2.25rem 2.5rem 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .workModal-title {
-  font-size: var(--h3-font-size);
+  font-size: var(--h2-font-size);
   font-weight: var(--font-semi-bold);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   color: var(--title-color);
-  padding-right: 2rem;
-}
-
-.workModal-img {
-  width: 100%;
-  border-radius: 0.75rem;
-  margin-bottom: 1rem;
-  object-fit: cover;
-  max-height: 220px;
+  text-wrap: balance;
+  padding-right: 2.5rem;
+  line-height: 1.3;
 }
 
 .workModal-description {
   font-size: var(--small-font-size);
   color: var(--text-color);
-  line-height: 1.65;
-  margin-bottom: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.workModal-techLabel {
+  font-size: 0.68rem;
+  font-weight: var(--font-semi-bold);
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
 }
 
 .workModal-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.5rem;
+  gap: 0.35rem;
+  margin-bottom: 2rem;
 }
 
 .workModal-actions {
   display: flex;
-  gap: 0.75rem;
   flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: auto;
 }
 
+/*=============== MODAL BUTTONS ===============*/
 .workModal-btn {
-  padding: 0.75rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.4rem;
   font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
   border-radius: 0.75rem;
-  column-gap: 0.4rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s;
+  text-decoration: none;
+  border: none;
+  line-height: 1;
+}
+
+.workModal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.workModal-btn--primary {
+  background-color: var(--accent-color);
+  color: #fff;
 }
 
 .workModal-btn--outline {
@@ -310,7 +414,6 @@
 .workModal-btn--outline:hover {
   background-color: var(--title-color);
   color: var(--container-color);
-  transform: translateY(-2px);
 }
 
 /*=============== PAGINATION ===============*/
@@ -334,7 +437,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.25s, color 0.25s;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
 }
 
 .workPagination-btn:hover:not(:disabled) {
@@ -371,22 +474,49 @@
 }
 
 /*=============== BREAKPOINTS ===============*/
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1100px) {
   .workContainer {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
-    max-width: 700px;
+    max-width: 780px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .workContainer {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 500px;
+    max-width: 560px;
   }
 
-  .workImage {
-    height: 160px;
+  .workModal-grid {
+    grid-template-columns: 1fr;
+    max-height: none;
+  }
+
+  .workModal-content {
+    max-height: 92vh;
+    overflow-y: auto;
+    border-radius: 1.25rem;
+  }
+
+  .workModal-media {
+    border-radius: 1.25rem 1.25rem 0 0;
+    height: 220px;
+    flex-shrink: 0;
+  }
+
+  .workModal-imgContainer {
+    height: 100%;
+  }
+
+  .workModal-info {
+    padding: 1.5rem 1.5rem 2rem;
+    overflow-y: unset;
+  }
+
+  .workModal-title {
+    font-size: var(--h3-font-size);
+    padding-right: 2.5rem;
   }
 }
 
@@ -396,13 +526,8 @@
     max-width: 100%;
   }
 
-  .workImage {
-    width: 100%;
-    height: 200px;
-  }
-
-  .workModal-content {
-    padding: 1.5rem 1.25rem 2rem;
+  .workModal-info {
+    padding: 1.25rem 1.25rem 1.75rem;
   }
 }
 
