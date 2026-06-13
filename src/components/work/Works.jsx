@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./work.css";
 import { projectsData, projectsNav } from "./Data";
 import WorksItems from "./WorksItems";
+import ProjectModal from "./ProjectModal";
 import { useLanguage } from "../../context/LanguageContext";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8;
 
 const Works = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProject, setSelectedProject] = useState(null);
   const { t } = useLanguage();
 
   const filtered = activeCategory === "all"
@@ -53,9 +55,13 @@ const Works = () => {
       {/* ── Project grid ── */}
       <div className="workContainer container grid">
         {paginated.map((proj) => (
-          <WorksItems item={proj} key={proj.id} />
+          <WorksItems item={proj} key={proj.id} onOpenModal={setSelectedProject} />
         ))}
       </div>
+
+      {selectedProject && (
+        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      )}
 
       {/* ── Pagination (only when needed) ── */}
       {totalPages > 1 && (
