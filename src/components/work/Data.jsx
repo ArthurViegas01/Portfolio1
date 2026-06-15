@@ -22,6 +22,9 @@ import ImgSynthLight from "../../assets/Synth _AI Component Generator_ (1).png";
 import ImgDevscopeDark  from "../../assets/Devscope.png";
 import ImgDevscLight    from "../../assets/Devscope (1).png";
 
+import ImgMiranteDark  from "../../assets/Mirante.png";
+import ImgMiranteLight from "../../assets/Mirante (1).png";
+
 // Screenshots reais dos apps (exibidas no hover dos cards)
 import ScreenEncaixe        from "../../assets/encaixe.jpg";
 import ScreenContextRag     from "../../assets/work3.jpg";
@@ -32,6 +35,22 @@ import ScreenSynth          from "../../assets/work7.jpg";
 import ScreenDevscope       from "../../assets/work10.jpg";
 
 export const projectsData = [
+  // ── Projeto em destaque ───────────────────────────────────────────────────────
+  {
+    id: 8,
+    image: ImgMiranteDark,
+    imageLight: ImgMiranteLight,
+    title: "Mirante",
+    category: ["fullstack", "ai"],
+    description_pt:
+      "Central de comando pessoal (single-user) que unifica gestão de projetos, monitoramento de serviços ao vivo e a busca de carreira: vagas, CV mestre adaptável por IA e CRM de candidaturas. Backend em Go (monólito modular, domain-driven) com SQLite via libSQL/Turso, tempo real por SSE e LLM (Groq) com saída estruturada via JSON Schema. Front em SvelteKit (Svelte 5, runes) sobre design system próprio em CSS nativo moderno (View Transitions, dark mode, acessibilidade). Deploy em containers no Railway.",
+    description_en:
+      "Single-user personal command center unifying project management, live service monitoring, and the full job hunt: postings, an AI-adaptable master CV, and an applications CRM. Go backend (domain-driven modular monolith) with SQLite via libSQL/Turso, real-time over SSE, and an LLM (Groq) with structured output via JSON Schema. SvelteKit front end (Svelte 5, runes) on a custom design system in modern native CSS (View Transitions, dark mode, accessibility). Deployed in containers on Railway.",
+    technologies: ["Go", "SvelteKit", "Svelte 5", "libSQL / Turso", "SSE", "Groq", "Railway"],
+    link: "https://mirante-web-production.up.railway.app",
+    github: null,
+  },
+
   // ── Página 1 ────────────────────────────────────────────────────────────────
   {
     id: 0,
