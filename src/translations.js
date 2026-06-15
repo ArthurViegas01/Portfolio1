@@ -64,7 +64,7 @@ export const translations = {
         domain: "Dominio & Especializado",
       },
     },
-    qualification: { title: "Qualificação", subtitle: "Minha jornada", education: "Educação", experience: "Experiência" },
+    qualification: { title: "Qualificação", subtitle: "Minha jornada", education: "Educação", experience: "Experiência", present: "Atual", parallel: "Estudou e trabalhou em paralelo", today: "Hoje" },
     work: {
       title: "Portfólio",
       subtitle: "Projetos recentes",
@@ -785,7 +785,7 @@ export const translations = {
         domain: "Domain / Specialized",
       },
     },
-    qualification: { title: "Qualification", subtitle: "My journey", education: "Education", experience: "Experience" },
+    qualification: { title: "Qualification", subtitle: "My journey", education: "Education", experience: "Experience", present: "Present", parallel: "Studied and worked in parallel", today: "Today" },
     work: {
       title: "Portfolio",
       subtitle: "Recent projects",

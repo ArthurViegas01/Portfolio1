@@ -1,127 +1,546 @@
-.qualificationContainer{
-    max-width: 768px;
+/*=============== QUALIFICATION — HORIZONTAL TIMELINE ===============*/
+/*
+ * One grid (.qtl) is the entire timeline. Cards, nodes and capsules are all
+ * direct children placed by the SAME grid-column, so a card's center, its
+ * stem and its bead share one column geometry => alignment is pixel-perfect
+ * by construction, not by magic offsets.
+ */
+
+.qualification {
+  --axis-h: 4.6rem;           /* height of the central axis row */
+  --stem: 2.3rem;             /* card -> axis connector length (= half of --axis-h) */
+  --bead: 15px;
+  --bead-shared: 22px;
+  --card-w: 100%;
 }
 
-.qualificationTabs{
-    display: flex;
-    justify-content: center;
-    margin-bottom: var(--mb-2);
+/*=============== LEGEND ===============*/
+.qtl-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
-.qualificationButton{
-    font-size: var(--h3-font-size);
-    font-weight: var(--font-medium);
-    color: #757575;
-    margin: 0 var(--mb-1);
-    cursor: pointer;
+.qtl-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  color: var(--text-color);
 }
 
-.qualificationButton:hover{
-    color: var(--accent-color);
+.qtl-legend__item i {
+  font-size: 1.15rem;
+  color: var(--accent-color);
 }
 
-.qualificationIcon{
-    font-size: 1.8rem;
-    margin-right: var(--mb-0-25);
+.qtl-legend__item[data-kind="exp"] i {
+  filter: hue-rotate(35deg);
 }
 
-.qualificationActive{
-    color: var(--title-color-dark);
+/*=============== SCROLL VIEWPORT ===============*/
+.qtl-scroll {
+  max-width: 1080px;
+  margin: 0 auto;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 0.25rem 0 0.75rem;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
 
-.qualificationSections{
-    display: grid;
-    grid-template-columns: 0.5fr;
-    justify-content: center;
+.qtl-scroll:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  border-radius: 0.5rem;
 }
 
-.qualificationContent{
-    display: none;
+/* Thin accent scrollbar */
+.qtl-scroll::-webkit-scrollbar { height: 4px; }
+.qtl-scroll::-webkit-scrollbar-track { background: transparent; }
+.qtl-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--accent-color) 55%, transparent);
+  border-radius: 2px;
 }
 
-.qualificationContent-active{
-    display: block;
+/*=============== THE GRID ===============*/
+.qtl {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(168px, 1fr)) minmax(72px, 0.6fr);
+  grid-template-rows:
+    [edu] minmax(0, 1fr)
+    [axis] var(--axis-h)
+    [exp] minmax(0, 1fr);
+  column-gap: 1rem;
+  row-gap: 0;
+  align-items: stretch;
+  min-width: min-content;
+  isolation: isolate;
+  padding-block: 0.5rem;
 }
 
-.qualificationData{
-    display: grid;
-    grid-template-columns: 1fr max-content 1fr;
-    column-gap: 1.5rem;
+/*=============== AXIS ===============*/
+.qtl-axis {
+  grid-column: 1 / -1;
+  grid-row: axis;
+  position: relative;
+  align-self: center;
+  height: 3px;
+  z-index: 1;
 }
 
-.qualificationTitle{
-    font-size: var(--normal-font-size);
-    font-weight: var(--font-medium);
-    color: var(--title-color-dark);
+/* Base line: faint, fades out at both ends (the not-yet-drawn future) */
+.qtl-axis__base,
+.qtl-axis__progress {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
 }
 
-.qualificationSubtitle{
-    display: inline-block;
-    font-size: var(--small-font-size);
-    margin-bottom: var(--mb-1);
+.qtl-axis__base {
+  background: var(--accent-color);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--accent-color) 55%, var(--title-color)) 14%,
+    var(--accent-color) 78%,
+    transparent 100%
+  );
+  opacity: 0.28;
 }
 
-.qualificationDesc {
-    display: block;
-    font-size: var(--smaller-font-size);
-    color: var(--text-color);
-    line-height: 1.5;
-    margin-bottom: var(--mb-0-5);
+/* Progress overlay: draws left -> right on reveal */
+.qtl-axis__progress {
+  background: var(--accent-color);
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--accent-color) 55%, var(--title-color)) 0%,
+    var(--accent-color) 80%,
+    transparent 100%
+  );
+  transform-origin: left center;
+  z-index: 2;
 }
 
-.qualificationCalendar{
-    font-size: var(--small-font-size);
-    color: var(--accent-color);
-    font-weight: var(--font-medium);
+/*=============== CONVERGENCE BEAM (2021) ===============*/
+.qtl-beam {
+  grid-row: 1 / -1;
+  align-self: stretch;
+  justify-self: center;
+  width: clamp(120px, 90%, 200px);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent-color) 11%, transparent) 50%,
+    transparent 100%
+  );
+  border-radius: 1rem;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.9s;
 }
 
-.qualificationRounder{
-    display: inline-block;
-    width: 13px;
-    height: 13px;
-    background-color: var(--text-color);
+.qtl--on .qtl-beam { opacity: 1; }
+
+/*=============== DURATION CAPSULES ===============*/
+.qtl-cap {
+  grid-row: axis;
+  align-self: center;
+  height: 5px;
+  border-radius: 3px;
+  margin: 0 0.4rem;
+  background: color-mix(in srgb, var(--accent-color) 24%, transparent);
+  transform-origin: left center;
+  z-index: 3;
+}
+
+/* edu capsule rides just above the line, exp capsule just below: parallel runs */
+.qtl-cap[data-kind="edu"] { transform: translateY(-6px); }
+.qtl-cap[data-kind="exp"] { transform: translateY(6px); }
+
+/* present capsule fades open-ended to the right */
+.qtl-cap[data-present] {
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--accent-color) 30%, transparent),
+    transparent
+  );
+}
+
+/*=============== NODES (bead + year) ===============*/
+.qtl-node {
+  grid-row: axis;
+  justify-self: center;
+  align-self: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 7;
+}
+
+.qtl-bead {
+  width: var(--bead);
+  height: var(--bead);
+  border-radius: 50%;
+  background: var(--accent-color);
+  background: radial-gradient(
+    circle at 35% 30%,
+    color-mix(in srgb, var(--accent-color) 30%, #fff),
+    var(--accent-color)
+  );
+  /* hole-punch ring (must equal the section background) + soft halo */
+  box-shadow:
+    0 0 0 4px var(--body-color),
+    0 0 12px 2px color-mix(in srgb, var(--accent-color) 45%, transparent);
+}
+
+/* shared 2021 "interchange" node: larger, double-ringed */
+.qtl-node[data-shared] .qtl-bead {
+  width: var(--bead-shared);
+  height: var(--bead-shared);
+  box-shadow:
+    0 0 0 4px var(--body-color),
+    0 0 0 6px color-mix(in srgb, var(--accent-color) 35%, transparent),
+    0 0 16px 3px color-mix(in srgb, var(--accent-color) 50%, transparent);
+}
+
+/* present node: static double ring by default (live without motion) */
+.qtl-node[data-present] .qtl-bead {
+  box-shadow:
+    0 0 0 4px var(--body-color),
+    0 0 0 6px color-mix(in srgb, var(--accent-color) 45%, transparent),
+    0 0 16px 3px color-mix(in srgb, var(--accent-color) 55%, transparent);
+}
+
+/* year label, placed opposite the card so it never sits on a stem.
+   Exception: the shared 2021 column has cards on BOTH sides, so its label
+   gets a background pill to sit cleanly over the connector (see below). */
+.qtl-year {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  font-weight: var(--font-semi-bold);
+  color: var(--text-color);
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.qtl-node[data-side="below"] .qtl-year { top: calc(50% + var(--bead)); }
+.qtl-node[data-side="above"] .qtl-year { bottom: calc(50% + var(--bead)); }
+.qtl-node[data-shared][data-side="below"] .qtl-year {
+  top: calc(50% + var(--bead-shared) * 0.7);
+  background: var(--body-color);
+  padding: 0 0.35rem;
+  border-radius: 0.4rem;
+  z-index: 1;
+}
+
+/*=============== LIVE TERMINUS ("Hoje") ===============*/
+.qtl-now {
+  grid-row: axis;
+  align-self: center;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  z-index: 6;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.5s ease 1.2s, transform 0.5s ease 1.2s;
+}
+
+.qtl--on .qtl-now { opacity: 1; transform: translateX(0); }
+
+.qtl-now__arrow {
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--accent-color);
+}
+
+.qtl-now__label {
+  font-size: 0.68rem;
+  font-weight: var(--font-semi-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color) 15%, transparent);
+  padding: 0.14rem 0.55rem;
+  border-radius: 1rem;
+}
+
+/*=============== CARDS ===============*/
+.qtl-card {
+  position: relative;
+  width: var(--card-w);
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.05rem;
+  scroll-snap-align: center;
+  scroll-margin-inline: 1rem;
+
+  /* frosted gradient border: lit edge pointing toward the axis */
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background:
+    linear-gradient(var(--container-color), var(--container-color)) padding-box,
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent-color) 38%, transparent),
+      transparent 55%
+    ) border-box;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 55%, transparent),
+    0 10px 28px -14px color-mix(in srgb, var(--accent-color) 30%, transparent);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 6;
+}
+
+body.dark-theme .qtl-card {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 8%, transparent),
+    0 12px 30px -14px rgba(0, 0, 0, 0.6);
+}
+
+/* row placement: edu above the axis, exp below it. Card edges sit on the
+   axis-row boundary (no margin); the stem then spans exactly half the axis
+   row height to land on the centered line. */
+.qtl-card[data-kind="edu"] { grid-row: edu; align-self: end; }
+.qtl-card[data-kind="exp"] { grid-row: exp; align-self: start; }
+
+/* hover lift (cards are non-interactive, so not focusable; the scroll region
+   carries keyboard focus) */
+.qtl-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 55%, transparent),
+    0 18px 38px -16px color-mix(in srgb, var(--accent-color) 50%, transparent);
+}
+
+/* ── Stem: the card's own ::after, centered on the column (= bead center) ── */
+.qtl-card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: var(--stem);
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.qtl-card[data-kind="edu"]::after {
+  top: 100%;
+  background: linear-gradient(to bottom, var(--accent-color), color-mix(in srgb, var(--accent-color) 40%, transparent));
+  transform-origin: top center;
+}
+
+.qtl-card[data-kind="exp"]::after {
+  bottom: 100%;
+  background: linear-gradient(to top, var(--accent-color), color-mix(in srgb, var(--accent-color) 40%, transparent));
+  transform-origin: bottom center;
+}
+
+/*=============== CARD CONTENT (identical anatomy for ALL cards) ===============*/
+.qtl-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.qtl-card__chip {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.6rem;
+  background: color-mix(in srgb, var(--accent-color) 14%, transparent);
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.qtl-card__date {
+  font-size: 0.7rem;
+  font-weight: var(--font-semi-bold);
+  color: var(--accent-color);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.qtl-card__title {
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--title-color);
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.qtl-card__org {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  line-height: 1.35;
+}
+
+.qtl-card__org i { font-size: 0.95rem; opacity: 0.75; flex-shrink: 0; }
+
+.qtl-card__desc {
+  font-size: var(--smaller-font-size);
+  color: var(--text-color);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+/* present card flourishes (anatomy unchanged) */
+.qtl-card[data-present] .qtl-card__chip {
+  background: color-mix(in srgb, var(--accent-color) 22%, transparent);
+}
+
+.qtl-card[data-present] .qtl-card__date {
+  background: var(--accent-color);
+  color: var(--on-accent, #fff);
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+}
+
+/*=============== PARALLEL FOOTNOTE ===============*/
+.qtl-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  color: color-mix(in srgb, var(--accent-color) 78%, var(--text-color));
+  text-align: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.qtl-note--on { opacity: 1; transform: translateY(0); }
+
+.qtl-note__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color) 22%, transparent);
+  flex-shrink: 0;
+}
+
+/*=============== ENTRANCE ANIMATION (motion-safe only) ===============*/
+@media (prefers-reduced-motion: no-preference) {
+  .qtl-axis__progress { transform: scaleX(0); transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
+  .qtl--on .qtl-axis__progress { transform: scaleX(1); }
+
+  .qtl-cap {
+    transform: scaleX(0) translateY(var(--cap-y, 0));
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1) var(--d, 0s);
+  }
+  .qtl-cap[data-kind="edu"] { --cap-y: -6px; }
+  .qtl-cap[data-kind="exp"] { --cap-y: 6px; }
+  .qtl--on .qtl-cap { transform: scaleX(1) translateY(var(--cap-y, 0)); }
+
+  .qtl-bead { transform: scale(0); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s); }
+  .qtl--on .qtl-bead { transform: scale(1); }
+
+  .qtl-year { opacity: 0; transition: opacity 0.35s ease calc(var(--d, 0s) + 0.15s); }
+  .qtl--on .qtl-year { opacity: 1; }
+
+  .qtl-card {
+    opacity: 0;
+    transition:
+      opacity 0.5s ease var(--d, 0s),
+      transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s),
+      box-shadow 0.25s ease;
+  }
+  .qtl-card[data-kind="edu"] { transform: translateY(-18px); }
+  .qtl-card[data-kind="exp"] { transform: translateY(18px); }
+  .qtl--on .qtl-card { opacity: 1; transform: translateY(0); }
+  /* keep hover lift working after reveal */
+  .qtl--on .qtl-card:hover { transform: translateY(-5px); }
+
+  .qtl-card::after { transform: translateX(-50%) scaleY(0); transition: transform 0.35s ease calc(var(--d, 0s) + 0.1s); }
+  .qtl--on .qtl-card::after { transform: translateX(-50%) scaleY(1); }
+
+  /* terminus arrow drifts forward, reinforcing "ongoing" */
+  .qtl--on .qtl-now__arrow { animation: qtlDrift 1.8s ease-in-out infinite; }
+
+  /* live pulse on the present bead (only while revealed in view) */
+  .qtl--on .qtl-node[data-present] .qtl-bead::after {
+    content: "";
+    position: absolute;
+    inset: 0;
     border-radius: 50%;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color) 60%, transparent);
+    animation: qtlPulse 2.4s ease-out infinite;
+  }
+  .qtl-node[data-present] .qtl-bead { position: relative; }
 }
 
-.qualificationLine{
-    display: block;
-    width: 1px;
-    height: 100%;
-    background-color: var(--text-color);
-    transform: translate(6px, -7px);
+@keyframes qtlPulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(2.1); opacity: 0; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+@keyframes qtlDrift {
+  0%, 100% { transform: translateX(0);   opacity: 0.65; }
+  50%      { transform: translateX(3px); opacity: 1; }
+}
+
+/* Reduced motion: keep the shadow affordance, drop the hover translate */
+@media (prefers-reduced-motion: reduce) {
+  .qtl-card { transition: box-shadow 0.25s ease; }
+  .qtl-card:hover { transform: none; }
+}
+
+/*=============== PROGRESSIVE ENHANCEMENTS ===============*/
+/* Perceptually-even blends where oklch color-mix is supported */
+@supports (color: color-mix(in oklch, red, blue)) {
+  .qtl-axis__base {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in oklch, var(--accent-color) 55%, var(--title-color)) 14%,
+      var(--accent-color) 78%,
+      transparent 100%
+    );
+  }
+  .qtl-card {
+    background:
+      linear-gradient(var(--container-color), var(--container-color)) padding-box,
+      linear-gradient(135deg, color-mix(in oklch, var(--accent-color) 42%, transparent), transparent 55%) border-box;
+  }
 }
 
 /*=============== BREAKPOINTS ===============*/
-/* For large devices */
-@media screen and (max-width: 992px) {
-    .qualificationContainer{
-        margin-left: auto;
-        margin-right: auto;
-    }
-
+@media screen and (max-width: 1100px) {
+  .qtl-scroll {
+    max-width: 100%;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+            mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+  }
 }
 
-/* For medium devices */
 @media screen and (max-width: 768px) {
-    .qualificationContainer{
-        margin-left: var(--mb-1-5);
-        margin-right: var(--mb-1-5);
-    }
+  .qtl { grid-template-columns: repeat(5, minmax(160px, 1fr)) minmax(66px, 0.5fr); column-gap: 0.85rem; }
+  .qtl-legend { gap: 1.1rem; margin-bottom: 2rem; }
 }
 
-@media screen and (max-width: 576px) {
-    .qualificationSections{
-        grid-template-columns: initial;
-    }
-
-    .qualificationButton{
-        margin: 0 var(--mb-0-75);
-    }
-}
-
-/* For small devices */
 @media screen and (max-width: 350px) {
-    .qualificationData{
-        gap: 0.5rem;
-    }
+  .qtl { grid-template-columns: repeat(5, minmax(150px, 1fr)) minmax(62px, 0.5fr); }
 }
